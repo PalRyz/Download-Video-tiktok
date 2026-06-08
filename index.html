@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="TikTok Downloader Premium - Download TikTok Video, Photo, MP3 tanpa watermark">
+<meta name="theme-color" content="#080810">
+<title>TikSaver Pro — Premium Downloader 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://files.catbox.moe/wbtnfv.png"></script>
+<style>
+:root{
+  --bg:#080810;--bg2:#0d0d1a;--bg3:#111120;
+  --card:#131325;--card2:#181830;
+  --border:#ffffff0a;--border2:#ffffff14;--border3:#ffffff1e;
+  --accent:#6c31f0;--accent2:#8b5cf6;--accent3:#a78bfa;
+  --neon:#22d3ee;--neon2:#0891b2;
+  --pink:#ec4899;--rose:#fb7185;
+  --green:#10b981;--red:#f43f5e;--yellow:#fbbf24;
+  --text:#eeeeff;--text2:#9898bb;--text3:#55556a;
+  --glass:rgba(255,255,255,0.03);--glass2:rgba(255,255,255,0.06);
+  --shadow:0 20px 60px rgba(0,0,0,0.6);
+  --glow:0 0 30px rgba(108,49,240,0.5),0 0 60px rgba(108,49,240,0.2);
+  --glow-neon:0 0 30px rgba(34,211,238,0.5);
+  --radius:20px;--radius2:14px;--radius3:10px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --font-display:'Outfit',sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden}
+
+/* NOISE TEXTURE */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.4}
+
+/* AMBIENT GLOW */
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse 70% 50% at 10% 0%,rgba(108,49,240,.18) 0%,transparent 55%),
+  radial-gradient(ellipse 50% 40% at 90% 100%,rgba(34,211,238,.12) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 30% at 50% 50%,rgba(236,72,153,.05) 0%,transparent 60%);
+pointer-events:none;z-index:0}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--accent),var(--neon));border-radius:2px}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px) saturate(200%);-webkit-backdrop-filter:blur(24px) saturate(200%);background:rgba(8,8,16,0.75);border-bottom:1px solid var(--border);transition:all .3s}
+.navbar.scrolled{padding:10px 24px;background:rgba(8,8,16,0.92)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:34px;height:34px;flex-shrink:0}
+.nav-logo-text{font-family:var(--font-display);font-weight:800;font-size:1.05rem;background:linear-gradient(135deg,#fff,var(--accent3),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{padding:7px 13px;border-radius:var(--radius3);font-size:.82rem;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;cursor:pointer;letter-spacing:.01em}
+.nav-link:hover{color:var(--text);background:var(--glass2)}
+.nav-link.active{color:var(--text);background:rgba(108,49,240,.15);border:1px solid rgba(108,49,240,.2)}
+.nav-actions{display:flex;align-items:center;gap:6px}
+.nav-btn{width:34px;height:34px;border-radius:var(--radius3);border:1px solid var(--border2);background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text3);transition:all .2s}
+.nav-btn:hover{color:var(--text);background:var(--glass2);border-color:var(--border3)}
+.hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;padding:8px}
+.hamburger span{width:20px;height:1.5px;background:var(--text2);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* MOBILE MENU */
+.mobile-menu{position:fixed;inset:0;z-index:999;background:rgba(8,8,16,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transform:translateX(100%);transition:transform .35s var(--ease)}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu .nav-link{font-size:1.6rem;font-family:var(--font-display);font-weight:800;padding:10px 24px;letter-spacing:-.02em}
+.close-menu{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;border:1px solid var(--border2);background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2)}
+
+/* MAIN */
+main{padding-top:62px}
+.section{padding:56px 20px;max-width:900px;margin:0 auto;display:none}
+.section.active{display:block}
+
+/* HERO */
+.hero{text-align:center;padding:80px 20px 48px;max-width:900px;margin:0 auto;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:20px;border:1px solid rgba(108,49,240,.3);background:rgba(108,49,240,.08);font-size:.73rem;font-weight:600;color:var(--accent3);margin-bottom:24px;letter-spacing:.06em;text-transform:uppercase}
+.hero-badge .pulse{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.4rem,6.5vw,4.2rem);font-weight:900;line-height:1.05;margin-bottom:18px;letter-spacing:-.04em}
+.hero-title-line1{display:block;color:#fff}
+.hero-title-line2{display:block;background:linear-gradient(135deg,var(--accent3),var(--neon),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:.95rem;color:var(--text2);max-width:480px;margin:0 auto 36px;line-height:1.75;font-weight:400}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.hero-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;max-width:480px;margin:0 auto}
+.stat{flex:1;min-width:100px;text-align:center;padding:18px 12px;border-right:1px solid var(--border2)}
+.stat:last-child{border-right:none}
+.stat-val{font-family:var(--font-display);font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--accent3),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.03em}
+.stat-label{font-size:.68rem;color:var(--text3);margin-top:3px;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 22px;border-radius:var(--radius2);border:none;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;white-space:nowrap;letter-spacing:.01em}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:var(--glow)}
+.btn-primary:hover{box-shadow:0 0 40px rgba(108,49,240,.7),0 0 80px rgba(108,49,240,.25);transform:translateY(-1px)}
+.btn-ghost{background:var(--glass);border:1px solid var(--border2);color:var(--text2)}
+.btn-ghost:hover{color:var(--text);border-color:var(--border3);background:var(--glass2)}
+.btn-neon{background:linear-gradient(135deg,#0e7490,var(--neon));color:#000;font-weight:700}
+.btn-neon:hover{box-shadow:var(--glow-neon);transform:translateY(-1px)}
+.btn-sm{padding:8px 14px;font-size:.79rem;border-radius:var(--radius3)}
+.btn-icon{width:36px;height:36px;padding:0;border-radius:var(--radius3)}
+.btn-lg{padding:15px 32px;font-size:1rem;border-radius:var(--radius)}
+
+/* INPUT */
+.input-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;margin-bottom:20px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.input-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(108,49,240,.04),rgba(34,211,238,.03));pointer-events:none}
+.input-card:focus-within{border-color:rgba(108,49,240,.4);box-shadow:0 0 0 3px rgba(108,49,240,.08)}
+.input-card.drag-over{border-color:var(--accent);box-shadow:var(--glow)}
+.input-label{font-size:.73rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.input-row{display:flex;gap:8px}
+.url-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:13px 16px;font-family:var(--font-body);font-size:.9rem;color:var(--text);outline:none;transition:all .25s;font-weight:400}
+.url-input::placeholder{color:var(--text3)}
+.url-input:focus{border-color:rgba(108,49,240,.5);background:var(--bg3)}
+.provider-row{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.provider-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:.71rem;font-weight:600;border:1px solid}
+.provider-badge.active{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08);color:var(--green)}
+
+/* LOADING */
+.loading-screen{position:fixed;inset:0;z-index:2000;background:rgba(8,8,16,.95);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.loading-screen.visible{opacity:1;pointer-events:all}
+.loading-ring{width:72px;height:72px;position:relative}
+.loading-ring::before,.loading-ring::after{content:'';position:absolute;border-radius:50%;border:2px solid transparent}
+.loading-ring::before{inset:0;border-top-color:var(--accent);border-right-color:var(--accent2);animation:spin 1.1s linear infinite}
+.loading-ring::after{inset:12px;border-top-color:var(--neon);animation:spin .75s linear infinite reverse}
+.loading-center{width:10px;height:10px;border-radius:50%;background:linear-gradient(var(--accent),var(--neon));position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:var(--glow)}
+.loading-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text)}
+.loading-status{font-size:.78rem;color:var(--accent3);letter-spacing:.04em}
+.progress-track{width:180px;height:2px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--neon));border-radius:2px;transition:width .4s var(--ease);width:0%}
+
+/* RESULT */
+.result-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:20px;animation:slideUp .4s var(--ease)}
+.result-thumb-wrap{position:relative;overflow:hidden;background:var(--bg3)}
+.result-thumb-wrap img{width:100%;height:210px;object-fit:cover;display:block}
+.result-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,16,.85) 0%,transparent 50%)}
+.result-duration{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.75);padding:3px 8px;border-radius:20px;font-size:.72rem;font-weight:700;font-family:var(--font-display)}
+.result-body{padding:20px}
+.result-user{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.result-avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:var(--bg3);flex-shrink:0;border:2px solid rgba(108,49,240,.5)}
+.result-username{font-family:var(--font-display);font-weight:700;font-size:.92rem}
+.result-nickname{font-size:.75rem;color:var(--text2)}
+.result-caption{font-size:.84rem;color:var(--text2);line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.result-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:7px;margin-bottom:14px}
+.meta-item{background:var(--bg3);border-radius:var(--radius3);padding:8px 10px;display:flex;align-items:center;gap:6px;border:1px solid var(--border)}
+.meta-icon{color:var(--accent3);flex-shrink:0}
+.meta-val{font-size:.79rem;font-weight:700;font-family:var(--font-display)}
+.meta-key{font-size:.66rem;color:var(--text3)}
+.result-music{background:var(--bg3);border-radius:var(--radius3);padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:14px;border:1px solid var(--border)}
+.music-icon{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.music-title{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-author{font-size:.7rem;color:var(--text3)}
+.download-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.dl-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 8px;border-radius:var(--radius2);border:1px solid var(--border2);background:var(--bg3);cursor:pointer;transition:all .25s;text-decoration:none;color:var(--text);font-size:.76rem;font-weight:600;position:relative;overflow:hidden}
+.dl-btn:hover{border-color:rgba(108,49,240,.5);background:rgba(108,49,240,.08);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.dl-btn .dl-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:2px}
+.dl-btn.hd .dl-icon{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.dl-btn.sd .dl-icon{background:linear-gradient(135deg,#3b82f6,#60a5fa)}
+.dl-btn.nowm .dl-icon{background:linear-gradient(135deg,var(--green),#34d399)}
+.dl-btn.wm .dl-icon{background:linear-gradient(135deg,#6366f1,#818cf8)}
+.dl-btn.mp3 .dl-icon{background:linear-gradient(135deg,var(--pink),#fb923c)}
+.dl-btn.cover .dl-icon{background:linear-gradient(135deg,var(--yellow),#fb923c)}
+.dl-badge{position:absolute;top:6px;right:6px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.6rem;padding:2px 6px;border-radius:10px;font-weight:700}
+
+/* SLIDE */
+.slide-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:14px}
+.slide-item{position:relative;border-radius:var(--radius3);overflow:hidden;cursor:pointer;aspect-ratio:9/16;background:var(--bg3)}
+.slide-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.slide-item:hover img{transform:scale(1.06)}
+.slide-num{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.75);padding:2px 7px;border-radius:10px;font-size:.68rem;font-weight:700}
+.slide-dl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);opacity:0;transition:opacity .2s}
+.slide-item:hover .slide-dl{opacity:1}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.visible{opacity:1;pointer-events:all}
+.modal{background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius) var(--radius) 0 0;padding:24px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s var(--ease)}
+.modal-overlay.visible .modal{transform:translateY(0)}
+.modal-handle{width:36px;height:3px;border-radius:2px;background:var(--border3);margin:0 auto 20px}
+.modal-title{font-family:var(--font-display);font-weight:800;font-size:1.05rem;margin-bottom:16px;letter-spacing:-.02em}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:5000;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius2);padding:10px 16px;font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:8px;max-width:300px;box-shadow:var(--shadow);transform:translateY(20px);opacity:0;transition:all .3s var(--ease);pointer-events:all;letter-spacing:.01em}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.05)}
+.toast.error{border-color:rgba(244,63,94,.3);background:rgba(244,63,94,.05)}
+.toast.info{border-color:rgba(108,49,240,.3);background:rgba(108,49,240,.05)}
+.toast-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.toast.success .toast-dot{background:var(--green);box-shadow:0 0 6px var(--green)}
+.toast.error .toast-dot{background:var(--red);box-shadow:0 0 6px var(--red)}
+.toast.info .toast-dot{background:var(--accent);box-shadow:0 0 6px var(--accent)}
+
+/* HISTORY */
+.section-title{font-family:var(--font-display);font-size:1.6rem;font-weight:900;margin-bottom:6px;letter-spacing:-.03em}
+.section-sub{font-size:.84rem;color:var(--text2);margin-bottom:24px;font-weight:400}
+.history-list{display:flex;flex-direction:column;gap:8px}
+.history-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:12px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .25s}
+.history-item:hover{border-color:var(--border3);background:var(--card2)}
+.history-thumb{width:52px;height:52px;border-radius:var(--radius3);object-fit:cover;background:var(--bg3);flex-shrink:0}
+.history-info{flex:1;min-width:0}
+.history-user{font-weight:600;font-size:.84rem}
+.history-url{font-size:.7rem;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.history-date{font-size:.67rem;color:var(--text3);margin-top:2px}
+.history-actions{display:flex;gap:4px;flex-shrink:0}
+.empty-state{text-align:center;padding:70px 20px;color:var(--text3)}
+.empty-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text2);margin:14px 0 6px;letter-spacing:-.02em}
+.empty-sub{font-size:.82rem}
+
+/* ========== KEREN ANIMATED PROFILE ========== */
+.about-hero{text-align:center;padding:40px 0 20px;margin-bottom:30px;position:relative}
+
+/* HOLOGRAPHIC AVATAR */
+.avatar-wrap{position:relative;width:110px;height:110px;margin:0 auto 20px;cursor:pointer}
+.avatar-wrap:hover .avatar-ring{animation-duration:.5s}
+.avatar-bg{position:absolute;inset:0;border-radius:50%;background:conic-gradient(
+  from 0deg,
+  var(--accent),var(--pink),var(--neon),var(--accent3),var(--rose),var(--accent)
+);animation:spin 3s linear infinite;filter:blur(2px)}
+.avatar-inner{position:absolute;inset:3px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:2}
+.avatar-canvas{width:100%;height:100%;border-radius:50%}
+/* FLOATING PARTICLES around avatar */
+.avatar-particles{position:absolute;inset:-20px;border-radius:50%;z-index:1}
+.av-particle{position:absolute;border-radius:50%;animation:orbitParticle var(--dur,4s) linear infinite;opacity:.8}
+@keyframes orbitParticle{
+  from{transform:rotate(var(--start,0deg)) translateX(var(--r,55px)) scale(0)}
+  10%{transform:rotate(calc(var(--start,0deg)+36deg)) translateX(var(--r,55px)) scale(1)}
+  90%{transform:rotate(calc(var(--start,0deg)+324deg)) translateX(var(--r,55px)) scale(1)}
+  to{transform:rotate(calc(var(--start,0deg)+360deg)) translateX(var(--r,55px)) scale(0)}
+}
+
+/* ANIMATED AVATAR CANVAS - pure CSS patterns */
+.avatar-display{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden}
+/* Morphing blob avatar */
+.blob-avatar{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg3),var(--bg2))}
+.blob-layer{position:absolute;inset:0;border-radius:50%;mix-blend-mode:screen}
+.blob-1{background:radial-gradient(circle at 30% 30%,rgba(108,49,240,.9),transparent 60%);animation:blobMorph1 3s ease-in-out infinite}
+.blob-2{background:radial-gradient(circle at 70% 60%,rgba(34,211,238,.8),transparent 60%);animation:blobMorph2 4s ease-in-out infinite}
+.blob-3{background:radial-gradient(circle at 50% 80%,rgba(236,72,153,.7),transparent 60%);animation:blobMorph3 3.5s ease-in-out infinite}
+.blob-icon{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+@keyframes blobMorph1{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(1.2) translate(5px,-5px)}66%{transform:scale(.9) translate(-5px,5px)}}
+@keyframes blobMorph2{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(.85) translate(-8px,3px)}66%{transform:scale(1.15) translate(8px,-3px)}}
+@keyframes blobMorph3{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.3) translate(0,-8px)}}
+
+/* GIF SELECTOR - visual frames keren */
+.gif-selector{display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.gif-frame{width:54px;height:54px;border-radius:var(--radius3);cursor:pointer;border:2px solid transparent;transition:all .25s;overflow:hidden;position:relative;background:var(--bg3)}
+.gif-frame:hover{transform:scale(1.1);border-color:rgba(108,49,240,.5)}
+.gif-frame.active{border-color:var(--accent);box-shadow:0 0 16px rgba(108,49,240,.5)}
+/* Each frame shows a different animated CSS pattern */
+.gif-frame-canvas{width:100%;height:100%;position:relative;overflow:hidden}
+/* Frame 1 - Purple vortex */
+.frame-vortex{background:conic-gradient(from 0deg,var(--accent),var(--pink),var(--neon),var(--accent));animation:spin 2s linear infinite}
+/* Frame 2 - Neon pulse */
+.frame-pulse-neon{background:radial-gradient(circle,var(--neon),var(--accent2),#000);animation:pulseScale 1s ease-in-out infinite}
+@keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+/* Frame 3 - RGB shift */
+.frame-rgb{background:linear-gradient(135deg,#f00,#0f0,#00f,#f00);background-size:300% 300%;animation:rgbShift 2s ease infinite}
+@keyframes rgbShift{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+/* Frame 4 - Matrix rain style */
+.frame-matrix{background:#000;position:relative;overflow:hidden}
+.frame-matrix::before{content:'01 10\A01 10\A10 01';white-space:pre;position:absolute;inset:0;font-size:.4rem;color:#0f0;font-family:monospace;animation:matrixFall 1.5s linear infinite;opacity:.8}
+@keyframes matrixFall{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
+/* Frame 5 - Holographic */
+.frame-holo{background:linear-gradient(135deg,#ff006620,#7c3aed40,#00d4ff40,#ff006620);background-size:400% 400%;animation:holoShift 3s ease infinite;border:1px solid rgba(255,255,255,.1)}
+@keyframes holoShift{0%,100%{background-position:0 0}50%{background-position:100% 100%}}
+
+.about-name{font-family:var(--font-display);font-size:1.5rem;font-weight:900;letter-spacing:-.03em;margin-bottom:4px}
+.about-role{font-size:.83rem;color:var(--accent3);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.about-bio{font-size:.86rem;color:var(--text2);max-width:380px;margin:12px auto 0;line-height:1.75}
+
+/* SOCIAL */
+.social-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:24px}
+.social-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;color:var(--text);transition:all .25s;text-align:center}
+.social-card:hover{border-color:var(--border3);background:var(--card2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.social-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.social-name{font-size:.76rem;font-weight:700}
+.social-handle{font-size:.67rem;color:var(--text3)}
+
+/* SUPPORT */
+.support-section{background:linear-gradient(135deg,rgba(108,49,240,.1),rgba(34,211,238,.06));border:1px solid rgba(108,49,240,.25);border-radius:var(--radius);padding:24px;margin:24px 0;text-align:center}
+.support-title{font-family:var(--font-display);font-size:1.15rem;font-weight:900;margin-bottom:8px;color:var(--accent3);letter-spacing:-.02em}
+.support-sub{font-size:.83rem;color:var(--text2);margin-bottom:18px;line-height:1.6}
+.qr-container{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin:16px 0}
+.qr-code{background:#fff;padding:12px;border-radius:var(--radius3);box-shadow:var(--shadow);position:relative}
+.qr-code canvas{display:block!important;width:140px!important;height:140px!important}
+.support-methods{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.method-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius3);padding:12px 8px;cursor:pointer;transition:all .2s;text-align:center}
+.method-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.method-icon{font-size:1.4rem;margin-bottom:5px}
+.method-name{font-size:.78rem;font-weight:700;color:var(--accent3)}
+.method-info{font-size:.68rem;color:var(--text3);margin-top:3px}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;transition:border-color .25s}
+.faq-item.open{border-color:rgba(108,49,240,.3)}
+.faq-q{padding:15px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:10px;font-size:.86rem;font-weight:600;font-family:var(--font-display)}
+.faq-arrow{transition:transform .3s;flex-shrink:0;color:var(--text3)}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--accent3)}
+.faq-a{padding:0 16px;max-height:0;overflow:hidden;transition:all .35s var(--ease);font-size:.82rem;color:var(--text2);line-height:1.75}
+.faq-item.open .faq-a{padding:0 16px 15px;max-height:300px}
+
+/* API STATUS */
+.api-grid{display:flex;flex-direction:column;gap:10px}
+.api-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:16px;display:flex;align-items:center;gap:14px}
+.api-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;box-shadow:0 0 10px currentColor}
+.api-dot.online{background:var(--green);color:var(--green)}
+.api-dot.offline{background:var(--red);color:var(--red)}
+.api-dot.checking{background:var(--yellow);color:var(--yellow);animation:pulse 1s infinite}
+.api-name{font-weight:700;font-size:.87rem;font-family:var(--font-display)}
+.api-url{font-size:.7rem;color:var(--text3)}
+.api-ping{margin-left:auto;font-size:.74rem;font-weight:700;flex-shrink:0}
+.api-ping.fast{color:var(--green)}
+.api-ping.slow{color:var(--yellow)}
+
+/* FEATURES */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:28px}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:18px 16px;transition:all .25s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(108,49,240,.04));opacity:0;transition:opacity .3s}
+.feature-card:hover{border-color:var(--border3);transform:translateY(-2px);background:var(--card2)}
+.feature-card:hover::before{opacity:1}
+.feature-icon{width:34px;height:34px;border-radius:var(--radius3);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.feature-name{font-size:.84rem;font-weight:700;margin-bottom:4px;font-family:var(--font-display)}
+.feature-desc{font-size:.73rem;color:var(--text2);line-height:1.55}
+
+/* CONTACT */
+.contact-form{display:flex;flex-direction:column;gap:14px;max-width:480px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.form-input,.form-textarea{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:12px 14px;font-family:var(--font-body);font-size:.87rem;color:var(--text);outline:none;transition:border-color .25s;resize:none}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
+.form-input:focus,.form-textarea:focus{border-color:rgba(108,49,240,.5)}
+.form-textarea{min-height:100px}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:24px 0}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:900;background:rgba(8,8,16,.92);backdrop-filter:blur(24px);border-top:1px solid var(--border);display:none;justify-content:space-around;align-items:center;padding:8px 0 max(8px,env(safe-area-inset-bottom))}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 14px;border-radius:var(--radius3);transition:all .2s;color:var(--text3);min-width:48px}
+.bn-item.active{color:var(--accent3)}
+.bn-label{font-size:.61rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+
+/* BACK TO TOP */
+.btt{position:fixed;bottom:80px;right:16px;z-index:800;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--glow);opacity:0;transform:translateY(10px);transition:all .3s;color:#fff}
+.btt.visible{opacity:1;transform:translateY(0)}
+
+/* SPLASH */
+#splashScreen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+#splashScreen.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+.splash-bg{position:absolute;inset:0;overflow:hidden}
+.splash-orb{position:absolute;border-radius:50%;filter:blur(90px)}
+.splash-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(108,49,240,.45),transparent 70%);top:-150px;left:-150px;animation:orbFloat 7s ease-in-out infinite}
+.splash-orb-2{width:350px;height:350px;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 70%);bottom:-100px;right:-100px;animation:orbFloat 9s ease-in-out infinite reverse}
+.splash-orb-3{width:250px;height:250px;background:radial-gradient(circle,rgba(236,72,153,.25),transparent 70%);top:40%;left:60%;animation:orbFloat 6s ease-in-out infinite .5s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.06)}}
+
+.splash-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.splash-logo-wrap{position:relative;margin-bottom:28px;width:90px;height:90px}
+/* SPINNING GRADIENT BORDER */
+.splash-logo-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--pink),var(--neon),var(--accent3),var(--accent));animation:spin 2.5s linear infinite;border-radius:26px}
+.splash-logo-inner{position:absolute;inset:3px;border-radius:22px;background:var(--bg);display:flex;align-items:center;justify-content:center}
+/* Logo icon with animated glow */
+.splash-logo-icon{width:84px;height:84px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;position:relative;animation:glowPulse 2s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 30px rgba(108,49,240,.6)}50%{box-shadow:0 0 60px rgba(108,49,240,.9),0 0 100px rgba(34,211,238,.3)}}
+
+.splash-title{font-family:var(--font-display);font-size:2.2rem;font-weight:900;letter-spacing:-.04em;background:linear-gradient(135deg,#fff 0%,var(--accent3) 45%,var(--neon) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;transform:translateY(14px);transition:all .5s var(--ease) .3s}
+.splash-sub{font-size:.83rem;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;font-weight:500;opacity:0;transform:translateY(8px);transition:all .5s var(--ease) .45s}
+.splash-progress-wrap{margin-top:40px;width:180px;opacity:0;transition:opacity .4s .55s}
+.splash-progress-track{height:2px;background:var(--border2);border-radius:2px;overflow:hidden;position:relative}
+.splash-progress-fill{height:100%;width:0%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--neon));transition:width .15s linear;position:relative}
+.splash-progress-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon)}
+.splash-status{text-align:center;font-size:.7rem;color:var(--accent3);margin-top:10px;letter-spacing:.06em;font-weight:600;text-transform:uppercase}
+
+/* PARTICLES */
+.splash-particles{position:absolute;inset:0;pointer-events:none}
+.particle{position:absolute;border-radius:50%;animation:particleRise var(--dur,4s) var(--delay,0s) ease-in-out infinite}
+@keyframes particleRise{0%{opacity:0;transform:translateY(0) scale(0) rotate(0deg)}20%{opacity:.9}70%{opacity:.5}100%{opacity:0;transform:translateY(-150px) scale(2) rotate(180deg)}}
+#splashScreen.ready .splash-title,#splashScreen.ready .splash-sub{opacity:1;transform:translateY(0)}
+#splashScreen.ready .splash-progress-wrap{opacity:1}
+
+/* PTR */
+.ptr{position:fixed;top:62px;left:0;right:0;z-index:500;display:flex;justify-content:center;padding:12px;transform:translateY(-100%);transition:transform .3s}
+.ptr-spinner{width:22px;height:22px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+
+/* RECENT THUMBNAILS */
+.recent-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.recent-strip::-webkit-scrollbar{height:3px}
+.recent-thumb{flex-shrink:0;cursor:pointer;border-radius:var(--radius3);overflow:hidden;border:1px solid var(--border);background:var(--card);transition:all .2s;width:76px}
+.recent-thumb:hover{border-color:rgba(108,49,240,.4);transform:scale(1.04)}
+.recent-thumb img{width:76px;height:76px;object-fit:cover;display:block}
+.recent-thumb .rt-label{padding:4px 6px;font-size:.61rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+
+/* ANIMATIONS */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .bottom-nav{display:flex}
+  .btt{bottom:68px}
+  .toast-container{bottom:68px}
+  .section{padding:36px 16px}
+  .hero{padding:60px 16px 32px}
+  .download-grid{grid-template-columns:repeat(2,1fr)}
+  .result-meta{grid-template-columns:repeat(2,1fr)}
+  .qr-container{flex-direction:column}
+}
+@media(min-width:769px){
+  .bottom-nav{display:none!important}
+  .btt{bottom:24px}
+  .toast-container{bottom:24px}
+  .modal-overlay{align-items:center}
+  .modal{border-radius:var(--radius);max-height:80vh}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splashScreen">
+  <div class="splash-bg">
+    <div class="splash-orb splash-orb-1"></div>
+    <div class="splash-orb splash-orb-2"></div>
+    <div class="splash-orb splash-orb-3"></div>
+    <div class="splash-particles" id="splashParticles"></div>
+  </div>
+  <div class="splash-content">
+    <div class="splash-logo-wrap">
+      <div class="splash-logo-ring"></div>
+      <div class="splash-logo-inner">
+        <div class="splash-logo-icon">
+          <svg width="46" height="46" viewBox="0 0 36 36" fill="none">
+            <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="splash-title">TikSaver Pro</div>
+    <div class="splash-sub">Premium TikTok Downloader 2026</div>
+    <div class="splash-progress-wrap">
+      <div class="splash-progress-track">
+        <div class="splash-progress-fill" id="splashFill"></div>
+      </div>
+      <div class="splash-status" id="splashStatus">Loading...</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a class="nav-logo" href="#" onclick="navigate('home');return false">
+    <svg class="nav-logo-icon" viewBox="0 0 36 36" fill="none">
+      <rect width="36" height="36" rx="10" fill="url(#lg1)"/>
+      <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
+      <defs><linearGradient id="lg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6c31f0"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+    </svg>
+    <span class="nav-logo-text">TikSaver Pro</span>
+  </a>
+  <div class="nav-links">
+    <span class="nav-link active" data-page="home" onclick="navigate('home')">Beranda</span>
+    <span class="nav-link" data-page="downloader" onclick="navigate('downloader')">Downloader</span>
+    <span class="nav-link" data-page="history" onclick="navigate('history')">Riwayat</span>
+    <span class="nav-link" data-page="about" onclick="navigate('about')">Tentang</span>
+    <span class="nav-link" data-page="faq" onclick="navigate('faq')">FAQ</span>
+    <span class="nav-link" data-page="apistatus" onclick="navigate('apistatus')">API</span>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="navigate('history')" title="History">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </button>
+    <button class="nav-btn" onclick="navigate('about')" title="About">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" onclick="toggleMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <span class="nav-link" onclick="navigate('home');toggleMenu()">Beranda</span>
+  <span class="nav-link" onclick="navigate('downloader');toggleMenu()">Downloader</span>
+  <span class="nav-link" onclick="navigate('history');toggleMenu()">Riwayat</span>
+  <span class="nav-link" onclick="navigate('about');toggleMenu()">Tentang</span>
+  <span class="nav-link" onclick="navigate('faq');toggleMenu()">FAQ</span>
+  <span class="nav-link" onclick="navigate('apistatus');toggleMenu()">API Status</span>
+  <span class="nav-link" onclick="navigate('contact');toggleMenu()">Kontak</span>
+</div>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-ring" style="position:relative">
+    <div class="loading-center"></div>
+  </div>
+  <div class="loading-title" id="loadingTitle">Menganalisis Link</div>
+  <div class="loading-status" id="loadingStatus">Analyzing link...</div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<!-- PTR -->
+<div class="ptr" id="ptr"><div class="ptr-spinner"></div></div>
+
+<!-- MAIN -->
+<main>
+
+<!-- HOME -->
+<div class="section active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge"><span class="pulse"></span>Premium 2026 — Gratis Selamanya</div>
+    <h1 class="hero-title">
+      <span class="hero-title-line1">Download TikTok</span>
+      <span class="hero-title-line2">Tanpa Batas</span>
+    </h1>
+    <p class="hero-sub">Video HD, No Watermark, MP3, Foto Slide — semua dalam satu platform. Cepat, aman, tanpa iklan.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary btn-lg" onclick="navigate('downloader')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Mulai Download
+      </button>
+      <button class="btn btn-ghost btn-lg" onclick="navigate('faq')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Cara Pakai
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">10M+</div><div class="stat-label">Download</div></div>
+      <div class="stat"><div class="stat-val">99.9%</div><div class="stat-label">Uptime</div></div>
+      <div class="stat"><div class="stat-val">4K</div><div class="stat-label">Kualitas</div></div>
+      <div class="stat"><div class="stat-val">0</div><div class="stat-label">Watermark</div></div>
+    </div>
+  </div>
+  <div class="feature-grid" style="max-width:900px;margin:48px auto 0">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#6c31f0,#8b5cf6)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <div class="feature-name">Video HD</div>
+      <div class="feature-desc">Resolusi tinggi hingga 1080p & 4K</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+      <div class="feature-name">No Watermark</div>
+      <div class="feature-desc">Bersih tanpa logo TikTok</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#ec4899,#fb923c)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="feature-name">MP3 Audio</div>
+      <div class="feature-desc">Ekstrak audio berkualitas tinggi</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#22d3ee,#0891b2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <div class="feature-name">Foto Slide</div>
+      <div class="feature-desc">Download carousel satu per satu</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#fbbf24,#fb923c)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="feature-name">Riwayat</div>
+      <div class="feature-desc">Akses link yang pernah didownload</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="feature-name">Gratis Total</div>
+      <div class="feature-desc">Tanpa daftar, tanpa bayar</div>
+    </div>
+  </div>
+</div>
+
+<!-- DOWNLOADER -->
+<div class="section" id="page-downloader">
+  <div style="max-width:700px;margin:0 auto">
+    <div style="margin-bottom:22px">
+      <h1 class="section-title">Downloader</h1>
+      <p class="section-sub">Paste link TikTok untuk mulai download</p>
+    </div>
+    <div class="input-card" id="inputCard">
+      <div class="input-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        URL TikTok
+      </div>
+      <div class="input-row">
+        <input type="url" class="url-input" id="urlInput" placeholder="https://tiktok.com/@user/video/..." autocomplete="off" spellcheck="false">
+        <button class="btn btn-ghost btn-icon" onclick="pasteFromClipboard()" title="Paste">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        </button>
+        <button class="btn btn-ghost btn-icon" onclick="clearInput()" title="Clear">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="provider-row">
+        <span style="font-size:.7rem;color:var(--text3)">Provider:</span>
+        <span class="provider-badge active" id="pb1">
+          <span style="width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block"></span>
+          TikWM API
+        </span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:22px">
+      <button class="btn btn-primary" style="flex:1;padding:13px" onclick="startFetch()" id="fetchBtn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Sekarang
+      </button>
+      <button class="btn btn-ghost btn-icon" onclick="shareResult()" title="Share">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+    </div>
+    <div id="resultArea"></div>
+    <div id="recentArea" style="margin-top:20px"></div>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="section" id="page-history">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+    <div>
+      <h1 class="section-title">Riwayat</h1>
+      <p class="section-sub">Link yang pernah didownload</p>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="clearHistory()">Hapus Semua</button>
+  </div>
+  <div id="historyList"></div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="page-about">
+  <div class="about-hero">
+
+    <!-- HOLOGRAPHIC AVATAR ANIMASI -->
+    <div class="avatar-wrap" id="avatarWrap">
+      <div class="avatar-bg"></div>
+      <div class="avatar-particles" id="avatarParticles"></div>
+      <div class="avatar-inner">
+        <div class="avatar-display" id="avatarDisplay">
+          <!-- Default: blob morphing -->
+          <div class="blob-avatar" id="currentFrame">
+            <div class="blob-layer blob-1"></div>
+            <div class="blob-layer blob-2"></div>
+            <div class="blob-layer blob-3"></div>
+            <div class="blob-icon">
+              <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
+                <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANIMATED FRAME SELECTOR - CSS animations keren sebagai pengganti GIF -->
+    <div class="gif-selector" id="gifSelector">
+      <!-- Frame 1: Purple Vortex -->
+      <div class="gif-frame active" onclick="switchAvatarFrame(0)" title="Purple Vortex">
+        <div class="gif-frame-canvas frame-vortex"></div>
+      </div>
+      <!-- Frame 2: Neon Pulse -->
+      <div class="gif-frame" onclick="switchAvatarFrame(1)" title="Neon Pulse">
+        <div class="gif-frame-canvas frame-pulse-neon"></div>
+      </div>
+      <!-- Frame 3: RGB Wave -->
+      <div class="gif-frame" onclick="switchAvatarFrame(2)" title="RGB Wave">
+        <div class="gif-frame-canvas frame-rgb"></div>
+      </div>
+      <!-- Frame 4: Matrix -->
+      <div class="gif-frame" onclick="switchAvatarFrame(3)" title="Matrix">
+        <div class="gif-frame-canvas frame-matrix"></div>
+      </div>
+      <!-- Frame 5: Holographic -->
+      <div class="gif-frame" onclick="switchAvatarFrame(4)" title="Holographic">
+        <div class="gif-frame-canvas frame-holo"></div>
+      </div>
+    </div>
+
+    <div class="about-name" id="ownerName">Developer TikSaver</div>
+    <div class="about-role" id="ownerRole">Full Stack Developer & Tool Creator</div>
+    <p class="about-bio" id="ownerBio">Membuat tools yang memudahkan kehidupan digital. TikSaver Pro dibuat dengan cinta untuk komunitas Indonesia.</p>
+    <div class="social-grid" id="socialGrid"></div>
+  </div>
+
+  <!-- SUPPORT / DONATION -->
+  <div class="support-section">
+    <div class="support-title">💚 Dukung Kami</div>
+    <div class="support-sub">Jika TikSaver Pro membantu kamu, dukungan kecil sangat berarti untuk perkembangan platform!</div>
+    <div class="qr-container">
+      <div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--accent3);margin-bottom:8px;text-align:center;text-transform:uppercase;letter-spacing:.06em">QRIS / Dana</div>
+        <div class="qr-code" id="qrCode"></div>
+      </div>
+      <div class="support-methods" id="supportMethods"></div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="copyPaymentInfo()" style="margin-top:14px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      Salin Nomor Dana
+    </button>
+  </div>
+
+  <div class="divider"></div>
+  <h2 style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;margin-bottom:12px;letter-spacing:-.02em">Tentang TikSaver Pro</h2>
+  <p style="font-size:.86rem;color:var(--text2);line-height:1.8;margin-bottom:12px">TikSaver Pro adalah platform download TikTok gratis terbaik. Kami mendukung video HD, tanpa watermark, foto slide, audio MP3, dan banyak lagi.</p>
+  <p style="font-size:.86rem;color:var(--text2);line-height:1.8">Dibuat dengan teknologi terbaru 2026, platform kami memberikan pengalaman download yang cepat, aman, dan menyenangkan.</p>
+</div>
+
+<!-- FAQ -->
+<div class="section" id="page-faq">
+  <h1 class="section-title">FAQ</h1>
+  <p class="section-sub">Pertanyaan yang sering ditanyakan</p>
+  <div class="faq-list" id="faqList"></div>
+</div>
+
+<!-- CONTACT -->
+<div class="section" id="page-contact">
+  <h1 class="section-title">Kontak</h1>
+  <p class="section-sub">Ada pertanyaan atau masukan?</p>
+  <div class="contact-form">
+    <div class="form-group">
+      <label class="form-label">Nama</label>
+      <input type="text" class="form-input" placeholder="Nama lengkap">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-input" placeholder="email@contoh.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Pesan</label>
+      <textarea class="form-textarea" placeholder="Tulis pesan..."></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="showToast('Pesan terkirim! Kami akan segera merespons.','success')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Kirim Pesan
+    </button>
+  </div>
+</div>
+
+<!-- API STATUS -->
+<div class="section" id="page-apistatus">
+  <h1 class="section-title">API Status</h1>
+  <p class="section-sub">Monitor ketersediaan provider download</p>
+  <div class="api-grid" id="apiGrid"></div>
+  <div style="margin-top:14px">
+    <button class="btn btn-ghost btn-sm" onclick="checkAllAPIs()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+      Refresh Status
+    </button>
+  </div>
+</div>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bn-item active" data-page="home" onclick="navigate('home')">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span class="bn-label">Home</span>
+  </div>
+  <div class="bn-item" data-page="downloader" onclick="navigate('downloader')">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <span class="bn-label">Download</span>
+  </div>
+  <div class="bn-item" data-page="history" onclick="navigate('history')">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span class="bn-label">Riwayat</span>
+  </div>
+  <div class="bn-item" data-page="about" onclick="navigate('about')">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="bn-label">Tentang</span>
+  </div>
+</nav>
+
+<!-- BACK TO TOP -->
+<button class="btt" id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- SLIDE MODAL -->
+<div class="modal-overlay" id="slideModal" onclick="closeSlideModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="slideModalTitle">Foto Slide</div>
+    <div id="slideModalContent"></div>
+    <div style="margin-top:12px">
+      <button class="btn btn-ghost" style="width:100%" onclick="closeSlideModalForce()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== CONFIG ==========
+const CONFIG = {
+  owner: {
+    name: 'Developer TikSaver',
+    role: 'Full Stack Developer & Tool Creator',
+    bio: 'Membuat tools yang memudahkan kehidupan digital. TikSaver Pro dibuat dengan cinta untuk komunitas Indonesia.',
+    payment: {
+      method: 'Dana',
+      number: '083872433952',
+      name: 'Developer TikSaver',
+    },
+    socials: [
+      { name:'WhatsApp', handle:'@developer', url:'https://wa.me/6283117156906', color:'#25d366', icon:'wa' },
+      { name:'Telegram', handle:'@Palryz_official', url:'https://t.me/@palryz_official', color:'#0088cc', icon:'tg' },
+      { name:'Instagram', handle:'@Novalryz', url:'https://instagram.com/tksaverpro', color:'#e1306c', icon:'ig' },
+      { name:'TikTok', handle:'@Novalryz', url:'https://tiktok.com/@novalryz', color:'#ff0050', icon:'tk' },
+      { name:'YouTube', handle:'Novalryz Pro', url:'https://youtube.com/PalRyz', color:'#ff0000', icon:'yt' },
+      { name:'GitHub', handle:'Novalryz', url:'https://github.com/PalRyz', color:'#fff', icon:'gh' },
+    ]
+  },
+  apis: [
+    { name:'TikWM API', url:'https://tikwm.com/api/', status:'checking', ping:null },
+  ],
+  cooldown: 3000,
+  maxHistory: 50,
+};
+
+const FAQS = [
+  {q:'Apakah TikSaver Pro gratis?', a:'Ya, TikSaver Pro 100% gratis selamanya. Tidak ada biaya tersembunyi atau langganan berbayar.'},
+  {q:'Apakah video yang didownload memiliki watermark?', a:'Tidak! Kami menyediakan opsi download tanpa watermark. Video yang kamu download akan bersih dari logo TikTok.'},
+  {q:'Format apa saja yang bisa didownload?', a:'Kamu bisa download video MP4 (HD & SD), audio MP3, foto slide (JPG), dan cover thumbnail.'},
+  {q:'Apakah perlu login atau daftar akun?', a:'Tidak perlu. Cukup paste link TikTok dan langsung download tanpa daftar akun.'},
+  {q:'Kenapa download gagal?', a:'Kemungkinan link TikTok invalid, konten sudah dihapus, atau akun privat. Pastikan link benar dan konten masih tersedia.'},
+  {q:'Apakah bisa download foto slide TikTok?', a:'Ya! TikSaver Pro otomatis mendeteksi konten foto atau video. Untuk foto slide, kamu bisa download satu per satu.'},
+  {q:'Berapa batas download per hari?', a:'Tidak ada batas! Download sepuasnya tanpa batasan jumlah.'},
+];
+
+const svgIcons = {
+  wa:`<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
+  tg:`<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`,
+  ig:`<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>`,
+  tk:`<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.74a4.85 4.85 0 01-1.02-.05z"/></svg>`,
+  yt:`<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>`,
+  gh:`<svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>`,
+};
+
+// ========== STATE ==========
+let currentData = null;
+let lastFetchTime = 0;
+let history = JSON.parse(localStorage.getItem('tks_history') || '[]');
+let currentFrameIndex = 0;
+
+// AVATAR FRAMES - CSS animated backgrounds
+const avatarFrames = [
+  // 0: Blob morphing (default)
+  `<div class="blob-avatar">
+    <div class="blob-layer blob-1"></div>
+    <div class="blob-layer blob-2"></div>
+    <div class="blob-layer blob-3"></div>
+    <div class="blob-icon">
+      <svg width="38" height="38" viewBox="0 0 36 36" fill="none">
+        <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
+      </svg>
+    </div>
+  </div>`,
+
+  // 1: Neon rings
+  `<div style="width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,.4),transparent 60%);animation:pulseScale 1.2s ease-in-out infinite"></div>
+    <div style="position:absolute;width:80%;height:80%;border:2px solid rgba(34,211,238,.6);border-radius:50%;animation:spin 3s linear infinite"></div>
+    <div style="position:absolute;width:60%;height:60%;border:2px solid rgba(168,139,250,.5);border-radius:50%;animation:spin 2s linear infinite reverse"></div>
+    <div style="position:absolute;width:40%;height:40%;border:2px solid rgba(236,72,153,.5);border-radius:50%;animation:spin 1.5s linear infinite"></div>
+    <svg width="28" height="28" viewBox="0 0 36 36" fill="none" style="position:relative;z-index:2">
+      <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#22d3ee"/>
+    </svg>
+  </div>`,
+
+  // 2: RGB scanlines
+  `<div style="width:100%;height:100%;background:linear-gradient(135deg,#0f0,#00f,#f00,#0f0);background-size:300% 300%;animation:rgbShift 2s ease infinite;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0px,rgba(0,0,0,.15) 1px,transparent 1px,transparent 3px)"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+      <span style="font-family:monospace;font-size:1.5rem;font-weight:900;color:#fff;text-shadow:2px 0 #f00,-2px 0 #0ff;animation:glitch 2s infinite">TK</span>
+    </div>
+  </div>`,
+
+  // 3: Matrix rain
+  `<div style="width:100%;height:100%;background:#000;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
+    <div style="position:absolute;inset:0;font-family:monospace;font-size:.55rem;color:#00ff41;line-height:1.2;overflow:hidden;opacity:.7;word-break:break-all;animation:matrixFall 1.5s linear infinite">01 10 11 00 10 01 00 11 10 01 11 00 01 10 11 00 10 01 00 11</div>
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" style="position:relative;z-index:2;filter:drop-shadow(0 0 8px #00ff41)">
+      <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#00ff41"/>
+    </svg>
+  </div>`,
+
+  // 4: Holographic shimmer
+  `<div style="width:100%;height:100%;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#ff006640,#7c3aed60,#00d4ff60,#ff006640);background-size:400% 400%;animation:holoShift 2s ease infinite"></div>
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 8px)"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:holoSweep 2s ease-in-out infinite"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+      <svg width="34" height="34" viewBox="0 0 36 36" fill="none" style="filter:drop-shadow(0 0 10px rgba(255,255,255,.8))">
+        <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
+      </svg>
+    </div>
+  </div>`,
+];
+
+// ========== INIT AVATAR PARTICLES ==========
+function initAvatarParticles() {
+  const container = document.getElementById('avatarParticles');
+  if (!container) return;
+  container.innerHTML = '';
+  const colors = ['#6c31f0','#22d3ee','#ec4899','#a78bfa','#fb7185'];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'av-particle';
+    const size = Math.random() * 4 + 2;
+    const angle = (i / 8) * 360;
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      background:${colors[i % colors.length]};
+      box-shadow:0 0 ${size*2}px ${colors[i % colors.length]};
+      top:50%;left:50%;
+      --start:${angle}deg;
+      --r:${52 + Math.random()*10}px;
+      --dur:${2.5 + Math.random()*2}s;
+    `;
+    container.appendChild(p);
+  }
+}
+
+// ========== SWITCH AVATAR FRAME ==========
+function switchAvatarFrame(index) {
+  currentFrameIndex = index;
+  const display = document.getElementById('avatarDisplay');
+  if (display) {
+    display.innerHTML = avatarFrames[index];
+  }
+  document.querySelectorAll('.gif-frame').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+  });
+}
+
+// ========== NAVIGATION ==========
+function navigate(page) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-link, .bn-item').forEach(l => {
+    l.classList.toggle('active', l.dataset.page === page);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (page === 'history') renderHistory();
+  if (page === 'about') { renderAbout(); setTimeout(()=>{initAvatarParticles();initQRCode();},100); }
+  if (page === 'faq') renderFAQ();
+  if (page === 'apistatus') renderAPIStatus();
+  if (page === 'downloader') renderRecent();
+}
+
+// ========== URL VALIDATION ==========
+function sanitizeURL(url) {
+  url = url.trim();
+  if (/<|>|javascript:|data:/i.test(url)) return null;
+  const patterns = [
+    /tiktok\.com\/@[\w.]+\/video\/\d+/,
+    /vm\.tiktok\.com\/\w+/,
+    /vt\.tiktok\.com\/\w+/,
+    /m\.tiktok\.com\/v\/\d+/,
+    /tiktok\.com\/t\/\w+/,
+  ];
+  return patterns.some(p => p.test(url)) ? url : null;
+}
+
+// ========== FETCH ==========
+async function startFetch() {
+  const raw = document.getElementById('urlInput').value;
+  const url = sanitizeURL(raw);
+  if (!url) { showToast('URL TikTok tidak valid. Coba link yang benar.', 'error'); return; }
+  const now = Date.now();
+  if (now - lastFetchTime < CONFIG.cooldown) {
+    const sisa = Math.ceil((CONFIG.cooldown - (now - lastFetchTime)) / 1000);
+    showToast(`Tunggu ${sisa}s sebelum request berikutnya.`, 'error');
+    return;
+  }
+  lastFetchTime = now;
+  showLoading();
+  const data = await fetchTikWM(url);
+  hideLoading();
+  if (data) {
+    currentData = data;
+    renderResult(data, url);
+    addToHistory(data, url);
+  } else {
+    showToast('Gagal mengambil data. Pastikan link valid dan coba lagi.', 'error');
+  }
+}
+
+// ========== TIKWM API - FIXED ==========
+async function fetchTikWM(url) {
+  // API endpoint yang benar: https://tikwm.com/api/?url=
+  const apiUrl = 'https://tikwm.com/api/?url=' + encodeURIComponent(url);
+  try {
+    const res = await fetch(apiUrl);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    if (json.code === 0 && json.data) return normalizeTikWM(json.data);
+    throw new Error(json.msg || 'API error code: ' + json.code);
+  } catch(e) {
+    console.error('TikWM error:', e.message);
+    return null;
+  }
+}
+
+function normalizeTikWM(d) {
+  return {
+    id: d.id || '',
+    title: d.title || '',
+    cover: d.cover || d.origin_cover || '',
+    avatar: d.author?.avatar || '',
+    username: d.author?.unique_id || '',
+    nickname: d.author?.nickname || '',
+    music: d.music_info?.title || d.music || '',
+    music_author: d.music_info?.author || '',
+    music_url: d.music_info?.play || '',
+    duration: d.duration || 0,
+    views: d.play_count || d.views || 0,
+    likes: d.digg_count || d.likes || 0,
+    comments: d.comment_count || d.comments || 0,
+    shares: d.share_count || 0,
+    create_time: d.create_time || 0,
+    // VIDEO URLs dari TikWM
+    video_hd: d.hdplay || d.play || '',
+    video_sd: d.play || '',
+    video_nowm: d.play || '',   // TikWM default sudah no-watermark
+    video_wm: d.wmplay || '',
+    mp3: d.music_info?.play || '',
+    cover_hd: d.origin_cover || d.cover || '',
+    images: d.images || null,
+    is_image: !!(d.images && d.images.length),
+  };
+}
+
+// ========== LOADING ==========
+const loadingSteps = [
+  {title:'Menganalisis Link', status:'Analyzing link...'},
+  {title:'Menghubungi TikWM API', status:'Fetching from TikWM...'},
+  {title:'Memproses Data', status:'Processing metadata...'},
+  {title:'Menyiapkan Download', status:'Preparing download links...'},
+];
+let loadingInterval, loadingStep = 0;
+
+function showLoading() {
+  document.getElementById('loadingScreen').classList.add('visible');
+  loadingStep = 0;
+  document.getElementById('progressFill').style.width = '5%';
+  loadingInterval = setInterval(() => {
+    loadingStep = Math.min(loadingStep + 1, loadingSteps.length - 1);
+    const s = loadingSteps[loadingStep];
+    document.getElementById('loadingTitle').textContent = s.title;
+    document.getElementById('loadingStatus').textContent = s.status;
+    document.getElementById('progressFill').style.width = ((loadingStep + 1) / loadingSteps.length * 80) + '%';
+  }, 900);
+}
+
+function hideLoading() {
+  clearInterval(loadingInterval);
+  document.getElementById('progressFill').style.width = '100%';
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.remove('visible');
+    document.getElementById('progressFill').style.width = '0%';
+  }, 450);
+}
+
+// ========== FORMAT HELPERS ==========
+function formatNum(n) {
+  if (!n) return '0';
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return String(n);
+}
+function formatDur(s) {
+  if (!s) return '--';
+  const m = Math.floor(s/60), sec = s%60;
+  return `${m}:${String(sec).padStart(2,'0')}`;
+}
+function formatDate(ts) {
+  if (!ts) return '--';
+  return new Date(ts*1000).toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'});
+}
+
+// ========== RENDER RESULT ==========
+function renderResult(d, url) {
+  const area = document.getElementById('resultArea');
+  const isImg = d.is_image && d.images && d.images.length;
+  area.innerHTML = `
+  <div class="result-card">
+    <div class="result-thumb-wrap">
+      ${d.cover
+        ? `<img src="${escHtml(d.cover)}" alt="Thumbnail" loading="lazy">`
+        : `<div style="height:180px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text3)">No Preview</div>`}
+      <div class="result-overlay"></div>
+      ${d.duration ? `<div class="result-duration">${formatDur(d.duration)}</div>` : ''}
+      ${isImg ? `<div style="position:absolute;top:10px;left:10px;background:rgba(34,211,238,.15);border:1px solid rgba(34,211,238,.4);color:var(--neon);padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.04em">${d.images.length} FOTO</div>` : ''}
+    </div>
+    <div class="result-body">
+      <div class="result-user">
+        ${d.avatar ? `<img src="${escHtml(d.avatar)}" class="result-avatar" onerror="this.style.display='none'" alt="">` : '<div class="result-avatar" style="background:linear-gradient(135deg,var(--accent),var(--pink))"></div>'}
+        <div><div class="result-username">@${escHtml(d.username)||'Unknown'}</div><div class="result-nickname">${escHtml(d.nickname)||''}</div></div>
+        <div style="margin-left:auto;display:flex;gap:5px">
+          <button class="btn btn-ghost btn-icon btn-sm" onclick="copyLink('${escHtml(url)}')" title="Copy Link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+          <button class="btn btn-ghost btn-icon btn-sm" onclick="addToFav()" title="Favorit">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </button>
+        </div>
+      </div>
+      ${d.title ? `<div class="result-caption">${escHtml(d.title)}</div>` : ''}
+      <div class="result-meta">
+        <div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><div><div class="meta-val">${formatNum(d.views)}</div><div class="meta-key">Views</div></div></div>
+        <div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><div><div class="meta-val">${formatNum(d.likes)}</div><div class="meta-key">Likes</div></div></div>
+        <div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div><div class="meta-val">${formatNum(d.comments)}</div><div class="meta-key">Komentar</div></div></div>
+        <div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><div><div class="meta-val">${formatNum(d.shares)}</div><div class="meta-key">Share</div></div></div>
+        ${d.create_time ? `<div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div><div class="meta-val">${formatDate(d.create_time)}</div><div class="meta-key">Upload</div></div></div>` : ''}
+      </div>
+      ${d.music ? `<div class="result-music"><div class="music-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div style="flex:1;min-width:0"><div class="music-title">${escHtml(d.music)}</div><div class="music-author">${escHtml(d.music_author||'')}</div></div></div>` : ''}
+      ${isImg ? renderSlideSection(d) : renderVideoDownloads(d)}
+    </div>
+  </div>`;
+}
+
+function renderVideoDownloads(d) {
+  const btns = [
+    {cls:'hd', url:d.video_hd, label:'Video HD', sub:'1080p+', icon:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 12h3m0 0V8m0 4v4M14 8v8M14 8h3a1 1 0 011 1v2a1 1 0 01-1 1h-3"/></svg>', badge:'HD'},
+    {cls:'sd', url:d.video_sd, label:'Video SD', sub:'480p', icon:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>'},
+    {cls:'nowm', url:d.video_nowm, label:'No WM', sub:'Tanpa Logo', icon:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>'},
+    {cls:'wm', url:d.video_wm, label:'Watermark', sub:'Dengan Logo', icon:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'},
+    {cls:'mp3', url:d.mp3, label:'MP3 Audio', sub:'Audio Only', icon:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>'},
+    {cls:'cover', url:d.cover_hd, label:'Cover', sub:'Thumbnail', icon:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
+  ].filter(b => b.url);
+
+  return `<div class="download-grid">${btns.map(b => `
+    <div class="dl-btn ${b.cls}" onclick="triggerDownload('${escHtml(b.url)}','${b.label.replace(/\s/g,'_')}','${b.cls}')">
+      ${b.badge ? `<div class="dl-badge">${b.badge}</div>` : ''}
+      <div class="dl-icon">${b.icon}</div>
+      <div>${b.label}</div>
+      <div style="font-size:.66rem;color:var(--text3)">${b.sub}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderSlideSection(d) {
+  return `
+  <div style="margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="font-size:.84rem;font-weight:700;font-family:var(--font-display)">${d.images.length} Foto Slide</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" onclick="openSlideModal()">Lihat Semua</button>
+        <button class="btn btn-neon btn-sm" onclick="downloadAllSlides()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Semua
+        </button>
+      </div>
+    </div>
+    <div class="slide-gallery">${d.images.slice(0,6).map((img,i) => `
+      <div class="slide-item" onclick="downloadSingleSlide('${escHtml(img)}',${i+1})">
+        <img src="${escHtml(img)}" alt="Slide ${i+1}" loading="lazy">
+        <div class="slide-num">${i+1}</div>
+        <div class="slide-dl">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+      </div>`).join('')}
+      ${d.images.length > 6 ? `<div class="slide-item" style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:var(--text2);cursor:pointer;font-family:var(--font-display)" onclick="openSlideModal()">+${d.images.length-6}</div>` : ''}
+    </div>
+  </div>
+  ${d.mp3 ? `<button class="btn btn-ghost" style="width:100%;margin-bottom:7px" onclick="triggerDownload('${escHtml(d.mp3)}','audio','mp3')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>MP3 Audio</button>` : ''}
+  ${d.cover_hd ? `<button class="btn btn-ghost" style="width:100%" onclick="triggerDownload('${escHtml(d.cover_hd)}','cover','cover')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Cover</button>` : ''}`;
+}
+
+// ========== DOWNLOAD ENGINE ==========
+async function triggerDownload(url, name, type) {
+  if (!url) { showToast('Link download tidak tersedia.', 'error'); return; }
+  showToast(`Memulai download ${name}...`, 'info');
+  try {
+    const ext = type === 'mp3' ? 'mp3' : type === 'cover' ? 'jpg' : 'mp4';
+    const filename = `tksaver_${name.replace(/[^a-z0-9]/gi,'_').toLowerCase()}_${Date.now()}.${ext}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Fetch error');
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    showToast(`Download ${name} berhasil! 🎉`, 'success');
+  } catch {
+    const a = document.createElement('a');
+    a.href = url; a.download = name; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    showToast('Dibuka di tab baru. Simpan manual jika perlu.', 'info');
+  }
+}
+
+async function downloadSingleSlide(url, num) {
+  await triggerDownload(url, `slide_${num}`, 'cover');
+}
+
+async function downloadAllSlides() {
+  if (!currentData?.images) return;
+  showToast(`Mengunduh ${currentData.images.length} foto...`, 'info');
+  for (let i = 0; i < currentData.images.length; i++) {
+    await new Promise(r => setTimeout(r, 700));
+    const a = document.createElement('a');
+    a.href = currentData.images[i];
+    a.download = `tksaver_slide_${i+1}_${Date.now()}.jpg`;
+    a.target = '_blank';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+  showToast('Semua foto berhasil diunduh!', 'success');
+}
+
+// ========== SLIDE MODAL ==========
+function openSlideModal() {
+  if (!currentData?.images) return;
+  document.getElementById('slideModalTitle').textContent = `${currentData.images.length} Foto Slide`;
+  document.getElementById('slideModalContent').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+      ${currentData.images.map((img,i) => `
+      <div style="position:relative;border-radius:10px;overflow:hidden;aspect-ratio:9/16;background:var(--bg3)">
+        <img src="${escHtml(img)}" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;top:6px;left:6px;background:rgba(0,0,0,.7);padding:2px 7px;border-radius:10px;font-size:.68rem;font-weight:700">${i+1}</div>
+        <button onclick="downloadSingleSlide('${escHtml(img)}',${i+1})" style="position:absolute;bottom:6px;right:6px;width:28px;height:28px;border-radius:50%;background:var(--accent);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+      </div>`).join('')}
+    </div>
+    <button class="btn btn-neon" style="width:100%;margin-top:12px" onclick="downloadAllSlides()">Download Semua</button>`;
+  document.getElementById('slideModal').classList.add('visible');
+}
+function closeSlideModal(e) { if (e.target === document.getElementById('slideModal')) closeSlideModalForce(); }
+function closeSlideModalForce() { document.getElementById('slideModal').classList.remove('visible'); }
+
+// ========== HISTORY ==========
+function addToHistory(data, url) {
+  const item = { url, username: data.username, nickname: data.nickname, cover: data.cover, date: Date.now(), is_image: data.is_image };
+  history = [item, ...history.filter(h => h.url !== url)].slice(0, CONFIG.maxHistory);
+  localStorage.setItem('tks_history', JSON.stringify(history));
+  renderRecent();
+}
+
+function renderHistory() {
+  const el = document.getElementById('historyList');
+  if (!history.length) {
+    el.innerHTML = `<div class="empty-state">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto;opacity:.25;display:block"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div class="empty-title">Belum Ada Riwayat</div>
+      <div class="empty-sub">Link yang kamu download akan muncul di sini</div>
+    </div>`;
+    return;
+  }
+  el.innerHTML = `<div class="history-list">${history.map((h,i) => `
+    <div class="history-item" onclick="loadFromHistory('${escHtml(h.url)}')">
+      ${h.cover ? `<img src="${escHtml(h.cover)}" class="history-thumb" onerror="this.style.display='none'" alt="">` : `<div class="history-thumb" style="background:linear-gradient(135deg,var(--accent),var(--pink))"></div>`}
+      <div class="history-info">
+        <div class="history-user">@${escHtml(h.username)||'Unknown'}${h.is_image ? ' <span style="color:var(--neon);font-size:.65rem">[FOTO]</span>' : ''}</div>
+        <div class="history-url">${escHtml(h.url)}</div>
+        <div class="history-date">${new Date(h.date).toLocaleString('id-ID')}</div>
+      </div>
+      <div class="history-actions">
+        <button class="btn btn-ghost btn-icon btn-sm" onclick="event.stopPropagation();copyLink('${escHtml(h.url)}')" title="Copy">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+        <button class="btn btn-ghost btn-icon btn-sm" onclick="event.stopPropagation();deleteHistory(${i})" title="Hapus">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+        </button>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function renderRecent() {
+  const el = document.getElementById('recentArea');
+  if (!el) return;
+  const recent = history.slice(0, 6);
+  if (!recent.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div style="margin-bottom:8px;font-size:.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Terakhir Diakses</div>
+    <div class="recent-strip">${recent.map(h => `
+      <div class="recent-thumb" onclick="loadFromHistory('${escHtml(h.url)}')">
+        ${h.cover ? `<img src="${escHtml(h.cover)}" loading="lazy" alt="">` : `<div style="width:76px;height:76px;background:linear-gradient(135deg,var(--accent),var(--pink))"></div>`}
+        <div class="rt-label">@${escHtml(h.username)||'?'}</div>
+      </div>`).join('')}
+    </div>`;
+}
+
+function loadFromHistory(url) {
+  navigate('downloader');
+  document.getElementById('urlInput').value = url;
+  setTimeout(() => startFetch(), 200);
+}
+function deleteHistory(i) {
+  history.splice(i, 1);
+  localStorage.setItem('tks_history', JSON.stringify(history));
+  renderHistory();
+  showToast('Dihapus dari riwayat', 'info');
+}
+function clearHistory() {
+  if (!confirm('Hapus semua riwayat?')) return;
+  history = [];
+  localStorage.setItem('tks_history', JSON.stringify(history));
+  renderHistory();
+  showToast('Riwayat dihapus', 'info');
+}
+
+// ========== FAVORITES ==========
+function addToFav() {
+  if (!currentData) return;
+  showToast('Ditambahkan ke favorit! ⭐', 'success');
+}
+
+// ========== CLIPBOARD ==========
+async function pasteFromClipboard() {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text) { document.getElementById('urlInput').value = text.trim(); showToast('Link ditempel!', 'success'); }
+  } catch { showToast('Izinkan akses clipboard di browser.', 'error'); }
+}
+function clearInput() {
+  document.getElementById('urlInput').value = '';
+  document.getElementById('resultArea').innerHTML = '';
+  currentData = null;
+}
+function copyLink(url) {
+  navigator.clipboard.writeText(url).then(() => showToast('Link disalin!', 'success')).catch(() => showToast('Gagal menyalin', 'error'));
+}
+function copyPaymentInfo() {
+  const text = `${CONFIG.owner.payment.method}: ${CONFIG.owner.payment.number}\nA/N: ${CONFIG.owner.payment.name}`;
+  navigator.clipboard.writeText(text).then(() => showToast('Nomor Dana disalin!', 'success')).catch(() => showToast('Gagal menyalin', 'error'));
+}
+async function shareResult() {
+  const url = document.getElementById('urlInput').value;
+  if (!url) { showToast('Tidak ada link untuk dibagikan', 'error'); return; }
+  if (navigator.share) {
+    try { await navigator.share({title:'TikSaver Pro', text:'Download TikTok tanpa watermark', url}); } catch {}
+  } else { copyLink(url); showToast('Link disalin untuk dibagikan!', 'info'); }
+}
+
+// ========== ABOUT ==========
+function renderAbout() {
+  document.getElementById('ownerName').textContent = CONFIG.owner.name;
+  document.getElementById('ownerRole').textContent = CONFIG.owner.role;
+  document.getElementById('ownerBio').textContent = CONFIG.owner.bio;
+  document.getElementById('socialGrid').innerHTML = CONFIG.owner.socials.map(s => `
+    <a class="social-card" href="${escHtml(s.url)}" target="_blank" rel="noopener">
+      <div class="social-icon" style="background:${s.color}18;color:${s.color}">${svgIcons[s.icon]||''}</div>
+      <div class="social-name">${s.name}</div>
+      <div class="social-handle">${s.handle}</div>
+    </a>`).join('');
+}
+
+// ========== QR CODE ==========
+function initQRCode() {
+  const container = document.getElementById('qrCode');
+  if (!container || container.querySelector('canvas')) return;
+  container.innerHTML = '';
+  try {
+    new QRCode(container, {
+      text: `Dana:${CONFIG.owner.payment.number}`,
+      width: 140, height: 140,
+      colorDark: '#6c31f0',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+  } catch(e) { console.warn('QR Error:', e); }
+
+  document.getElementById('supportMethods').innerHTML = `
+    <div class="method-card" onclick="showToast('Dana: ${CONFIG.owner.payment.number}','info')">
+      <div class="method-icon">💳</div>
+      <div class="method-name">Dana</div>
+      <div class="method-info">${CONFIG.owner.payment.number}</div>
+    </div>
+    <div class="method-card" onclick="showToast('Scan QR Code dengan OVO','info')">
+      <div class="method-icon">📱</div>
+      <div class="method-name">OVO</div>
+      <div class="method-info">Scan QRIS</div>
+    </div>
+    <div class="method-card" onclick="showToast('Scan QR Code dengan GoPay','info')">
+      <div class="method-icon">💚</div>
+      <div class="method-name">GoPay</div>
+      <div class="method-info">Scan QRIS</div>
+    </div>
+    <div class="method-card" onclick="showToast('Gunakan semua e-wallet!','info')">
+      <div class="method-icon">⚡</div>
+      <div class="method-name">QRIS</div>
+      <div class="method-info">Semua e-wallet</div>
+    </div>`;
+}
+
+// ========== FAQ ==========
+function renderFAQ() {
+  document.getElementById('faqList').innerHTML = FAQS.map((f, i) => `
+    <div class="faq-item" id="faq${i}" onclick="toggleFAQ(${i})">
+      <div class="faq-q">${escHtml(f.q)}
+        <svg class="faq-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">${escHtml(f.a)}</div>
+    </div>`).join('');
+}
+function toggleFAQ(i) {
+  document.getElementById('faq'+i).classList.toggle('open');
+}
+
+// ========== API STATUS ==========
+function renderAPIStatus() {
+  document.getElementById('apiGrid').innerHTML = CONFIG.apis.map((api, i) => `
+    <div class="api-card">
+      <div class="api-dot checking" id="apidot${i}"></div>
+      <div style="flex:1">
+        <div class="api-name">${api.name}</div>
+        <div class="api-url">${api.url}</div>
+      </div>
+      <div class="api-ping" id="apiping${i}">--</div>
+    </div>`).join('');
+  checkAllAPIs();
+}
+
+async function checkAllAPIs() {
+  for (let i = 0; i < CONFIG.apis.length; i++) {
+    const api = CONFIG.apis[i];
+    const dot = document.getElementById('apidot'+i);
+    const ping = document.getElementById('apiping'+i);
+    if (dot) dot.className = 'api-dot checking';
+    const t0 = Date.now();
+    try {
+      await fetch(api.url + '?url=https://tiktok.com/@tiktok', {
+        method: 'HEAD', mode: 'no-cors', signal: AbortSignal.timeout(5000)
+      });
+      const ms = Date.now() - t0;
+      if (dot) dot.className = 'api-dot online';
+      if (ping) { ping.textContent = ms + 'ms'; ping.className = 'api-ping ' + (ms < 1200 ? 'fast' : 'slow'); }
+    } catch {
+      if (dot) dot.className = 'api-dot offline';
+      if (ping) { ping.textContent = 'Offline'; ping.className = 'api-ping'; }
+    }
+  }
+}
+
+// ========== TOAST ==========
+let toastId = 0;
+function showToast(msg, type = 'info') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<div class="toast-dot"></div>${escHtml(String(msg))}`;
+  c.appendChild(t);
+  setTimeout(() => t.classList.add('show'), 10);
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3500);
+}
+
+// ========== UTIL ==========
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+// ========== SPLASH SCREEN ==========
+(function() {
+  const splash = document.getElementById('splashScreen');
+  const fill = document.getElementById('splashFill');
+  const status = document.getElementById('splashStatus');
+  const particles = document.getElementById('splashParticles');
+
+  // Create particles
+  const colors = ['#6c31f0','#8b5cf6','#22d3ee','#ec4899','#a78bfa','#fb7185'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 5 + 2;
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:${Math.random()>.5?'50%':'2px'};
+      left:${Math.random()*100}%;
+      bottom:${Math.random()*20}%;
+      --dur:${3+Math.random()*5}s;
+      --delay:${Math.random()*5}s;
+    `;
+    particles.appendChild(p);
+  }
+
+  requestAnimationFrame(() => requestAnimationFrame(() => splash.classList.add('ready')));
+
+  const steps = [
+    {pct:20, txt:'Memuat UI...'},
+    {pct:40, txt:'Inisialisasi engine...'},
+    {pct:60, txt:'Menghubungkan API...'},
+    {pct:80, txt:'Menyiapkan downloader...'},
+    {pct:95, txt:'Hampir siap...'},
+    {pct:100, txt:'Selamat datang! 🚀'},
+  ];
+
+  let idx = 0;
+  const total = 2600;
+  const intv = total / steps.length;
+  const ticker = setInterval(() => {
+    if (idx >= steps.length) { clearInterval(ticker); return; }
+    fill.style.width = steps[idx].pct + '%';
+    status.textContent = steps[idx].txt;
+    idx++;
+  }, intv);
+
+  setTimeout(() => {
+    clearInterval(ticker);
+    fill.style.width = '100%';
+    setTimeout(() => {
+      splash.classList.add('hide');
+      setTimeout(() => { splash.style.display = 'none'; }, 700);
+    }, 400);
+  }, total + 150);
+})();
+
+// ========== DRAG & DROP ==========
+const inputCard = document.getElementById('inputCard');
+inputCard.addEventListener('dragover', e => { e.preventDefault(); inputCard.classList.add('drag-over'); });
+inputCard.addEventListener('dragleave', () => inputCard.classList.remove('drag-over'));
+inputCard.addEventListener('drop', e => {
+  e.preventDefault();
+  inputCard.classList.remove('drag-over');
+  const text = e.dataTransfer.getData('text');
+  if (text) { document.getElementById('urlInput').value = text.trim(); showToast('Link ditempel via drag!', 'success'); }
+});
+
+document.getElementById('urlInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startFetch();
+});
+document.getElementById('urlInput').addEventListener('paste', () => {
+  setTimeout(() => {
+    const v = document.getElementById('urlInput').value;
+    if (v && sanitizeURL(v)) showToast('Link TikTok terdeteksi!', 'success');
+  }, 100);
+});
+
+// ========== NAVBAR SCROLL ==========
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  document.getElementById('bttBtn').classList.toggle('visible', window.scrollY > 300);
+});
+
+// ========== MENU TOGGLE ==========
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const hamburger = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  hamburger.classList.toggle('open');
+}
+
+// ========== PULL TO REFRESH ==========
+let ptrStart = 0, ptrActive = false;
+document.addEventListener('touchstart', e => {
+  if (window.scrollY === 0) ptrStart = e.touches[0].clientY;
+}, {passive:true});
+document.addEventListener('touchmove', e => {
+  if (ptrStart && window.scrollY === 0 && e.touches[0].clientY - ptrStart > 70 && !ptrActive) {
+    ptrActive = true;
+    document.getElementById('ptr').style.transform = 'translateY(0)';
+  }
+}, {passive:true});
+document.addEventListener('touchend', () => {
+  if (ptrActive) {
+    ptrActive = false; ptrStart = 0;
+    document.getElementById('ptr').style.transform = 'translateY(-100%)';
+    location.reload();
+  }
+});
+
+// ========== INIT ==========
+navigate('home');
+// Auto-paste clipboard on downloader open
+setTimeout(async () => {
+  try {
+    const t = await navigator.clipboard.readText();
+    if (t && sanitizeURL(t) && !document.getElementById('urlInput').value) {
+      document.getElementById('urlInput').value = t.trim();
+      showToast('Link TikTok dari clipboard terdeteksi!', 'info');
+    }
+  } catch {}
+}, 1200);
+</script>
+</body>
+</html>
