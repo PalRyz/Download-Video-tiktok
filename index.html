@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="description" content="TikTok Downloader Premium - Download TikTok Video, Photo, MP3 tanpa watermark">
 <meta name="theme-color" content="#080810">
-<title>TikSaver Pro — Premium Downloader 2026</title>
+<title>TikSaver Pro v3 — Premium Downloader 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://files.catbox.moe/wbtnfv.png"></script>
@@ -73,7 +73,7 @@ pointer-events:none;z-index:0}
 .close-menu{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;border:1px solid var(--border2);background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2)}
 
 /* MAIN */
-main{padding-top:62px}
+main{padding-top:62px;padding-bottom:100px}
 .section{padding:56px 20px;max-width:900px;margin:0 auto;display:none}
 .section.active{display:block}
 
@@ -444,7 +444,7 @@ main{padding-top:62px}
         </div>
       </div>
     </div>
-    <div class="splash-title">TikSaver Pro</div>
+    <div class="splash-title">TikSaver Pro v3</div>
     <div class="splash-sub">Premium TikTok Downloader 2026</div>
     <div class="splash-progress-wrap">
       <div class="splash-progress-track">
@@ -519,7 +519,7 @@ main{padding-top:62px}
 <!-- HOME -->
 <div class="section active" id="page-home">
   <div class="hero">
-    <div class="hero-badge"><span class="pulse"></span>Premium 2026 — Gratis Selamanya</div>
+    <div class="hero-badge"><span class="pulse"></span>TikSaver Pro v3.0 — Gratis Selamanya</div>
     <h1 class="hero-title">
       <span class="hero-title-line1">Download TikTok</span>
       <span class="hero-title-line2">Tanpa Batas</span>
@@ -635,46 +635,31 @@ main{padding-top:62px}
 <div class="section" id="page-about">
   <div class="about-hero">
 
-    <!-- HOLOGRAPHIC AVATAR ANIMASI -->
+    <!-- AVATAR DARI LINK + FRAME SELECTOR -->
     <div class="avatar-wrap" id="avatarWrap">
       <div class="avatar-bg"></div>
       <div class="avatar-particles" id="avatarParticles"></div>
       <div class="avatar-inner">
         <div class="avatar-display" id="avatarDisplay">
-          <!-- Default: blob morphing -->
-          <div class="blob-avatar" id="currentFrame">
-            <div class="blob-layer blob-1"></div>
-            <div class="blob-layer blob-2"></div>
-            <div class="blob-layer blob-3"></div>
-            <div class="blob-icon">
-              <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
-                <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
-              </svg>
-            </div>
-          </div>
+          <img id="avatarImg" src="" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
         </div>
       </div>
     </div>
 
-    <!-- ANIMATED FRAME SELECTOR - CSS animations keren sebagai pengganti GIF -->
+    <!-- FRAME SELECTOR - Ganti tema avatar -->
     <div class="gif-selector" id="gifSelector">
-      <!-- Frame 1: Purple Vortex -->
-      <div class="gif-frame active" onclick="switchAvatarFrame(0)" title="Purple Vortex">
+      <div class="gif-frame active" onclick="switchAvatarFrame(0)" title="Default">
         <div class="gif-frame-canvas frame-vortex"></div>
       </div>
-      <!-- Frame 2: Neon Pulse -->
       <div class="gif-frame" onclick="switchAvatarFrame(1)" title="Neon Pulse">
         <div class="gif-frame-canvas frame-pulse-neon"></div>
       </div>
-      <!-- Frame 3: RGB Wave -->
       <div class="gif-frame" onclick="switchAvatarFrame(2)" title="RGB Wave">
         <div class="gif-frame-canvas frame-rgb"></div>
       </div>
-      <!-- Frame 4: Matrix -->
       <div class="gif-frame" onclick="switchAvatarFrame(3)" title="Matrix">
         <div class="gif-frame-canvas frame-matrix"></div>
       </div>
-      <!-- Frame 5: Holographic -->
       <div class="gif-frame" onclick="switchAvatarFrame(4)" title="Holographic">
         <div class="gif-frame-canvas frame-holo"></div>
       </div>
@@ -704,9 +689,44 @@ main{padding-top:62px}
   </div>
 
   <div class="divider"></div>
-  <h2 style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;margin-bottom:12px;letter-spacing:-.02em">Tentang TikSaver Pro</h2>
+  <h2 style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;margin-bottom:12px;letter-spacing:-.02em">Tentang TikSaver Pro v3</h2>
   <p style="font-size:.86rem;color:var(--text2);line-height:1.8;margin-bottom:12px">TikSaver Pro adalah platform download TikTok gratis terbaik. Kami mendukung video HD, tanpa watermark, foto slide, audio MP3, dan banyak lagi.</p>
   <p style="font-size:.86rem;color:var(--text2);line-height:1.8">Dibuat dengan teknologi terbaru 2026, platform kami memberikan pengalaman download yang cepat, aman, dan menyenangkan.</p>
+
+  <div class="divider"></div>
+  <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:14px;letter-spacing:-.02em;color:var(--accent3)">✨ Apa yang Baru di v3?</h3>
+  <div class="feature-grid" style="max-width:900px">
+    <div class="feature-card" style="border-color:rgba(108,49,240,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#6c31f0,#22d3ee)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+      <div class="feature-name">Download Speed v3</div>
+      <div class="feature-desc">Proses download 3x lebih cepat dengan optimasi server</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(34,211,238,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#0891b2,#22d3ee)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="feature-name">Custom Avatar</div>
+      <div class="feature-desc">Ganti foto profil dengan link sendiri</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(236,72,153,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#ec4899,#fb7185)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+      <div class="feature-name">4K Quality</div>
+      <div class="feature-desc">Download video dengan kualitas hingga 4K</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(16,185,129,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="feature-name">No Watermark</div>
+      <div class="feature-desc">Video tanpa logo TikTok, benar-benar bersih</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(251,191,36,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="feature-name">MP3 Extract</div>
+      <div class="feature-desc">Ekstrak audio MP3 dari video TikTok</div>
+    </div>
+    <div class="feature-card" style="border-color:rgba(99,102,241,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div class="feature-name">Slide Download</div>
+      <div class="feature-desc">Download foto slide satu per satu atau semua</div>
+    </div>
+  </div>
 </div>
 
 <!-- FAQ -->
@@ -798,10 +818,15 @@ main{padding-top:62px}
 <script>
 // ========== CONFIG ==========
 const CONFIG = {
+  version: 'v3.0',
   owner: {
     name: 'Developer TikSaver',
     role: 'Full Stack Developer & Tool Creator',
     bio: 'Membuat tools yang memudahkan kehidupan digital. TikSaver Pro dibuat dengan cinta untuk komunitas Indonesia.',
+    // ===== GANTI LINK FOTO DI BAWAH =====
+    avatar_url: 'https://files.catbox.moe/wbtnfv.png', // Link avatar/profile
+    cover_url: 'https://files.catbox.moe/wbtnfv.png',   // Link cover banner
+    // =====================================
     payment: {
       method: 'Dana',
       number: '083872433952',
@@ -848,58 +873,34 @@ let lastFetchTime = 0;
 let history = JSON.parse(localStorage.getItem('tks_history') || '[]');
 let currentFrameIndex = 0;
 
-// AVATAR FRAMES - CSS animated backgrounds
+// AVATAR FRAMES - CSS animated overlays on top of the image
 const avatarFrames = [
-  // 0: Blob morphing (default)
-  `<div class="blob-avatar">
-    <div class="blob-layer blob-1"></div>
-    <div class="blob-layer blob-2"></div>
-    <div class="blob-layer blob-3"></div>
-    <div class="blob-icon">
-      <svg width="38" height="38" viewBox="0 0 36 36" fill="none">
-        <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
-      </svg>
-    </div>
-  </div>`,
+  // 0: Default - just the image
+  function() {
+    const img = document.getElementById('avatarImg');
+    if (img) img.style.display = '';
+    return '';
+  },
 
-  // 1: Neon rings
-  `<div style="width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,.4),transparent 60%);animation:pulseScale 1.2s ease-in-out infinite"></div>
-    <div style="position:absolute;width:80%;height:80%;border:2px solid rgba(34,211,238,.6);border-radius:50%;animation:spin 3s linear infinite"></div>
-    <div style="position:absolute;width:60%;height:60%;border:2px solid rgba(168,139,250,.5);border-radius:50%;animation:spin 2s linear infinite reverse"></div>
-    <div style="position:absolute;width:40%;height:40%;border:2px solid rgba(236,72,153,.5);border-radius:50%;animation:spin 1.5s linear infinite"></div>
-    <svg width="28" height="28" viewBox="0 0 36 36" fill="none" style="position:relative;z-index:2">
-      <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#22d3ee"/>
-    </svg>
-  </div>`,
+  // 1: Neon glow overlay
+  function() {
+    return `<div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,.5),transparent 65%);animation:pulseScale 1.2s ease-in-out infinite;pointer-events:none"></div>`;
+  },
 
-  // 2: RGB scanlines
-  `<div style="width:100%;height:100%;background:linear-gradient(135deg,#0f0,#00f,#f00,#0f0);background-size:300% 300%;animation:rgbShift 2s ease infinite;position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0px,rgba(0,0,0,.15) 1px,transparent 1px,transparent 3px)"></div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-      <span style="font-family:monospace;font-size:1.5rem;font-weight:900;color:#fff;text-shadow:2px 0 #f00,-2px 0 #0ff;animation:glitch 2s infinite">TK</span>
-    </div>
-  </div>`,
+  // 2: RGB glitch overlay
+  function() {
+    return `<div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,0,0,.3),rgba(0,255,0,.3),rgba(0,0,255,.3));background-size:300% 300%;animation:rgbShift 2s ease infinite;mix-blend-mode:screen;pointer-events:none"></div>`;
+  },
 
-  // 3: Matrix rain
-  `<div style="width:100%;height:100%;background:#000;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
-    <div style="position:absolute;inset:0;font-family:monospace;font-size:.55rem;color:#00ff41;line-height:1.2;overflow:hidden;opacity:.7;word-break:break-all;animation:matrixFall 1.5s linear infinite">01 10 11 00 10 01 00 11 10 01 11 00 01 10 11 00 10 01 00 11</div>
-    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" style="position:relative;z-index:2;filter:drop-shadow(0 0 8px #00ff41)">
-      <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#00ff41"/>
-    </svg>
-  </div>`,
+  // 3: Matrix rain overlay
+  function() {
+    return `<div style="position:absolute;inset:0;border-radius:50%;background:#00000088;font-family:monospace;font-size:.5rem;color:#00ff41;line-height:1.2;display:flex;align-items:center;justify-content:center;overflow:hidden;animation:matrixFall 1.5s linear infinite;pointer-events:none">TK PRO</div>`;
+  },
 
-  // 4: Holographic shimmer
-  `<div style="width:100%;height:100%;position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#ff006640,#7c3aed60,#00d4ff60,#ff006640);background-size:400% 400%;animation:holoShift 2s ease infinite"></div>
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 8px)"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:holoSweep 2s ease-in-out infinite"></div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-      <svg width="34" height="34" viewBox="0 0 36 36" fill="none" style="filter:drop-shadow(0 0 10px rgba(255,255,255,.8))">
-        <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
-      </svg>
-    </div>
-  </div>`,
+  // 4: Holographic shimmer overlay
+  function() {
+    return `<div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,0,100,.25),rgba(124,58,237,.25),rgba(0,212,255,.25));background-size:400% 400%;animation:holoShift 2s ease infinite;mix-blend-mode:saturation;pointer-events:none"></div>`;
+  },
 ];
 
 // ========== INIT AVATAR PARTICLES ==========
@@ -931,11 +932,51 @@ function switchAvatarFrame(index) {
   currentFrameIndex = index;
   const display = document.getElementById('avatarDisplay');
   if (display) {
-    display.innerHTML = avatarFrames[index];
+    // Remove old overlay
+    const oldOverlay = display.querySelector('.avatar-overlay');
+    if (oldOverlay) oldOverlay.remove();
+    
+    // Handle frame 0 (show image) vs others (hide image + show overlay)
+    const frameFn = avatarFrames[index];
+    if (typeof frameFn === 'function') {
+      const result = frameFn();
+      if (result) {
+        const overlay = document.createElement('div');
+        overlay.className = 'avatar-overlay';
+        overlay.style.cssText = 'position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none;z-index:5';
+        overlay.innerHTML = result;
+        display.appendChild(overlay);
+      }
+    }
   }
   document.querySelectorAll('.gif-frame').forEach((el, i) => {
     el.classList.toggle('active', i === index);
   });
+}
+
+// Load avatar image from config
+function loadAvatarImage() {
+  const img = document.getElementById('avatarImg');
+  if (img && CONFIG.owner.avatar_url) {
+    img.src = CONFIG.owner.avatar_url;
+    img.onerror = function() {
+      // Fallback: show blob animation on error
+      this.style.display = 'none';
+      const display = document.getElementById('avatarDisplay');
+      if (display) {
+        display.innerHTML = `<div class="blob-avatar">
+          <div class="blob-layer blob-1"></div>
+          <div class="blob-layer blob-2"></div>
+          <div class="blob-layer blob-3"></div>
+          <div class="blob-icon">
+            <svg width="38" height="38" viewBox="0 0 36 36" fill="none">
+              <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
+            </svg>
+          </div>
+        </div>`;
+      }
+    };
+  }
 }
 
 // ========== NAVIGATION ==========
@@ -948,7 +989,7 @@ function navigate(page) {
   });
   window.scrollTo({top:0,behavior:'smooth'});
   if (page === 'history') renderHistory();
-  if (page === 'about') { renderAbout(); setTimeout(()=>{initAvatarParticles();initQRCode();},100); }
+  if (page === 'about') { renderAbout(); setTimeout(()=>{initAvatarParticles();initQRCode();loadAvatarImage();switchAvatarFrame(0);},100); }
   if (page === 'faq') renderFAQ();
   if (page === 'apistatus') renderAPIStatus();
   if (page === 'downloader') renderRecent();
