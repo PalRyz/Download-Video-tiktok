@@ -68,6 +68,44 @@ function normalizeInstagramMedia(payload) {
   };
 }
 
+function normalizeApifyMedia(records) {
+  const completed = (Array.isArray(records) ? records : []).filter((item) => item.download_status === 'finished' && item.download_url);
+  if (!completed.length) return null;
+
+  const first = completed[0];
+  const images = completed.filter((item) => item.type === 'image').map((item) => item.download_url);
+  const videos = completed.filter((item) => item.type === 'video').map((item) => item.download_url);
+  return {
+    platform: 'instagram',
+    id: first.post_url || '',
+    title: '',
+    cover: images[0] || videos[0] || '',
+    avatar: '',
+    username: first.username || '',
+    nickname: first.username || '',
+    is_image: images.length > 0 && videos.length === 0,
+    images,
+    video_hd: videos[0] || '',
+    video_sd: videos[0] || '',
+    video_nowm: videos[0] || '',
+    video_wm: videos[0] || '',
+    mp3: '', music: '', music_author: '',
+    duration: videos[0]?.media_meta_data?.duration || 0,
+    views: 0, likes: 0, comments: 0, shares: 0, create_time: 0,
+  };
+}
+
+async function fetchWithApify(url) {
+  const token = process.env.APIFY_API_TOKEN;
+  if (!token) return null;
+  const response = await axios.post(
+    'https://api.apify.com/v2/acts/crawlerbros~instagram-downloader-api/run-sync-get-dataset-items',
+    { postUrls: [url] },
+    { params: { token }, timeout: 120000 }
+  );
+  return normalizeApifyMedia(response.data);
+}
+
 app.get('/api/instagram/download', async (req, res) => {
   const shortcode = getInstagramShortcode(req.query.url || '');
   if (!shortcode) {
@@ -75,8 +113,7 @@ app.get('/api/instagram/download', async (req, res) => {
   }
 
   try {
-    // Request server-side avoids browser CORS restrictions. Instagram can still
-    // require authentication or change this undocumented response at any time.
+    // Fast path: Instagram's public response. This avoids requiring an external key.
     const response = await axios.get(`https://www.instagram.com/p/${shortcode}/?__a=1&__d=dis`, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131 Safari/537.36',
@@ -88,8 +125,15 @@ app.get('/api/instagram/download', async (req, res) => {
     const data = normalizeInstagramMedia(response.data);
     if (!data) throw new Error('Media tidak ditemukan pada respons Instagram.');
     return res.json(data);
-  } catch (error) {
-    console.error('Instagram download error:', error.response?.status || error.message);
+  } catch (directError) {
+    // Reliable fallback: enabled only when the app owner supplies APIFY_API_TOKEN.
+    try {
+      const apifyData = await fetchWithApify(req.query.url);
+      if (apifyData) return res.json(apifyData);
+    } catch (apifyError) {
+      console.error('Apify Instagram fallback error:', apifyError.response?.status || apifyError.message);
+    }
+    console.error('Instagram download error:', directError.response?.status || directError.message);
     return res.status(502).json({
       error: 'Instagram tidak dapat mengambil media ini. Pastikan post publik dan coba lagi.',
     });
