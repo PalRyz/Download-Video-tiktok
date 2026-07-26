@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="description" content="TikTok Downloader Premium - Download TikTok Video, Photo, MP3 tanpa watermark">
+<meta name="description" content="Downloader TikTok dan Instagram — video, foto, slide, dan audio dalam satu tempat">
 <meta name="theme-color" content="#080810">
-<title>TikSaver Pro v3 — Premium Downloader 2026</title>
+<title>TikSaver Pro v3 — TikTok & Instagram Downloader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://files.catbox.moe/wbtnfv.png"></script>
@@ -173,6 +173,15 @@ main{padding-top:62px;padding-bottom:100px}
 .slide-num{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.75);padding:2px 7px;border-radius:10px;font-size:.68rem;font-weight:700}
 .slide-dl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);opacity:0;transition:opacity .2s}
 .slide-item:hover .slide-dl{opacity:1}
+.slide-music-picker{margin:14px 0;padding:14px;border:1px solid rgba(34,211,238,.24);border-radius:var(--radius2);background:linear-gradient(135deg,rgba(34,211,238,.07),rgba(108,49,240,.09))}
+.slide-music-header{display:flex;align-items:center;gap:9px;margin-bottom:5px;font-weight:700;font-size:.84rem}
+.slide-music-help{font-size:.72rem;color:var(--text2);line-height:1.55;margin-bottom:10px}
+.slide-select-grid{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}
+.slide-choice{position:relative;cursor:pointer}
+.slide-choice input{position:absolute;opacity:0;pointer-events:none}
+.slide-choice span{display:flex;align-items:center;justify-content:center;width:34px;height:30px;border-radius:8px;border:1px solid var(--border3);background:var(--bg3);font-size:.72rem;font-weight:700;color:var(--text2);transition:all .2s}
+.slide-choice input:checked + span{background:var(--accent);border-color:var(--accent3);color:#fff;box-shadow:0 0 14px rgba(108,49,240,.5)}
+.music-rendering{opacity:.72;pointer-events:none}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -463,7 +472,7 @@ main{padding-top:62px;padding-bottom:100px}
       <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
       <defs><linearGradient id="lg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6c31f0"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
     </svg>
-    <span class="nav-logo-text">TikSaver Pro</span>
+    <span class="nav-logo-text">TikSaver Pro <small style="font-size:.6em;opacity:.72">TT + IG</small></span>
   </a>
   <div class="nav-links">
     <span class="nav-link active" data-page="home" onclick="navigate('home')">Beranda</span>
@@ -521,10 +530,10 @@ main{padding-top:62px;padding-bottom:100px}
   <div class="hero">
     <div class="hero-badge"><span class="pulse"></span>TikSaver Pro v3.0 — Gratis Selamanya</div>
     <h1 class="hero-title">
-      <span class="hero-title-line1">Download TikTok</span>
+      <span class="hero-title-line1">Download TikTok &amp; Instagram</span>
       <span class="hero-title-line2">Tanpa Batas</span>
     </h1>
-    <p class="hero-sub">Video HD, No Watermark, MP3, Foto Slide — semua dalam satu platform. Cepat, aman, tanpa iklan.</p>
+    <p class="hero-sub">Video HD, Reel, foto, carousel, dan audio — semua dalam satu platform. Cepat, aman, tanpa iklan.</p>
     <div class="hero-cta">
       <button class="btn btn-primary btn-lg" onclick="navigate('downloader')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -581,15 +590,15 @@ main{padding-top:62px;padding-bottom:100px}
   <div style="max-width:700px;margin:0 auto">
     <div style="margin-bottom:22px">
       <h1 class="section-title">Downloader</h1>
-      <p class="section-sub">Paste link TikTok untuk mulai download</p>
+      <p class="section-sub">Paste link TikTok atau Instagram (Post, Reel, Carousel) untuk mulai download</p>
     </div>
     <div class="input-card" id="inputCard">
       <div class="input-label">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-        URL TikTok
+        URL TikTok atau Instagram
       </div>
       <div class="input-row">
-        <input type="url" class="url-input" id="urlInput" placeholder="https://tiktok.com/@user/video/..." autocomplete="off" spellcheck="false">
+        <input type="url" class="url-input" id="urlInput" placeholder="https://tiktok.com/@user/video/... atau instagram.com/p/..." autocomplete="off" spellcheck="false">
         <button class="btn btn-ghost btn-icon" onclick="pasteFromClipboard()" title="Paste">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
         </button>
@@ -602,6 +611,10 @@ main{padding-top:62px;padding-bottom:100px}
         <span class="provider-badge active" id="pb1">
           <span style="width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block"></span>
           TikWM API
+        </span>
+        <span class="provider-badge active" id="pbInstagram">
+          <span style="width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block"></span>
+          Instagram Embed
         </span>
       </div>
     </div>
@@ -842,7 +855,8 @@ const CONFIG = {
     ]
   },
   apis: [
-    { name:'TikWM API', url:'https://tikwm.com/api/', status:'checking', ping:null },
+    { name:'TikWM API', url:'https://tikwm.com/api/', status:'checking', ping:null, platform:'tiktok' },
+    { name:'Instagram Embed', url:'/api/instagram/download', status:'checking', ping:null, platform:'instagram' },
   ],
   cooldown: 3000,
   maxHistory: 50,
@@ -850,11 +864,11 @@ const CONFIG = {
 
 const FAQS = [
   {q:'Apakah TikSaver Pro gratis?', a:'Ya, TikSaver Pro 100% gratis selamanya. Tidak ada biaya tersembunyi atau langganan berbayar.'},
-  {q:'Apakah video yang didownload memiliki watermark?', a:'Tidak! Kami menyediakan opsi download tanpa watermark. Video yang kamu download akan bersih dari logo TikTok.'},
-  {q:'Format apa saja yang bisa didownload?', a:'Kamu bisa download video MP4 (HD & SD), audio MP3, foto slide (JPG), dan cover thumbnail.'},
-  {q:'Apakah perlu login atau daftar akun?', a:'Tidak perlu. Cukup paste link TikTok dan langsung download tanpa daftar akun.'},
+  {q:'Apakah video yang didownload memiliki watermark?', a:'TikTok menyediakan opsi tanpa watermark. Media Instagram mengikuti file asli yang tersedia dari post publik.'},
+  {q:'Platform dan format apa saja yang didukung?', a:'TikTok dan Instagram publik didukung. Kamu dapat mengunduh video, Reel, foto, carousel, audio TikTok, dan cover yang tersedia.'},
+  {q:'Apakah perlu login atau daftar akun?', a:'Tidak perlu. Cukup paste link TikTok atau Instagram publik dan langsung download tanpa daftar akun.'},
   {q:'Kenapa download gagal?', a:'Kemungkinan link TikTok invalid, konten sudah dihapus, atau akun privat. Pastikan link benar dan konten masih tersedia.'},
-  {q:'Apakah bisa download foto slide TikTok?', a:'Ya! TikSaver Pro otomatis mendeteksi konten foto atau video. Untuk foto slide, kamu bisa download satu per satu.'},
+  {q:'Apakah foto slide TikTok bisa memakai musik?', a:'Bisa. Pilih satu atau beberapa foto pada panel Video + Musik. Kami akan membuat video WebM dari foto pilihan dengan audio asli TikTok bila audio tersedia.'},
   {q:'Berapa batas download per hari?', a:'Tidak ada batas! Download sepuasnya tanpa batasan jumlah.'},
 ];
 
@@ -995,10 +1009,21 @@ function navigate(page) {
   if (page === 'downloader') renderRecent();
 }
 
-// ========== URL VALIDATION ==========
+// ========== URL VALIDATION & PLATFORM ==========
+function getPlatform(url) {
+  try {
+    const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
+    if (host === 'instagram.com' && /^\/(p|reel|tv)\/[A-Za-z0-9_-]+/.test(new URL(url).pathname)) return 'instagram';
+    if (/(^|\.)tiktok\.com$/.test(host)) return 'tiktok';
+  } catch {}
+  return null;
+}
 function sanitizeURL(url) {
   url = url.trim();
   if (/<|>|javascript:|data:/i.test(url)) return null;
+  const platform = getPlatform(url);
+  if (platform === 'instagram') return url;
+  if (platform !== 'tiktok') return null;
   const patterns = [
     /tiktok\.com\/@[\w.]+\/video\/\d+/,
     /vm\.tiktok\.com\/\w+/,
@@ -1013,7 +1038,7 @@ function sanitizeURL(url) {
 async function startFetch() {
   const raw = document.getElementById('urlInput').value;
   const url = sanitizeURL(raw);
-  if (!url) { showToast('URL TikTok tidak valid. Coba link yang benar.', 'error'); return; }
+  if (!url) { showToast('URL TikTok atau Instagram tidak valid. Coba link post publik yang benar.', 'error'); return; }
   const now = Date.now();
   if (now - lastFetchTime < CONFIG.cooldown) {
     const sisa = Math.ceil((CONFIG.cooldown - (now - lastFetchTime)) / 1000);
@@ -1021,15 +1046,29 @@ async function startFetch() {
     return;
   }
   lastFetchTime = now;
-  showLoading();
-  const data = await fetchTikWM(url);
+  showLoading(getPlatform(url));
+  const data = getPlatform(url) === 'instagram' ? await fetchInstagram(url) : await fetchTikWM(url);
   hideLoading();
   if (data) {
     currentData = data;
     renderResult(data, url);
     addToHistory(data, url);
   } else {
-    showToast('Gagal mengambil data. Pastikan link valid dan coba lagi.', 'error');
+    showToast('Gagal mengambil data. Pastikan post publik, link valid, lalu coba lagi.', 'error');
+  }
+}
+
+// Instagram requests run through the included Node/axios endpoint so the browser is not blocked by CORS.
+async function fetchInstagram(url) {
+  try {
+    const res = await fetch('/api/instagram/download?url=' + encodeURIComponent(url));
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Instagram request gagal');
+    return json;
+  } catch (e) {
+    console.error('Instagram error:', e.message);
+    showToast('Instagram gagal diakses. Jalankan aplikasi dengan npm start dan gunakan post publik.', 'error');
+    return null;
   }
 }
 
@@ -1085,17 +1124,21 @@ const loadingSteps = [
   {title:'Memproses Data', status:'Processing metadata...'},
   {title:'Menyiapkan Download', status:'Preparing download links...'},
 ];
-let loadingInterval, loadingStep = 0;
+let loadingInterval, loadingStep = 0, loadingPlatform = 'tiktok';
 
-function showLoading() {
+function showLoading(platform = 'tiktok') {
+  loadingPlatform = platform;
   document.getElementById('loadingScreen').classList.add('visible');
+  document.getElementById('loadingTitle').textContent = platform === 'instagram' ? 'Menghubungi Instagram' : 'Menganalisis Link';
+  document.getElementById('loadingStatus').textContent = platform === 'instagram' ? 'Mengambil media post publik...' : 'Analyzing link...';
   loadingStep = 0;
   document.getElementById('progressFill').style.width = '5%';
   loadingInterval = setInterval(() => {
     loadingStep = Math.min(loadingStep + 1, loadingSteps.length - 1);
     const s = loadingSteps[loadingStep];
-    document.getElementById('loadingTitle').textContent = s.title;
-    document.getElementById('loadingStatus').textContent = s.status;
+    const instagramStep = [{title:'Memeriksa Link Instagram',status:'Validating public post...'},{title:'Menghubungi Instagram',status:'Mengambil media post...'},{title:'Memproses Media',status:'Menyiapkan foto atau video...'},{title:'Menyiapkan Download',status:'Download link siap...'}][loadingStep];
+    document.getElementById('loadingTitle').textContent = loadingPlatform === 'instagram' ? instagramStep.title : s.title;
+    document.getElementById('loadingStatus').textContent = loadingPlatform === 'instagram' ? instagramStep.status : s.status;
     document.getElementById('progressFill').style.width = ((loadingStep + 1) / loadingSteps.length * 80) + '%';
   }, 900);
 }
@@ -1139,6 +1182,7 @@ function renderResult(d, url) {
       <div class="result-overlay"></div>
       ${d.duration ? `<div class="result-duration">${formatDur(d.duration)}</div>` : ''}
       ${isImg ? `<div style="position:absolute;top:10px;left:10px;background:rgba(34,211,238,.15);border:1px solid rgba(34,211,238,.4);color:var(--neon);padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.04em">${d.images.length} FOTO</div>` : ''}
+      ${d.platform === 'instagram' ? `<div style="position:absolute;top:10px;right:10px;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.4);color:#f9a8d4;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.04em">INSTAGRAM</div>` : ''}
     </div>
     <div class="result-body">
       <div class="result-user">
@@ -1188,31 +1232,111 @@ function renderVideoDownloads(d) {
 }
 
 function renderSlideSection(d) {
+  const hasMusic = Boolean(d.music_url || d.mp3);
   return `
   <div style="margin-bottom:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <div style="font-size:.84rem;font-weight:700;font-family:var(--font-display)">${d.images.length} Foto Slide</div>
       <div style="display:flex;gap:6px">
         <button class="btn btn-ghost btn-sm" onclick="openSlideModal()">Lihat Semua</button>
-        <button class="btn btn-neon btn-sm" onclick="downloadAllSlides()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Semua
-        </button>
+        <button class="btn btn-neon btn-sm" onclick="downloadAllSlides()">Semua</button>
       </div>
     </div>
     <div class="slide-gallery">${d.images.slice(0,6).map((img,i) => `
       <div class="slide-item" onclick="downloadSingleSlide('${escHtml(img)}',${i+1})">
         <img src="${escHtml(img)}" alt="Slide ${i+1}" loading="lazy">
         <div class="slide-num">${i+1}</div>
-        <div class="slide-dl">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
+        <div class="slide-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h2"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
       </div>`).join('')}
       ${d.images.length > 6 ? `<div class="slide-item" style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:var(--text2);cursor:pointer;font-family:var(--font-display)" onclick="openSlideModal()">+${d.images.length-6}</div>` : ''}
     </div>
   </div>
-  ${d.mp3 ? `<button class="btn btn-ghost" style="width:100%;margin-bottom:7px" onclick="triggerDownload('${escHtml(d.mp3)}','audio','mp3')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>MP3 Audio</button>` : ''}
-  ${d.cover_hd ? `<button class="btn btn-ghost" style="width:100%" onclick="triggerDownload('${escHtml(d.cover_hd)}','cover','cover')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Cover</button>` : ''}`;
+  <div class="slide-music-picker ${hasMusic ? '' : 'music-rendering'}">
+    <div class="slide-music-header"><span style="font-size:1.1rem">♫</span> Foto jadi Video + Musik</div>
+    <div class="slide-music-help">Pilih foto yang ingin dipakai. ${hasMusic ? 'Video WebM akan dibuat di perangkatmu dengan audio asli TikTok.' : 'Audio asli tidak tersedia untuk post ini, jadi fitur ini belum dapat digunakan.'}</div>
+    <div class="slide-select-grid">${d.images.map((_, i) => `<label class="slide-choice" title="Pilih foto ${i+1}"><input type="checkbox" class="music-slide-choice" value="${i}" ${i === 0 ? 'checked' : ''}><span>${i+1}</span></label>`).join('')}</div>
+    <button class="btn btn-primary btn-sm" onclick="createMusicPhotoVideo()" ${hasMusic ? '' : 'disabled'}>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/><path d="M19 5v14"/></svg>
+      Buat Video Pilihan + Musik
+    </button>
+  </div>
+  ${d.mp3 ? `<button class="btn btn-ghost" style="width:100%;margin-bottom:7px" onclick="triggerDownload('${escHtml(d.mp3)}','audio','mp3')">♫ Download MP3 Audio</button>` : ''}
+  ${d.cover_hd ? `<button class="btn btn-ghost" style="width:100%" onclick="triggerDownload('${escHtml(d.cover_hd)}','cover','cover')">▣ Download Cover</button>` : ''}`;
+}
+
+async function loadCanvasImage(url) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error('Foto tidak mendukung proses video'));
+    image.src = url;
+  });
+}
+
+async function createMusicPhotoVideo() {
+  const chosen = [...document.querySelectorAll('.music-slide-choice:checked')].map(input => Number(input.value));
+  const audioUrl = currentData?.music_url || currentData?.mp3;
+  if (!chosen.length) { showToast('Pilih minimal satu foto.', 'error'); return; }
+  if (!audioUrl) { showToast('Audio asli tidak tersedia untuk post ini.', 'error'); return; }
+  if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
+    showToast('Browser ini belum mendukung pembuatan video. Coba Chrome atau Edge terbaru.', 'error'); return;
+  }
+
+  const button = [...document.querySelectorAll('.slide-music-picker .btn')].find(btn => btn.textContent.includes('Buat Video'));
+  button?.classList.add('music-rendering');
+  showToast('Menyiapkan video foto + musik...', 'info');
+  try {
+    const photos = await Promise.all(chosen.map(index => loadCanvasImage(currentData.images[index])));
+    const canvas = document.createElement('canvas');
+    canvas.width = 720; canvas.height = 1280;
+    const ctx = canvas.getContext('2d');
+    const audio = new Audio();
+    audio.crossOrigin = 'anonymous';
+    audio.src = audioUrl;
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioContext.createMediaElementSource(audio);
+    const destination = audioContext.createMediaStreamDestination();
+    source.connect(destination); source.connect(audioContext.destination);
+    const stream = new MediaStream([...canvas.captureStream(30).getVideoTracks(), ...destination.stream.getAudioTracks()]);
+    const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' : 'video/webm';
+    const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 4_000_000 });
+    const chunks = [];
+    recorder.ondataavailable = event => event.data.size && chunks.push(event.data);
+    const complete = new Promise(resolve => recorder.onstop = resolve);
+    recorder.start(250);
+    await audioContext.resume();
+    await audio.play();
+    const perPhoto = photos.length === 1 ? 6000 : 3500;
+    for (const photo of photos) {
+      const started = performance.now();
+      await new Promise(resolve => {
+        const draw = now => {
+          const progress = Math.min((now - started) / perPhoto, 1);
+          const scale = 1 + progress * 0.06;
+          const ratio = Math.max(canvas.width / photo.width, canvas.height / photo.height) * scale;
+          const w = photo.width * ratio, h = photo.height * ratio;
+          ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(photo, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+          if (progress < 1) requestAnimationFrame(draw); else resolve();
+        };
+        requestAnimationFrame(draw);
+      });
+    }
+    audio.pause(); recorder.stop(); await complete;
+    const blobUrl = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' }));
+    const link = document.createElement('a');
+    link.href = blobUrl; link.download = `tiksaver_foto_dengan_musik_${Date.now()}.webm`;
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    showToast('Video + musik berhasil dibuat! 🎉', 'success');
+    audioContext.close();
+  } catch (error) {
+    console.error('Music photo video error:', error);
+    showToast('Tidak dapat membuat video. Foto atau audio mungkin dibatasi CORS.', 'error');
+  } finally {
+    button?.classList.remove('music-rendering');
+  }
 }
 
 // ========== DOWNLOAD ENGINE ==========
@@ -1573,7 +1697,7 @@ document.getElementById('urlInput').addEventListener('keydown', e => {
 document.getElementById('urlInput').addEventListener('paste', () => {
   setTimeout(() => {
     const v = document.getElementById('urlInput').value;
-    if (v && sanitizeURL(v)) showToast('Link TikTok terdeteksi!', 'success');
+    if (v && sanitizeURL(v)) showToast('Link TikTok atau Instagram terdeteksi!', 'success');
   }, 100);
 });
 
@@ -1618,7 +1742,7 @@ setTimeout(async () => {
     const t = await navigator.clipboard.readText();
     if (t && sanitizeURL(t) && !document.getElementById('urlInput').value) {
       document.getElementById('urlInput').value = t.trim();
-      showToast('Link TikTok dari clipboard terdeteksi!', 'info');
+      showToast('Link dari clipboard terdeteksi!', 'info');
     }
   } catch {}
 }, 1200);
