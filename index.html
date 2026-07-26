@@ -143,7 +143,7 @@ main{padding-top:62px;padding-bottom:100px}
 .result-avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:var(--bg3);flex-shrink:0;border:2px solid rgba(108,49,240,.5)}
 .result-username{font-family:var(--font-display);font-weight:700;font-size:.92rem}
 .result-nickname{font-size:.75rem;color:var(--text2)}
-.result-caption{font-size:.84rem;color:var(--text2);line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.caption-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:14px}.caption-row .result-caption{margin-bottom:0;flex:1}.result-caption{font-size:.84rem;color:var(--text2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.copy-caption-btn{flex-shrink:0;color:var(--accent3)}
 .result-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:7px;margin-bottom:14px}
 .meta-item{background:var(--bg3);border-radius:var(--radius3);padding:8px 10px;display:flex;align-items:center;gap:6px;border:1px solid var(--border)}
 .meta-icon{color:var(--accent3);flex-shrink:0}
@@ -1197,7 +1197,7 @@ function renderResult(d, url) {
           </button>
         </div>
       </div>
-      ${d.title ? `<div class="result-caption">${escHtml(d.title)}</div>` : ''}
+      ${d.title ? `<div class="caption-row"><div class="result-caption" title="${escHtml(d.title)}">${escHtml(d.title)}</div><button class="btn btn-ghost btn-icon btn-sm copy-caption-btn" onclick="copyCaption()" title="Salin caption" aria-label="Salin caption"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>` : ''}
       <div class="result-meta">
         <div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><div><div class="meta-val">${formatNum(d.views)}</div><div class="meta-key">Views</div></div></div>
         <div class="meta-item"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><div><div class="meta-val">${formatNum(d.likes)}</div><div class="meta-key">Likes</div></div></div>
@@ -1491,8 +1491,23 @@ function clearInput() {
   document.getElementById('resultArea').innerHTML = '';
   currentData = null;
 }
+async function copyText(text) {
+  if (!text) throw new Error('Teks kosong');
+  if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
+  const textarea = document.createElement('textarea');
+  textarea.value = text; textarea.style.position = 'fixed'; textarea.style.opacity = '0';
+  document.body.appendChild(textarea); textarea.select();
+  const copied = document.execCommand('copy');
+  textarea.remove();
+  if (!copied) throw new Error('Copy gagal');
+}
 function copyLink(url) {
-  navigator.clipboard.writeText(url).then(() => showToast('Link disalin!', 'success')).catch(() => showToast('Gagal menyalin', 'error'));
+  copyText(url).then(() => showToast('Link disalin!', 'success')).catch(() => showToast('Gagal menyalin', 'error'));
+}
+function copyCaption() {
+  const caption = currentData?.title?.trim();
+  if (!caption) { showToast('Caption tidak tersedia.', 'error'); return; }
+  copyText(caption).then(() => showToast('Caption berhasil disalin! ✨', 'success')).catch(() => showToast('Gagal menyalin caption.', 'error'));
 }
 function copyPaymentInfo() {
   const text = `${CONFIG.owner.payment.method}: ${CONFIG.owner.payment.number}\nA/N: ${CONFIG.owner.payment.name}`;
