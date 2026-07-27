@@ -856,7 +856,7 @@ const CONFIG = {
   },
   apis: [
     { name:'TikWM API', url:'https://tikwm.com/api/', status:'checking', ping:null, platform:'tiktok' },
-    { name:'Instagram Embed', url:'/api/instagram/download', status:'checking', ping:null, platform:'instagram' },
+    { name:'Instagram Embed', url:'https://www.instagram.com/', status:'checking', ping:null, platform:'instagram' },
   ],
   cooldown: 3000,
   maxHistory: 50,
@@ -868,7 +868,7 @@ const FAQS = [
   {q:'Platform dan format apa saja yang didukung?', a:'TikTok dan Instagram publik didukung. Kamu dapat mengunduh video, Reel, foto, carousel, audio TikTok, dan cover yang tersedia.'},
   {q:'Apakah perlu login atau daftar akun?', a:'Tidak perlu. Cukup paste link TikTok atau Instagram publik dan langsung download tanpa daftar akun.'},
   {q:'Kenapa download gagal?', a:'Kemungkinan link TikTok invalid, konten sudah dihapus, atau akun privat. Pastikan link benar dan konten masih tersedia.'},
-  {q:'Apakah foto slide TikTok bisa memakai musik?', a:'Bisa. Pilih satu atau beberapa foto pada panel Video + Musik. Kami akan membuat video WebM dari foto pilihan dengan audio asli TikTok bila audio tersedia.'},
+  {q:'Apakah foto slide TikTok bisa memakai musik?', a:'Bisa. Pilih foto pada panel Video + Musik, lalu hasilnya diunduh sebagai MP4 (H.264 + AAC). Musiknya tidak diputar ke speaker saat proses render.'},
   {q:'Berapa batas download per hari?', a:'Tidak ada batas! Download sepuasnya tanpa batasan jumlah.'},
 ];
 
@@ -1013,7 +1013,7 @@ function navigate(page) {
 function getPlatform(url) {
   try {
     const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
-    if (host === 'instagram.com' && /^\/(p|reel|tv)\/[A-Za-z0-9_-]+/.test(new URL(url).pathname)) return 'instagram';
+    if ((host === 'instagram.com' || host === 'instagr.am') && /^\/(?:[A-Za-z0-9_.]+\/)?(p|reel|reels|tv)\/[A-Za-z0-9_-]+/.test(new URL(url).pathname)) return 'instagram';
     if (/(^|\.)tiktok\.com$/.test(host)) return 'tiktok';
   } catch {}
   return null;
@@ -1058,23 +1058,157 @@ async function startFetch() {
   }
 }
 
-// Instagram requests run through the included Node/axios endpoint so the browser is not blocked by CORS.
-async function fetchInstagram(url) {
+// ========== STANDALONE MODE ==========
+// index.html ini bisa dibuka langsung tanpa Node. Bila kebetulan dijalankan lewat
+// server.js, endpoint lokal otomatis dipakai karena lebih cepat & stabil.
+let SERVER_MODE = null;
+const probeServer = (async () => {
   try {
-    const res = await fetch('/api/instagram/download?url=' + encodeURIComponent(url));
-    const json = await res.json();
-    if (!res.ok) throw new Error(json.error || 'Instagram request gagal');
-    return json;
-  } catch (e) {
-    console.error('Instagram error:', e.message);
-    showToast('Instagram gagal diakses. Jalankan aplikasi dengan npm start dan gunakan post publik.', 'error');
-    return null;
+    const res = await fetch('/api/slideshow/support', { cache: 'no-store' });
+    SERVER_MODE = res.ok ? await res.json() : { ffmpeg: false };
+  } catch { SERVER_MODE = { ffmpeg: false, standalone: true }; }
+  return SERVER_MODE;
+})();
+
+// Proxy CORS publik (dipakai saat tanpa server lokal)
+const CORS_PROXIES = [
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
+  u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
+];
+
+async function fetchViaProxy(url, asText = true) {
+  const attempts = [];
+  if (SERVER_MODE && !SERVER_MODE.standalone) attempts.push('/api/proxy?url=' + encodeURIComponent(url));
+  CORS_PROXIES.forEach(build => attempts.push(build(url)));
+  let lastError = null;
+  for (const target of attempts) {
+    try {
+      const res = await fetch(target, { headers: asText ? {} : undefined });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return asText ? await res.text() : res;
+    } catch (e) { lastError = e; }
   }
+  throw lastError || new Error('Semua proxy gagal');
+}
+
+function igShortcode(url) {
+  const m = new URL(url).pathname.match(/^\/(?:[A-Za-z0-9_.]+\/)?(?:p|reel|reels|tv)\/([A-Za-z0-9_-]+)/);
+  return m ? m[1] : null;
+}
+
+function normalizeIG(media, shortcode) {
+  if (!media) return null;
+  const carousel = media.edge_sidecar_to_children?.edges?.map(e => e.node) || media.carousel_media || [];
+  const nodes = carousel.length ? carousel : [media];
+  const getImg = it => (it && (it.display_url || it.image_versions2?.candidates?.[0]?.url || it.thumbnail_src)) || '';
+  const getVid = it => (it && (it.video_url || it.video_versions?.[0]?.url)) || '';
+  const images = nodes.filter(n => !getVid(n)).map(getImg).filter(Boolean);
+  const videos = nodes.map(getVid).filter(Boolean);
+  const video = videos[0] || '';
+  const owner = media.owner || media.user || {};
+  if (!images.length && !video) return null;
+  return {
+    platform: 'instagram',
+    id: media.id || media.pk || shortcode || '',
+    title: media.edge_media_to_caption?.edges?.[0]?.node?.text || media.caption?.text || '',
+    cover: getImg(media) || getImg(nodes[0]) || '',
+    cover_hd: getImg(media) || getImg(nodes[0]) || '',
+    avatar: owner.profile_pic_url || '',
+    username: owner.username || '',
+    nickname: owner.full_name || owner.username || '',
+    is_image: images.length > 0 && videos.length === 0,
+    images, videos,
+    video_hd: video, video_sd: video, video_nowm: video, video_wm: '',
+    mp3: '', music: '', music_author: '', music_url: '',
+    duration: Math.round(media.video_duration || 0),
+    views: media.video_view_count || media.play_count || 0,
+    likes: media.edge_media_preview_like?.count || media.like_count || 0,
+    comments: media.edge_media_to_parent_comment?.count || media.comment_count || 0,
+    shares: 0,
+    create_time: media.taken_at_timestamp || media.taken_at || 0,
+  };
+}
+
+function parseIGEmbedHtml(html, shortcode) {
+  const dec = v => v.replace(/\\u0026/g, '&').replace(/&amp;/g, '&').replace(/\\\//g, '/').replace(/\\"/g, '"');
+  const gql = html.match(/"gql_data"\s*:\s*({[\s\S]+?})\s*,\s*"[a-z_]+"\s*:/);
+  if (gql) {
+    try {
+      const parsed = JSON.parse(dec(gql[1]));
+      const data = normalizeIG(parsed.shortcode_media || parsed, shortcode);
+      if (data) return data;
+    } catch {}
+  }
+  const video = (html.match(/"video_url"\s*:\s*"([^"]+)"/) || [])[1];
+  const displays = [...html.matchAll(/"display_url"\s*:\s*"([^"]+)"/g)].map(m => dec(m[1]));
+  const shots = [...html.matchAll(/class="EmbeddedMediaImage"[^>]+src="([^"]+)"/g)].map(m => dec(m[1]));
+  const images = [...new Set([...displays, ...shots])];
+  const user = (html.match(/"username"\s*:\s*"([^"]+)"/) || [])[1] || '';
+  const cap = html.match(/<div class="Caption"[\s\S]*?<\/div>/);
+  if (!images.length && !video) return null;
+  return {
+    platform: 'instagram', id: shortcode,
+    title: cap ? cap[0].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300) : '',
+    cover: images[0] || '', cover_hd: images[0] || '',
+    avatar: '', username: user, nickname: user,
+    is_image: !video && images.length > 0,
+    images, videos: video ? [dec(video)] : [],
+    video_hd: video ? dec(video) : '', video_sd: video ? dec(video) : '',
+    video_nowm: video ? dec(video) : '', video_wm: '',
+    mp3: '', music: '', music_author: '', music_url: '',
+    duration: 0, views: 0, likes: 0, comments: 0, shares: 0, create_time: 0,
+  };
+}
+
+async function fetchInstagram(url) {
+  await probeServer;
+  const shortcode = igShortcode(url);
+  if (!shortcode) { showToast('Link Instagram tidak valid.', 'error'); return null; }
+  const errors = [];
+
+  // 0) Endpoint lokal bila server.js dijalankan
+  if (SERVER_MODE && !SERVER_MODE.standalone) {
+    try {
+      const res = await fetch('/api/instagram/download?url=' + encodeURIComponent(url));
+      const json = await res.json();
+      if (res.ok && (json.images?.length || json.video_hd)) return json;
+      errors.push('server: ' + (json.error || res.status));
+    } catch (e) { errors.push('server: ' + e.message); }
+  }
+
+  const strategies = [
+    ['embed', async () => parseIGEmbedHtml(
+      await fetchViaProxy(`https://www.instagram.com/p/${shortcode}/embed/captioned/`), shortcode)],
+    ['media-info', async () => normalizeIG(
+      JSON.parse(await fetchViaProxy(`https://www.instagram.com/api/v1/media/shortcode/${shortcode}/info/`))?.items?.[0], shortcode)],
+    ['legacy', async () => {
+      const payload = JSON.parse(await fetchViaProxy(`https://www.instagram.com/p/${shortcode}/?__a=1&__d=dis`));
+      return normalizeIG(payload?.graphql?.shortcode_media || payload?.items?.[0], shortcode);
+    }],
+    ['page-html', async () => {
+      const html = await fetchViaProxy(`https://www.instagram.com/p/${shortcode}/`);
+      return parseIGEmbedHtml(html, shortcode);
+    }],
+  ];
+
+  for (const [name, run] of strategies) {
+    try {
+      const data = await run();
+      if (data && (data.images?.length || data.video_hd)) return data;
+      errors.push(name + ': kosong');
+    } catch (e) { errors.push(name + ': ' + e.message); }
+  }
+
+  console.error('Instagram gagal ->', errors.join(' | '));
+  showToast('Instagram gagal diakses. Pastikan post publik, lalu coba lagi.', 'error');
+  return null;
 }
 
 // ========== TIKWM API - FIXED ==========
 async function fetchTikWM(url) {
   // API endpoint yang benar: https://tikwm.com/api/?url=
+  await probeServer;
   const apiUrl = 'https://tikwm.com/api/?url=' + encodeURIComponent(url);
   try {
     const res = await fetch(apiUrl);
@@ -1082,8 +1216,14 @@ async function fetchTikWM(url) {
     const json = await res.json();
     if (json.code === 0 && json.data) return normalizeTikWM(json.data);
     throw new Error(json.msg || 'API error code: ' + json.code);
-  } catch(e) {
-    console.error('TikWM error:', e.message);
+  } catch (e) {
+    console.warn('TikWM langsung gagal, mencoba proxy:', e.message);
+    try {
+      const json = JSON.parse(await fetchViaProxy(apiUrl));
+      if (json.code === 0 && json.data) return normalizeTikWM(json.data);
+    } catch (proxyError) {
+      console.error('TikWM proxy error:', proxyError.message);
+    }
     return null;
   }
 }
@@ -1112,7 +1252,7 @@ function normalizeTikWM(d) {
     video_wm: d.wmplay || '',
     mp3: d.music_info?.play || '',
     cover_hd: d.origin_cover || d.cover || '',
-    images: d.images || null,
+    images: Array.isArray(d.images) ? d.images.map(i => (typeof i === 'string' ? i : i.url || i.display_image || '')).filter(Boolean) : null,
     is_image: !!(d.images && d.images.length),
   };
 }
@@ -1251,11 +1391,11 @@ function renderSlideSection(d) {
       ${d.images.length > 6 ? `<div class="slide-item" style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:var(--text2);cursor:pointer;font-family:var(--font-display)" onclick="openSlideModal()">+${d.images.length-6}</div>` : ''}
     </div>
   </div>
-  <div class="slide-music-picker ${hasMusic ? '' : 'music-rendering'}">
+  <div class="slide-music-picker">
     <div class="slide-music-header"><span style="font-size:1.1rem">♫</span> Foto jadi Video + Musik</div>
-    <div class="slide-music-help">Pilih foto yang ingin dipakai. ${hasMusic ? 'Video WebM akan dibuat di perangkatmu dengan audio asli TikTok.' : 'Audio asli tidak tersedia untuk post ini, jadi fitur ini belum dapat digunakan.'}</div>
+    <div class="slide-music-help">Pilih foto yang ingin dipakai. ${hasMusic ? 'Video MP4 akan dibuat dengan audio asli TikTok — musik tidak ikut diputar saat proses.' : 'Audio asli tidak tersedia untuk post ini, video MP4 akan dibuat tanpa musik.'}</div>
     <div class="slide-select-grid">${d.images.map((_, i) => `<label class="slide-choice" title="Pilih foto ${i+1}"><input type="checkbox" class="music-slide-choice" value="${i}" ${i === 0 ? 'checked' : ''}><span>${i+1}</span></label>`).join('')}</div>
-    <button class="btn btn-primary btn-sm" onclick="createMusicPhotoVideo()" ${hasMusic ? '' : 'disabled'}>
+    <button class="btn btn-primary btn-sm" onclick="createMusicPhotoVideo()" >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/><path d="M19 5v14"/></svg>
       Buat Video Pilihan + Musik
     </button>
@@ -1264,89 +1404,183 @@ function renderSlideSection(d) {
   ${d.cover_hd ? `<button class="btn btn-ghost" style="width:100%" onclick="triggerDownload('${escHtml(d.cover_hd)}','cover','cover')">▣ Download Cover</button>` : ''}`;
 }
 
+// ========== MEDIA PROXY HELPER (bypass CORS TikTok/Instagram) ==========
+function proxyURL(url, downloadName) {
+  if (!url || url.startsWith('blob:') || url.startsWith('/')) return url;
+  if (SERVER_MODE && !SERVER_MODE.standalone) {
+    let out = '/api/proxy?url=' + encodeURIComponent(url);
+    if (downloadName) out += '&download=' + encodeURIComponent(downloadName);
+    return out;
+  }
+  return CORS_PROXIES[0](url);
+}
+
+async function getSlideshowSupport() {
+  return (await probeServer) || { ffmpeg: false, standalone: true };
+}
+
 async function loadCanvasImage(url) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.crossOrigin = 'anonymous';
     image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error('Foto tidak mendukung proses video'));
-    image.src = url;
+    image.onerror = () => {
+      // fallback lewat proxy server bila CDN menolak permintaan langsung
+      const retry = new Image();
+      retry.crossOrigin = 'anonymous';
+      retry.onload = () => resolve(retry);
+      retry.onerror = () => reject(new Error('Foto tidak mendukung proses video'));
+      retry.src = proxyURL(url);
+    };
+    image.src = proxyURL(url);
   });
+}
+
+function pickVideoMime() {
+  if (!window.MediaRecorder) return null;
+  const candidates = [
+    'video/mp4;codecs=avc1.640028,mp4a.40.2',
+    'video/mp4;codecs=h264,aac',
+    'video/mp4;codecs=avc1',
+    'video/mp4',
+  ];
+  return candidates.find(type => MediaRecorder.isTypeSupported(type)) || null;
+}
+
+function saveBlob(blob, filename) {
+  const blobUrl = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = blobUrl; link.download = filename;
+  document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
 }
 
 async function createMusicPhotoVideo() {
   const chosen = [...document.querySelectorAll('.music-slide-choice:checked')].map(input => Number(input.value));
-  const audioUrl = currentData?.music_url || currentData?.mp3;
+  const audioUrl = currentData?.music_url || currentData?.mp3 || '';
   if (!chosen.length) { showToast('Pilih minimal satu foto.', 'error'); return; }
-  if (!audioUrl) { showToast('Audio asli tidak tersedia untuk post ini.', 'error'); return; }
-  if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
-    showToast('Browser ini belum mendukung pembuatan video. Coba Chrome atau Edge terbaru.', 'error'); return;
-  }
 
   const button = [...document.querySelectorAll('.slide-music-picker .btn')].find(btn => btn.textContent.includes('Buat Video'));
+  const picker = document.querySelector('.slide-music-picker');
   button?.classList.add('music-rendering');
-  showToast('Menyiapkan video foto + musik...', 'info');
+  picker?.classList.add('music-rendering');
+  showToast('Menyiapkan video MP4 foto + musik...', 'info');
+
+  const images = chosen.map(index => currentData.images[index]);
+  const perPhoto = images.length === 1 ? 6 : 3.5;
+
   try {
-    const photos = await Promise.all(chosen.map(index => loadCanvasImage(currentData.images[index])));
-    const canvas = document.createElement('canvas');
-    canvas.width = 720; canvas.height = 1280;
-    const ctx = canvas.getContext('2d');
-    const audio = new Audio();
-    audio.crossOrigin = 'anonymous';
-    audio.src = audioUrl;
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioContext.createMediaElementSource(audio);
-    const destination = audioContext.createMediaStreamDestination();
-    source.connect(destination); source.connect(audioContext.destination);
-    const stream = new MediaStream([...canvas.captureStream(30).getVideoTracks(), ...destination.stream.getAudioTracks()]);
-    const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' : 'video/webm';
-    const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 4_000_000 });
-    const chunks = [];
-    recorder.ondataavailable = event => event.data.size && chunks.push(event.data);
-    const complete = new Promise(resolve => recorder.onstop = resolve);
-    recorder.start(250);
-    await audioContext.resume();
-    await audio.play();
-    const perPhoto = photos.length === 1 ? 6000 : 3500;
-    for (const photo of photos) {
-      const started = performance.now();
-      await new Promise(resolve => {
-        const draw = now => {
-          const progress = Math.min((now - started) / perPhoto, 1);
-          const scale = 1 + progress * 0.06;
-          const ratio = Math.max(canvas.width / photo.width, canvas.height / photo.height) * scale;
-          const w = photo.width * ratio, h = photo.height * ratio;
-          ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(photo, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
-          if (progress < 1) requestAnimationFrame(draw); else resolve();
-        };
-        requestAnimationFrame(draw);
+    // 1) Render di server dengan FFmpeg -> MP4 asli (H.264 + AAC). Tidak ada musik yang ikut bunyi.
+    const support = await getSlideshowSupport();
+    if (support.ffmpeg) {
+      const res = await fetch('/api/slideshow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ images, audio: audioUrl, perPhoto }),
       });
+      if (res.ok) {
+        const blob = await res.blob();
+        saveBlob(blob, `tiksaver_foto_musik_${Date.now()}.mp4`);
+        showToast('Video MP4 + musik berhasil dibuat! 🎉', 'success');
+        return;
+      }
     }
-    audio.pause(); recorder.stop(); await complete;
-    const blobUrl = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' }));
-    const link = document.createElement('a');
-    link.href = blobUrl; link.download = `tiksaver_foto_dengan_musik_${Date.now()}.webm`;
-    document.body.appendChild(link); link.click(); link.remove();
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-    showToast('Video + musik berhasil dibuat! 🎉', 'success');
-    audioContext.close();
+    // 2) Fallback: render di browser (tetap MP4 bila browser mendukung).
+    await renderPhotoVideoInBrowser(images, audioUrl, perPhoto * 1000);
   } catch (error) {
     console.error('Music photo video error:', error);
-    showToast('Tidak dapat membuat video. Foto atau audio mungkin dibatasi CORS.', 'error');
+    showToast('Tidak dapat membuat video. Coba lagi atau jalankan server dengan FFmpeg.', 'error');
   } finally {
     button?.classList.remove('music-rendering');
+    picker?.classList.remove('music-rendering');
   }
+}
+
+async function renderPhotoVideoInBrowser(images, audioUrl, perPhotoMs) {
+  if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
+    showToast('Browser ini belum mendukung pembuatan video. Coba Chrome atau Edge terbaru.', 'error');
+    return;
+  }
+  const mimeType = pickVideoMime();
+  if (!mimeType) {
+    showToast('Browser ini tidak bisa merekam MP4. Jalankan server dengan FFmpeg agar hasilnya MP4.', 'error');
+    return;
+  }
+
+  const photos = [];
+  for (const img of images) photos.push(await loadCanvasImage(img));
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 720; canvas.height = 1280;
+  const ctx = canvas.getContext('2d');
+
+  const tracks = [...canvas.captureStream(30).getVideoTracks()];
+  let audio = null, audioContext = null;
+
+  if (audioUrl) {
+    try {
+      audio = new Audio();
+      audio.crossOrigin = 'anonymous';
+      audio.src = proxyURL(audioUrl);
+      audio.muted = true;          // JANGAN bunyi ke speaker
+      audio.volume = 0;
+      await audio.play().catch(() => {});
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const source = audioContext.createMediaElementSource(audio);
+      const destination = audioContext.createMediaStreamDestination();
+      source.connect(destination);  // hanya ke rekaman, TIDAK ke audioContext.destination
+      await audioContext.resume();
+      audio.muted = false;          // MediaElementSource sudah dialihkan, speaker tetap senyap
+      audio.currentTime = 0;
+      await audio.play();
+      tracks.push(...destination.stream.getAudioTracks());
+    } catch (e) {
+      console.warn('Audio tidak dapat dipakai:', e.message);
+      if (audio) { audio.pause(); audio = null; }
+      showToast('Audio tidak bisa diambil, video dibuat tanpa musik.', 'info');
+    }
+  }
+
+  const recorder = new MediaRecorder(new MediaStream(tracks), { mimeType, videoBitsPerSecond: 4_000_000 });
+  const chunks = [];
+  recorder.ondataavailable = event => event.data.size && chunks.push(event.data);
+  const complete = new Promise(resolve => { recorder.onstop = resolve; });
+  recorder.start(250);
+
+  for (const photo of photos) {
+    const started = performance.now();
+    await new Promise(resolve => {
+      const draw = now => {
+        const progress = Math.min((now - started) / perPhotoMs, 1);
+        const scale = 1 + progress * 0.06;
+        const ratio = Math.max(canvas.width / photo.width, canvas.height / photo.height) * scale;
+        const w = photo.width * ratio, h = photo.height * ratio;
+        ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(photo, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+        if (progress < 1) requestAnimationFrame(draw); else resolve();
+      };
+      requestAnimationFrame(draw);
+    });
+  }
+
+  if (audio) { audio.pause(); audio.src = ''; }
+  recorder.stop();
+  await complete;
+  if (audioContext) audioContext.close();
+
+  saveBlob(new Blob(chunks, { type: 'video/mp4' }), `tiksaver_foto_musik_${Date.now()}.mp4`);
+  showToast('Video MP4 + musik berhasil dibuat! 🎉', 'success');
 }
 
 // ========== DOWNLOAD ENGINE ==========
 async function triggerDownload(url, name, type) {
   if (!url) { showToast('Link download tidak tersedia.', 'error'); return; }
   showToast(`Memulai download ${name}...`, 'info');
+  const ext = type === 'mp3' ? 'mp3' : (type === 'cover' || type === 'image') ? 'jpg' : 'mp4';
+  const filename = `tksaver_${name.replace(/[^a-z0-9]/gi,'_').toLowerCase()}_${Date.now()}.${ext}`;
   try {
-    const ext = type === 'mp3' ? 'mp3' : type === 'cover' ? 'jpg' : 'mp4';
-    const filename = `tksaver_${name.replace(/[^a-z0-9]/gi,'_').toLowerCase()}_${Date.now()}.${ext}`;
-    const response = await fetch(url);
+    let response = await fetch(url).catch(() => null);
+    if (!response || !response.ok) response = await fetch(proxyURL(url, filename));
     if (!response.ok) throw new Error('Fetch error');
     const blob = await response.blob();
     const blobUrl = URL.createObjectURL(blob);
@@ -1357,26 +1591,22 @@ async function triggerDownload(url, name, type) {
     showToast(`Download ${name} berhasil! 🎉`, 'success');
   } catch {
     const a = document.createElement('a');
-    a.href = url; a.download = name; a.target = '_blank'; a.rel = 'noopener';
+    a.href = proxyURL(url, filename); a.download = filename; a.target = '_blank'; a.rel = 'noopener';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     showToast('Dibuka di tab baru. Simpan manual jika perlu.', 'info');
   }
 }
 
 async function downloadSingleSlide(url, num) {
-  await triggerDownload(url, `slide_${num}`, 'cover');
+  await triggerDownload(url, `slide_${num}`, 'image');
 }
 
 async function downloadAllSlides() {
   if (!currentData?.images) return;
   showToast(`Mengunduh ${currentData.images.length} foto...`, 'info');
   for (let i = 0; i < currentData.images.length; i++) {
-    await new Promise(r => setTimeout(r, 700));
-    const a = document.createElement('a');
-    a.href = currentData.images[i];
-    a.download = `tksaver_slide_${i+1}_${Date.now()}.jpg`;
-    a.target = '_blank';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    await downloadSingleSlide(currentData.images[i], i + 1);
+    await new Promise(r => setTimeout(r, 500));
   }
   showToast('Semua foto berhasil diunduh!', 'success');
 }

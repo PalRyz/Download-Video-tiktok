@@ -1,6 +1,15 @@
 # TikSaver Pro — TikTok & Instagram Downloader
 
-Downloader sederhana untuk media TikTok dan post publik Instagram. Selain video, foto, dan carousel, foto slide TikTok dapat dipilih untuk dibuat menjadi video WebM dengan musik asli bila audio tersedia.
+Downloader sederhana untuk media TikTok dan post publik Instagram. Selain video, foto, dan carousel, foto slide TikTok dapat dipilih untuk dibuat menjadi **video MP4 (H.264 + AAC)** dengan musik asli bila audio tersedia.
+
+## Cara pakai
+
+**Mode 1 — buka langsung (standalone).** Cukup double-click `index.html` atau hosting file statis apa pun.
+Seluruh logika TikTok + Instagram + pembuat video MP4 sudah digabung ke dalam `index.html`; saat tidak ada
+server lokal, aplikasi otomatis memakai CORS proxy publik dan merender MP4 di browser.
+
+**Mode 2 — dengan server Node (opsional, lebih stabil).** `server.js` menambah proxy media milik sendiri
+dan render MP4 pakai FFmpeg. `index.html` mendeteksi server ini otomatis dan memakainya bila ada.
 
 ## Menjalankan aplikasi
 
@@ -9,11 +18,20 @@ npm install
 npm start
 ```
 
-Buka `http://localhost:3000`. Server Node diperlukan untuk Instagram karena browser tidak dapat meminta endpoint Instagram secara langsung akibat CORS.
+Buka `http://localhost:3000`.
+
+### Video foto + musik (MP4)
+
+- Render utama dilakukan di server memakai FFmpeg sehingga hasilnya benar-benar **MP4** (H.264 + AAC), bukan WebM.
+- FFmpeg dicari berurutan: `FFMPEG_PATH` → paket opsional `ffmpeg-static` → `ffmpeg` yang terpasang di sistem.
+- Jika FFmpeg tidak ada, aplikasi otomatis fallback merekam di browser dan tetap meminta wadah MP4.
+- Musik **tidak lagi diputar ke speaker** saat proses render (audio hanya dialirkan ke rekaman).
+- Foto/audio/video diambil lewat endpoint proxy `/api/proxy` agar tidak diblokir CORS TikTok/Instagram. Server Node diperlukan untuk Instagram karena browser tidak dapat meminta endpoint Instagram secara langsung akibat CORS.
 
 ## Catatan Instagram
 
-- Mendukung URL publik `instagram.com/p/...`, `instagram.com/reel/...`, dan `instagram.com/tv/...`.
+- Mendukung URL publik `instagram.com/p/...`, `/reel/...`, `/reels/...`, `/tv/...`, termasuk bentuk `instagram.com/<username>/reel/...`.
+- Server mencoba 5 strategi berurutan: embed → web API → GraphQL → endpoint lama `?__a=1` → Apify (opsional).
 - Endpoint Instagram dapat berubah atau membatasi request tanpa autentikasi. Post privat tidak didukung.
 - Unduh hanya konten yang Anda miliki atau yang Anda memiliki izin untuk mengunduh.
 
