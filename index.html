@@ -856,7 +856,7 @@ const CONFIG = {
   },
   apis: [
     { name:'TikWM API', url:'https://tikwm.com/api/', status:'checking', ping:null, platform:'tiktok' },
-    { name:'Instagram Embed', url:'/api/instagram/download', status:'checking', ping:null, platform:'instagram' },
+    { name:'Instagram Embed', url:'https://www.instagram.com/', status:'checking', ping:null, platform:'instagram' },
   ],
   cooldown: 3000,
   maxHistory: 50,
@@ -1058,23 +1058,157 @@ async function startFetch() {
   }
 }
 
-// Instagram requests run through the included Node/axios endpoint so the browser is not blocked by CORS.
-async function fetchInstagram(url) {
+// ========== STANDALONE MODE ==========
+// index.html ini bisa dibuka langsung tanpa Node. Bila kebetulan dijalankan lewat
+// server.js, endpoint lokal otomatis dipakai karena lebih cepat & stabil.
+let SERVER_MODE = null;
+const probeServer = (async () => {
   try {
-    const res = await fetch('/api/instagram/download?url=' + encodeURIComponent(url));
-    const json = await res.json();
-    if (!res.ok) throw new Error(json.error || 'Instagram request gagal');
-    return json;
-  } catch (e) {
-    console.error('Instagram error:', e.message);
-    showToast('Instagram gagal diakses. Jalankan aplikasi dengan npm start dan gunakan post publik.', 'error');
-    return null;
+    const res = await fetch('/api/slideshow/support', { cache: 'no-store' });
+    SERVER_MODE = res.ok ? await res.json() : { ffmpeg: false };
+  } catch { SERVER_MODE = { ffmpeg: false, standalone: true }; }
+  return SERVER_MODE;
+})();
+
+// Proxy CORS publik (dipakai saat tanpa server lokal)
+const CORS_PROXIES = [
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
+  u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
+];
+
+async function fetchViaProxy(url, asText = true) {
+  const attempts = [];
+  if (SERVER_MODE && !SERVER_MODE.standalone) attempts.push('/api/proxy?url=' + encodeURIComponent(url));
+  CORS_PROXIES.forEach(build => attempts.push(build(url)));
+  let lastError = null;
+  for (const target of attempts) {
+    try {
+      const res = await fetch(target, { headers: asText ? {} : undefined });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return asText ? await res.text() : res;
+    } catch (e) { lastError = e; }
   }
+  throw lastError || new Error('Semua proxy gagal');
+}
+
+function igShortcode(url) {
+  const m = new URL(url).pathname.match(/^\/(?:[A-Za-z0-9_.]+\/)?(?:p|reel|reels|tv)\/([A-Za-z0-9_-]+)/);
+  return m ? m[1] : null;
+}
+
+function normalizeIG(media, shortcode) {
+  if (!media) return null;
+  const carousel = media.edge_sidecar_to_children?.edges?.map(e => e.node) || media.carousel_media || [];
+  const nodes = carousel.length ? carousel : [media];
+  const getImg = it => (it && (it.display_url || it.image_versions2?.candidates?.[0]?.url || it.thumbnail_src)) || '';
+  const getVid = it => (it && (it.video_url || it.video_versions?.[0]?.url)) || '';
+  const images = nodes.filter(n => !getVid(n)).map(getImg).filter(Boolean);
+  const videos = nodes.map(getVid).filter(Boolean);
+  const video = videos[0] || '';
+  const owner = media.owner || media.user || {};
+  if (!images.length && !video) return null;
+  return {
+    platform: 'instagram',
+    id: media.id || media.pk || shortcode || '',
+    title: media.edge_media_to_caption?.edges?.[0]?.node?.text || media.caption?.text || '',
+    cover: getImg(media) || getImg(nodes[0]) || '',
+    cover_hd: getImg(media) || getImg(nodes[0]) || '',
+    avatar: owner.profile_pic_url || '',
+    username: owner.username || '',
+    nickname: owner.full_name || owner.username || '',
+    is_image: images.length > 0 && videos.length === 0,
+    images, videos,
+    video_hd: video, video_sd: video, video_nowm: video, video_wm: '',
+    mp3: '', music: '', music_author: '', music_url: '',
+    duration: Math.round(media.video_duration || 0),
+    views: media.video_view_count || media.play_count || 0,
+    likes: media.edge_media_preview_like?.count || media.like_count || 0,
+    comments: media.edge_media_to_parent_comment?.count || media.comment_count || 0,
+    shares: 0,
+    create_time: media.taken_at_timestamp || media.taken_at || 0,
+  };
+}
+
+function parseIGEmbedHtml(html, shortcode) {
+  const dec = v => v.replace(/\\u0026/g, '&').replace(/&amp;/g, '&').replace(/\\\//g, '/').replace(/\\"/g, '"');
+  const gql = html.match(/"gql_data"\s*:\s*({[\s\S]+?})\s*,\s*"[a-z_]+"\s*:/);
+  if (gql) {
+    try {
+      const parsed = JSON.parse(dec(gql[1]));
+      const data = normalizeIG(parsed.shortcode_media || parsed, shortcode);
+      if (data) return data;
+    } catch {}
+  }
+  const video = (html.match(/"video_url"\s*:\s*"([^"]+)"/) || [])[1];
+  const displays = [...html.matchAll(/"display_url"\s*:\s*"([^"]+)"/g)].map(m => dec(m[1]));
+  const shots = [...html.matchAll(/class="EmbeddedMediaImage"[^>]+src="([^"]+)"/g)].map(m => dec(m[1]));
+  const images = [...new Set([...displays, ...shots])];
+  const user = (html.match(/"username"\s*:\s*"([^"]+)"/) || [])[1] || '';
+  const cap = html.match(/<div class="Caption"[\s\S]*?<\/div>/);
+  if (!images.length && !video) return null;
+  return {
+    platform: 'instagram', id: shortcode,
+    title: cap ? cap[0].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300) : '',
+    cover: images[0] || '', cover_hd: images[0] || '',
+    avatar: '', username: user, nickname: user,
+    is_image: !video && images.length > 0,
+    images, videos: video ? [dec(video)] : [],
+    video_hd: video ? dec(video) : '', video_sd: video ? dec(video) : '',
+    video_nowm: video ? dec(video) : '', video_wm: '',
+    mp3: '', music: '', music_author: '', music_url: '',
+    duration: 0, views: 0, likes: 0, comments: 0, shares: 0, create_time: 0,
+  };
+}
+
+async function fetchInstagram(url) {
+  await probeServer;
+  const shortcode = igShortcode(url);
+  if (!shortcode) { showToast('Link Instagram tidak valid.', 'error'); return null; }
+  const errors = [];
+
+  // 0) Endpoint lokal bila server.js dijalankan
+  if (SERVER_MODE && !SERVER_MODE.standalone) {
+    try {
+      const res = await fetch('/api/instagram/download?url=' + encodeURIComponent(url));
+      const json = await res.json();
+      if (res.ok && (json.images?.length || json.video_hd)) return json;
+      errors.push('server: ' + (json.error || res.status));
+    } catch (e) { errors.push('server: ' + e.message); }
+  }
+
+  const strategies = [
+    ['embed', async () => parseIGEmbedHtml(
+      await fetchViaProxy(`https://www.instagram.com/p/${shortcode}/embed/captioned/`), shortcode)],
+    ['media-info', async () => normalizeIG(
+      JSON.parse(await fetchViaProxy(`https://www.instagram.com/api/v1/media/shortcode/${shortcode}/info/`))?.items?.[0], shortcode)],
+    ['legacy', async () => {
+      const payload = JSON.parse(await fetchViaProxy(`https://www.instagram.com/p/${shortcode}/?__a=1&__d=dis`));
+      return normalizeIG(payload?.graphql?.shortcode_media || payload?.items?.[0], shortcode);
+    }],
+    ['page-html', async () => {
+      const html = await fetchViaProxy(`https://www.instagram.com/p/${shortcode}/`);
+      return parseIGEmbedHtml(html, shortcode);
+    }],
+  ];
+
+  for (const [name, run] of strategies) {
+    try {
+      const data = await run();
+      if (data && (data.images?.length || data.video_hd)) return data;
+      errors.push(name + ': kosong');
+    } catch (e) { errors.push(name + ': ' + e.message); }
+  }
+
+  console.error('Instagram gagal ->', errors.join(' | '));
+  showToast('Instagram gagal diakses. Pastikan post publik, lalu coba lagi.', 'error');
+  return null;
 }
 
 // ========== TIKWM API - FIXED ==========
 async function fetchTikWM(url) {
   // API endpoint yang benar: https://tikwm.com/api/?url=
+  await probeServer;
   const apiUrl = 'https://tikwm.com/api/?url=' + encodeURIComponent(url);
   try {
     const res = await fetch(apiUrl);
@@ -1082,8 +1216,14 @@ async function fetchTikWM(url) {
     const json = await res.json();
     if (json.code === 0 && json.data) return normalizeTikWM(json.data);
     throw new Error(json.msg || 'API error code: ' + json.code);
-  } catch(e) {
-    console.error('TikWM error:', e.message);
+  } catch (e) {
+    console.warn('TikWM langsung gagal, mencoba proxy:', e.message);
+    try {
+      const json = JSON.parse(await fetchViaProxy(apiUrl));
+      if (json.code === 0 && json.data) return normalizeTikWM(json.data);
+    } catch (proxyError) {
+      console.error('TikWM proxy error:', proxyError.message);
+    }
     return null;
   }
 }
@@ -1112,7 +1252,7 @@ function normalizeTikWM(d) {
     video_wm: d.wmplay || '',
     mp3: d.music_info?.play || '',
     cover_hd: d.origin_cover || d.cover || '',
-    images: d.images || null,
+    images: Array.isArray(d.images) ? d.images.map(i => (typeof i === 'string' ? i : i.url || i.display_image || '')).filter(Boolean) : null,
     is_image: !!(d.images && d.images.length),
   };
 }
@@ -1267,21 +1407,16 @@ function renderSlideSection(d) {
 // ========== MEDIA PROXY HELPER (bypass CORS TikTok/Instagram) ==========
 function proxyURL(url, downloadName) {
   if (!url || url.startsWith('blob:') || url.startsWith('/')) return url;
-  let out = '/api/proxy?url=' + encodeURIComponent(url);
-  if (downloadName) out += '&download=' + encodeURIComponent(downloadName);
-  return out;
+  if (SERVER_MODE && !SERVER_MODE.standalone) {
+    let out = '/api/proxy?url=' + encodeURIComponent(url);
+    if (downloadName) out += '&download=' + encodeURIComponent(downloadName);
+    return out;
+  }
+  return CORS_PROXIES[0](url);
 }
 
-let slideshowSupport = null;
 async function getSlideshowSupport() {
-  if (slideshowSupport) return slideshowSupport;
-  try {
-    const res = await fetch('/api/slideshow/support');
-    slideshowSupport = await res.json();
-  } catch {
-    slideshowSupport = { ffmpeg: false, format: 'mp4' };
-  }
-  return slideshowSupport;
+  return (await probeServer) || { ffmpeg: false, standalone: true };
 }
 
 async function loadCanvasImage(url) {

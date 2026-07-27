@@ -2,6 +2,15 @@
 
 Downloader sederhana untuk media TikTok dan post publik Instagram. Selain video, foto, dan carousel, foto slide TikTok dapat dipilih untuk dibuat menjadi **video MP4 (H.264 + AAC)** dengan musik asli bila audio tersedia.
 
+## Cara pakai
+
+**Mode 1 — buka langsung (standalone).** Cukup double-click `index.html` atau hosting file statis apa pun.
+Seluruh logika TikTok + Instagram + pembuat video MP4 sudah digabung ke dalam `index.html`; saat tidak ada
+server lokal, aplikasi otomatis memakai CORS proxy publik dan merender MP4 di browser.
+
+**Mode 2 — dengan server Node (opsional, lebih stabil).** `server.js` menambah proxy media milik sendiri
+dan render MP4 pakai FFmpeg. `index.html` mendeteksi server ini otomatis dan memakainya bila ada.
+
 ## Menjalankan aplikasi
 
 ```bash
