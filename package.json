@@ -9,5 +9,8 @@
   "dependencies": {
     "axios": "^1.8.4",
     "express": "^4.21.2"
+  },
+  "optionalDependencies": {
+    "ffmpeg-static": "^5.2.0"
   }
 }
