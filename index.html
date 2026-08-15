@@ -4,27 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="description" content="TikSaver Pro v5 — Downloader TikTok, Instagram & CapCut dengan live preview video, foto & audio. Tanpa watermark, cepat dan gratis.">
-<meta name="theme-color" content="#080810">
+<meta name="theme-color" content="#070a12">
 <title>TikSaver Pro v5 — TikTok, Instagram & CapCut Downloader</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='64' y2='64'%3E%3Cstop stop-color='%237c3aed'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M36 21L22 13v24l14-8v8l8-8-8-8z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='64' y2='64'%3E%3Cstop stop-color='%23e11d48'/%3E%3Cstop offset='1' stop-color='%233b82f6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M36 21L22 13v24l14-8v8l8-8-8-8z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   /* ===== TOKENS ===== */
-  --bg:#06060d;--bg2:#0b0b16;--bg3:#10101e;
-  --card:#12121f;--card2:#171729;
+  --bg:#070a12;--bg2:#0b0f1c;--bg3:#101527;
+  --card:#121527;--card2:#171b31;
   --border:#ffffff0a;--border2:#ffffff14;--border3:#ffffff22;
-  --accent:#7c3aed;--accent2:#8b5cf6;--accent3:#c4b5fd;
-  --neon:#22d3ee;--neon2:#0891b2;
-  --pink:#ec4899;--rose:#fb7185;
+  --accent:#e11d48;--accent2:#f43f5e;--accent3:#fda4af;
+  --neon:#3b82f6;--neon2:#1d4ed8;
+  --pink:#ef4444;--rose:#f87171;
   --green:#10b981;--red:#f43f5e;--yellow:#fbbf24;
   --text:#eef0ff;--text2:#a0a0c0;--text3:#5a5a74;
   --glass:rgba(255,255,255,.03);--glass2:rgba(255,255,255,.06);
   --shadow:0 24px 60px rgba(0,0,0,.55);
   --shadow-sm:0 8px 24px rgba(0,0,0,.35);
-  --glow:0 0 30px rgba(124,58,237,.45),0 0 60px rgba(124,58,237,.2);
-  --glow-neon:0 0 30px rgba(34,211,238,.5);
+  --glow:0 0 30px rgba(225,29,72,.45),0 0 60px rgba(225,29,72,.2);
+  --glow-neon:0 0 30px rgba(59,130,246,.5);
   --radius:20px;--radius2:14px;--radius3:10px;
   --ease:cubic-bezier(.4,0,.2,1);
   --font-display:'Outfit','Segoe UI',system-ui,-apple-system,sans-serif;
@@ -35,18 +35,18 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-::selection{background:rgba(124,58,237,.45);color:#fff}
+::selection{background:rgba(225,29,72,.45);color:#fff}
 button,input,select,textarea{font-family:inherit}
 :focus-visible{outline:2px solid var(--accent3);outline-offset:2px;border-radius:6px}
 img,video,audio,canvas,svg{max-width:100%}
 
 /* ambient glow + noise */
 body::before{content:'';position:fixed;inset:0;background:
-  radial-gradient(ellipse 70% 50% at 10% -5%,rgba(124,58,237,.20) 0%,transparent 55%),
-  radial-gradient(ellipse 55% 45% at 95% 105%,rgba(34,211,238,.13) 0%,transparent 55%),
-  radial-gradient(ellipse 40% 30% at 50% 55%,rgba(236,72,153,.05) 0%,transparent 60%);
+  radial-gradient(ellipse 70% 50% at 10% -5%,rgba(225,29,72,.20) 0%,transparent 55%),
+  radial-gradient(ellipse 55% 45% at 95% 105%,rgba(59,130,246,.13) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 30% at 50% 55%,rgba(239,68,68,.05) 0%,transparent 60%);
 pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.4}
+body::after{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27%3E%3Cg stroke=%27rgba(255,255,255,0.045)%27 fill=%27none%27 stroke-width=%271%27%3E%3Cpath d=%27M0 80H160M80 0V160M0 0L160 160M160 0L0 160%27/%3E%3Ccircle cx=%2780%27 cy=%2780%27 r=%2724%27/%3E%3Ccircle cx=%2780%27 cy=%2780%27 r=%2752%27/%3E%3Ccircle cx=%2780%27 cy=%2780%27 r=%2778%27/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.6}
 
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-track{background:var(--bg2)}
@@ -61,20 +61,20 @@ main{padding-top:76px;padding-bottom:110px}
 .section-sub{font-size:.86rem;color:var(--text2);margin-bottom:26px;font-weight:400;line-height:1.6;max-width:640px}
 
 /* ============ NAVBAR ============ */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:12px 20px;backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);background:rgba(6,6,13,.74);border-bottom:1px solid var(--border);transition:all .3s}
-.navbar.scrolled{padding:9px 20px;background:rgba(6,6,13,.92);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:12px 20px;backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);background:rgba(7,10,18,.74);border-bottom:1px solid var(--border);transition:all .3s}
+.navbar.scrolled{padding:9px 20px;background:rgba(7,10,18,.92);box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .navbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1180px;margin:0 auto}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;min-width:0}
-.nav-logo-icon{width:36px;height:36px;flex-shrink:0;filter:drop-shadow(0 0 10px rgba(124,58,237,.45))}
+.nav-logo-icon{width:36px;height:36px;flex-shrink:0;filter:drop-shadow(0 0 10px rgba(225,29,72,.45))}
 .nav-logo-text{font-family:var(--font-display);font-weight:800;font-size:1.08rem;background:linear-gradient(135deg,#fff,var(--accent3),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;letter-spacing:-.01em}
-.logo-badge{font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;letter-spacing:.04em;flex-shrink:0;box-shadow:0 2px 12px rgba(34,211,238,.35)}
+.logo-badge{font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;letter-spacing:.04em;flex-shrink:0;box-shadow:0 2px 12px rgba(59,130,246,.35)}
 .nav-links{display:flex;align-items:center;gap:2px;background:var(--glass);border:1px solid var(--border);border-radius:999px;padding:4px;flex-shrink:0}
 .nav-link{padding:7px 14px;border-radius:999px;font-size:.8rem;font-weight:500;color:var(--text2);text-decoration:none;transition:all .2s;cursor:pointer;letter-spacing:.01em;white-space:nowrap}
 .nav-link:hover{color:var(--text);background:var(--glass2)}
-.nav-link.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 14px rgba(124,58,237,.4)}
+.nav-link.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 14px rgba(225,29,72,.4)}
 .nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-cta{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;font-size:.82rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 16px rgba(124,58,237,.35);cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,237,.5)}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;font-size:.82rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 16px rgba(225,29,72,.35);cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(225,29,72,.5)}
 .hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;padding:10px;border-radius:10px;flex-shrink:0}
 .hamburger span{width:20px;height:2px;background:var(--text2);border-radius:2px;transition:all .3s}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
@@ -82,7 +82,7 @@ main{padding-top:76px;padding-bottom:110px}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
 /* mobile menu */
-.mobile-menu{position:fixed;inset:0;z-index:999;background:rgba(6,6,13,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transform:translateX(100%);transition:transform .35s var(--ease)}
+.mobile-menu{position:fixed;inset:0;z-index:999;background:rgba(7,10,18,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transform:translateX(100%);transition:transform .35s var(--ease)}
 .mobile-menu.open{transform:translateX(0)}
 .mobile-menu .nav-link{font-size:1.55rem;font-family:var(--font-display);font-weight:800;padding:10px 24px;letter-spacing:-.02em;background:none;border:none}
 .mobile-menu .nav-link.active{background:none;color:var(--accent3)}
@@ -90,7 +90,7 @@ main{padding-top:76px;padding-bottom:110px}
 
 /* ============ HERO ============ */
 .hero{text-align:center;padding:76px 20px 44px;max-width:920px;margin:0 auto;position:relative}
-.hero-badge{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(124,58,237,.35);background:rgba(124,58,237,.1);font-size:.72rem;font-weight:600;color:var(--accent3);margin-bottom:26px;letter-spacing:.08em;text-transform:uppercase;max-width:100%;flex-wrap:wrap}
+.hero-badge{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(225,29,72,.35);background:rgba(225,29,72,.1);font-size:.72rem;font-weight:600;color:var(--accent3);margin-bottom:26px;letter-spacing:.08em;text-transform:uppercase;max-width:100%;flex-wrap:wrap}
 .hero-badge .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite;flex-shrink:0}
 .hero-title{font-family:var(--font-display);font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;line-height:1.05;margin-bottom:20px;letter-spacing:-.045em}
 .hero-title-line1{display:block;color:#fff}
@@ -107,10 +107,10 @@ main{padding-top:76px;padding-bottom:110px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 22px;border-radius:12px;border:none;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;white-space:nowrap;letter-spacing:.01em}
 .btn:active{transform:scale(.97)}
 .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:var(--glow)}
-.btn-primary:hover{box-shadow:0 0 44px rgba(124,58,237,.7),0 0 90px rgba(124,58,237,.25);transform:translateY(-1px)}
+.btn-primary:hover{box-shadow:0 0 44px rgba(225,29,72,.7),0 0 90px rgba(225,29,72,.25);transform:translateY(-1px)}
 .btn-ghost{background:var(--glass);border:1px solid var(--border2);color:var(--text2)}
 .btn-ghost:hover{color:var(--text);border-color:var(--border3);background:var(--glass2)}
-.btn-neon{background:linear-gradient(135deg,#0e7490,var(--neon));color:#001b1f;font-weight:700}
+.btn-neon{background:linear-gradient(135deg,#1d4ed8,var(--neon));color:#fff;font-weight:700}
 .btn-neon:hover{box-shadow:var(--glow-neon);transform:translateY(-1px)}
 .btn-sm{padding:8px 15px;font-size:.79rem;border-radius:10px}
 .btn-icon{width:38px;height:38px;padding:0;border-radius:10px;flex-shrink:0}
@@ -118,25 +118,25 @@ main{padding-top:76px;padding-bottom:110px}
 
 /* ============ INPUT ============ */
 .input-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:22px;margin-bottom:20px;position:relative;transition:border-color .3s,box-shadow .3s}
-.input-card:focus-within{border-color:rgba(124,58,237,.45);box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+.input-card:focus-within{border-color:rgba(225,29,72,.45);box-shadow:0 0 0 4px rgba(225,29,72,.1)}
 .input-card.drag-over{border-color:var(--accent);box-shadow:var(--glow)}
 .input-label{font-size:.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .input-row{display:flex;gap:8px}
 .url-input{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-family:var(--font-body);font-size:.9rem;color:var(--text);outline:none;transition:all .25s;font-weight:400}
 .url-input::placeholder{color:var(--text3)}
-.url-input:focus{border-color:rgba(124,58,237,.55);background:var(--bg3)}
+.url-input:focus{border-color:rgba(225,29,72,.55);background:var(--bg3)}
 .provider-row{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
 .provider-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:.7rem;font-weight:600;border:1px solid;transition:all .2s}
 .provider-badge.active{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.09);color:var(--green)}
 
 /* ============ LOADING ============ */
-.loading-screen{position:fixed;inset:0;z-index:2000;background:rgba(6,6,13,.96);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .35s ease;padding:20px;text-align:center}
+.loading-screen{position:fixed;inset:0;z-index:2000;background:rgba(7,10,18,.96);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .35s ease;padding:20px;text-align:center}
 .loading-screen.visible{opacity:1;pointer-events:all}
 .loader{position:relative;width:92px;height:92px;display:flex;align-items:center;justify-content:center}
-.loader-orb{position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.55),rgba(34,211,238,.28) 45%,transparent 72%);filter:blur(16px);animation:loaderPulse 1.9s ease-in-out infinite}
+.loader-orb{position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(225,29,72,.55),rgba(59,130,246,.28) 45%,transparent 72%);filter:blur(16px);animation:loaderPulse 1.9s ease-in-out infinite}
 .loader-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 58%,var(--accent) 76%,var(--neon) 92%,transparent 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px));animation:spin 1s linear infinite}
 .loader-dot{position:absolute;top:50%;left:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--neon);box-shadow:0 0 12px var(--neon),0 0 3px #fff;animation:orbit 1s linear infinite}
-.loader-core{position:relative;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.28),rgba(34,211,238,.2));border:1px solid var(--border3);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:loaderCore 1.9s ease-in-out infinite}
+.loader-core{position:relative;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(225,29,72,.28),rgba(59,130,246,.2));border:1px solid var(--border3);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:loaderCore 1.9s ease-in-out infinite}
 .loader-core svg{filter:drop-shadow(0 0 8px rgba(255,255,255,.55))}
 .loading-title{font-family:var(--font-display);font-size:1.08rem;font-weight:800;color:var(--text);letter-spacing:-.01em;background:linear-gradient(135deg,#fff,var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .loading-status{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--accent3);letter-spacing:.02em;min-height:20px}
@@ -159,15 +159,15 @@ main{padding-top:76px;padding-bottom:110px}
 .result-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:20px;animation:slideUp .4s var(--ease);box-shadow:var(--shadow-sm)}
 .result-thumb-wrap{position:relative;overflow:hidden;background:var(--bg3);min-height:180px}
 .result-cover{width:100%;height:230px;object-fit:cover;display:block}
-.result-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,6,13,.75) 0%,transparent 45%);pointer-events:none}
+.result-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,10,18,.75) 0%,transparent 45%);pointer-events:none}
 .result-duration{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:700;font-family:var(--font-display);pointer-events:none}
 .result-badge{position:absolute;top:10px;padding:4px 11px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.05em;backdrop-filter:blur(6px);pointer-events:none;z-index:2}
-.badge-photo{left:10px;background:rgba(34,211,238,.16);border:1px solid rgba(34,211,238,.4);color:var(--neon)}
-.badge-ig{right:10px;background:rgba(236,72,153,.16);border:1px solid rgba(236,72,153,.4);color:#f9a8d4}
+.badge-photo{left:10px;background:rgba(59,130,246,.16);border:1px solid rgba(59,130,246,.4);color:var(--neon)}
+.badge-ig{right:10px;background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.4);color:#f9a8d4}
 .badge-cc{right:10px;background:rgba(251,191,36,.16);border:1px solid rgba(251,191,36,.45);color:#fcd34d}
 .result-body{padding:20px}
 .result-user{display:flex;align-items:center;gap:11px;margin-bottom:13px;min-width:0}
-.result-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--bg3);flex-shrink:0;border:2px solid rgba(124,58,237,.5);box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+.result-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--bg3);flex-shrink:0;border:2px solid rgba(225,29,72,.5);box-shadow:0 0 0 3px rgba(225,29,72,.12)}
 .result-username{font-family:var(--font-display);font-weight:700;font-size:.94rem;overflow-wrap:break-word}
 .result-nickname{font-size:.75rem;color:var(--text2)}
 .caption-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:14px}.caption-row .result-caption{margin-bottom:0;flex:1}
@@ -179,12 +179,12 @@ main{padding-top:76px;padding-bottom:110px}
 .meta-val{font-size:.8rem;font-weight:700;font-family:var(--font-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta-key{font-size:.63rem;color:var(--text3)}
 .result-music{background:var(--bg3);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:11px;margin-bottom:14px;border:1px solid var(--border)}
-.music-icon{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.music-icon{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .music-title{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .music-author{font-size:.7rem;color:var(--text3)}
 .download-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}
 .dl-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:16px 8px;min-height:92px;border-radius:14px;border:1px solid var(--border2);background:var(--bg3);cursor:pointer;transition:all .25s;text-decoration:none;color:var(--text);font-size:.76rem;font-weight:600;position:relative;overflow:hidden}
-.dl-btn:hover{border-color:rgba(124,58,237,.55);background:rgba(124,58,237,.09);transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.dl-btn:hover{border-color:rgba(225,29,72,.55);background:rgba(225,29,72,.09);transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4)}
 .dl-btn .dl-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:2px}
 .dl-btn.hd .dl-icon{background:linear-gradient(135deg,var(--accent),var(--accent2))}
 .dl-btn.sd .dl-icon{background:linear-gradient(135deg,#3b82f6,#60a5fa)}
@@ -201,10 +201,10 @@ main{padding-top:76px;padding-bottom:110px}
 .preview-photo-main{max-width:100%;max-height:520px;object-fit:contain;display:block;margin:0 auto}
 .preview-photo-nav{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 8px;font-size:.78rem;font-weight:700;color:var(--text);z-index:3}
 .preview-nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:1.2rem;cursor:pointer;line-height:1;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.preview-nav-btn:hover{border-color:var(--accent3);color:var(--accent3);background:rgba(124,58,237,.2)}
-.preview-audio-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:26px 20px;width:100%;background:linear-gradient(180deg,#0d0d1c,#06060d)}
+.preview-nav-btn:hover{border-color:var(--accent3);color:var(--accent3);background:rgba(225,29,72,.2)}
+.preview-audio-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:26px 20px;width:100%;background:linear-gradient(180deg,#0b0f1c,#070a12)}
 .preview-audio-card{display:flex;align-items:center;gap:16px;width:100%;max-width:460px;padding:16px;background:var(--card2);border:1px solid var(--border2);border-radius:16px;text-align:left;box-shadow:var(--shadow-sm)}
-.preview-audio-cover{width:72px;height:72px;border-radius:14px;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:1.9rem;color:#fff;box-shadow:0 10px 30px rgba(124,58,237,.4);overflow:hidden}
+.preview-audio-cover{width:72px;height:72px;border-radius:14px;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;font-size:1.9rem;color:#fff;box-shadow:0 10px 30px rgba(225,29,72,.4);overflow:hidden}
 .preview-audio-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .preview-audio-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
 .preview-audio-title{font-family:var(--font-display);font-weight:700;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -219,6 +219,13 @@ main{padding-top:76px;padding-bottom:110px}
 .preview-audio-wrap .live-preview-audio{max-width:460px}
 .live-preview-audio{width:100%;max-width:340px;min-width:0}
 .preview-audio-row{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--border);border-radius:12px;background:var(--bg3);font-size:.76rem;color:var(--text2);margin-bottom:14px;flex-wrap:wrap}
+.preview-music{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid rgba(59,130,246,.25);border-radius:14px;background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(225,29,72,.08));margin-bottom:14px;flex-wrap:wrap}
+.preview-music-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 6px 18px rgba(239,68,68,.35)}
+.preview-music-info{flex:1;min-width:110px}
+.preview-music-label{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.preview-music-title{font-size:.84rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-music-author{font-size:.7rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-music audio{flex-basis:100%;max-width:100%;min-width:0;margin-top:2px}
 .preview-audio-row audio{flex:1;min-width:0;max-width:100%}
 .preview-empty{padding:32px;color:var(--text3);font-size:.8rem;text-align:center}
 .preview-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:26px 20px;width:100%;text-align:center;min-height:220px}
@@ -233,15 +240,23 @@ main{padding-top:76px;padding-bottom:110px}
 .slide-item:hover img{transform:scale(1.06)}
 .slide-num{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);padding:2px 8px;border-radius:99px;font-size:.66rem;font-weight:700}
 .slide-dl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);opacity:0;transition:opacity .2s}
-.slide-item:hover .slide-dl{opacity:1}
-.slide-music-picker{margin:14px 0;padding:15px;border:1px solid rgba(34,211,238,.24);border-radius:14px;background:linear-gradient(135deg,rgba(34,211,238,.07),rgba(124,58,237,.09))}
+ .slide-item:hover .slide-dl{opacity:1}
+.slide-type-badge{position:absolute;top:6px;right:6px;z-index:2;padding:2px 8px;border-radius:99px;font-size:.58rem;font-weight:800;letter-spacing:.05em;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.slide-type-badge.video{background:linear-gradient(135deg,#f43f5e,#ef4444)}
+.slide-type-badge.live{background:linear-gradient(135deg,#3b82f6,#e11d48)}
+.slide-video-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg3),var(--card2));font-size:1.5rem;color:#fff}
+.slide-actions{position:absolute;bottom:0;left:0;right:0;display:flex;gap:6px;padding:8px;justify-content:center;z-index:3}
+.slide-action-btn{width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.6);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.slide-action-btn:hover{background:var(--accent);border-color:var(--accent3);transform:scale(1.06)}
+.slide-music-picker{margin:14px 0;padding:15px;border:1px solid rgba(59,130,246,.24);border-radius:14px;background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(225,29,72,.09))}
 .slide-music-header{display:flex;align-items:center;gap:9px;margin-bottom:5px;font-weight:700;font-size:.85rem}
 .slide-music-help{font-size:.72rem;color:var(--text2);line-height:1.55;margin-bottom:10px;overflow-wrap:break-word}
+.slide-music-track{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:600;color:var(--neon);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);border-radius:999px;padding:4px 12px;margin-bottom:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .slide-select-grid{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
 .slide-choice{position:relative;cursor:pointer}
 .slide-choice input{position:absolute;opacity:0;pointer-events:none}
 .slide-choice span{display:flex;align-items:center;justify-content:center;width:40px;height:38px;border-radius:9px;border:1px solid var(--border3);background:var(--bg3);font-size:.72rem;font-weight:700;color:var(--text2);transition:all .2s}
-.slide-choice input:checked + span{background:var(--accent);border-color:var(--accent3);color:#fff;box-shadow:0 0 14px rgba(124,58,237,.5)}
+.slide-choice input:checked + span{background:var(--accent);border-color:var(--accent3);color:#fff;box-shadow:0 0 14px rgba(225,29,72,.5)}
 .music-rendering{opacity:.72;pointer-events:none}
 
 /* ============ MODAL ============ */
@@ -254,11 +269,11 @@ main{padding-top:76px;padding-bottom:110px}
 
 /* ============ TOAST ============ */
 .toast-container{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);z-index:5000;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:max-content;max-width:92vw}
-.toast{background:rgba(23,23,41,.92);backdrop-filter:blur(14px);border:1px solid var(--border2);border-radius:12px;padding:11px 17px;font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:9px;max-width:320px;box-shadow:var(--shadow);transform:translateY(20px);opacity:0;transition:all .3s var(--ease);pointer-events:all;letter-spacing:.01em;overflow-wrap:break-word}
+.toast{background:rgba(21,24,44,.92);backdrop-filter:blur(14px);border:1px solid var(--border2);border-radius:12px;padding:11px 17px;font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:9px;max-width:320px;box-shadow:var(--shadow);transform:translateY(20px);opacity:0;transition:all .3s var(--ease);pointer-events:all;letter-spacing:.01em;overflow-wrap:break-word}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.success{border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.1)}
 .toast.error{border-color:rgba(244,63,94,.35);background:rgba(244,63,94,.1)}
-.toast.info{border-color:rgba(124,58,237,.35);background:rgba(124,58,237,.1)}
+.toast.info{border-color:rgba(225,29,72,.35);background:rgba(225,29,72,.1)}
 .toast-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .toast.success .toast-dot{background:var(--green);box-shadow:0 0 7px var(--green)}
 .toast.error .toast-dot{background:var(--red);box-shadow:0 0 7px var(--red)}
@@ -282,7 +297,7 @@ main{padding-top:76px;padding-bottom:110px}
 .about-hero{text-align:center;padding:38px 0 20px;margin-bottom:30px;position:relative}
 .avatar-wrap{position:relative;width:112px;height:112px;margin:0 auto 20px;cursor:pointer}
 .avatar-wrap:hover .avatar-bg{animation-duration:.5s}
-.avatar-bg{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--pink),var(--neon),var(--accent3),var(--rose),var(--accent));animation:spin 3s linear infinite;filter:blur(2px)}
+.avatar-bg{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--neon),var(--accent),var(--neon),var(--accent3),var(--accent));animation:spin 3s linear infinite;filter:blur(2px)}
 .avatar-inner{position:absolute;inset:3px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:2}
 .avatar-canvas{width:100%;height:100%;border-radius:50%}
 .avatar-particles{position:absolute;inset:-20px;border-radius:50%;z-index:1}
@@ -297,19 +312,19 @@ main{padding-top:76px;padding-bottom:110px}
 .avatar-overlay{position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none;z-index:5}
 .blob-avatar{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg3),var(--bg2))}
 .blob-layer{position:absolute;inset:0;border-radius:50%;mix-blend-mode:screen}
-.blob-1{background:radial-gradient(circle at 30% 30%,rgba(124,58,237,.9),transparent 60%);animation:blobMorph1 3s ease-in-out infinite}
-.blob-2{background:radial-gradient(circle at 70% 60%,rgba(34,211,238,.8),transparent 60%);animation:blobMorph2 4s ease-in-out infinite}
-.blob-3{background:radial-gradient(circle at 50% 80%,rgba(236,72,153,.7),transparent 60%);animation:blobMorph3 3.5s ease-in-out infinite}
+.blob-1{background:radial-gradient(circle at 30% 30%,rgba(225,29,72,.9),transparent 60%);animation:blobMorph1 3s ease-in-out infinite}
+.blob-2{background:radial-gradient(circle at 70% 60%,rgba(59,130,246,.8),transparent 60%);animation:blobMorph2 4s ease-in-out infinite}
+.blob-3{background:radial-gradient(circle at 50% 80%,rgba(239,68,68,.7),transparent 60%);animation:blobMorph3 3.5s ease-in-out infinite}
 .blob-icon{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 @keyframes blobMorph1{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(1.2) translate(5px,-5px)}66%{transform:scale(.9) translate(-5px,5px)}}
 @keyframes blobMorph2{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(.85) translate(-8px,3px)}66%{transform:scale(1.15) translate(8px,-3px)}}
 @keyframes blobMorph3{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.3) translate(0,-8px)}}
 .gif-selector{display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
 .gif-frame{width:54px;height:54px;border-radius:14px;cursor:pointer;border:2px solid transparent;transition:all .25s;overflow:hidden;position:relative;background:var(--bg3)}
-.gif-frame:hover{transform:scale(1.08);border-color:rgba(124,58,237,.5)}
-.gif-frame.active{border-color:var(--accent);box-shadow:0 0 16px rgba(124,58,237,.5)}
+.gif-frame:hover{transform:scale(1.08);border-color:rgba(225,29,72,.5)}
+.gif-frame.active{border-color:var(--accent);box-shadow:0 0 16px rgba(225,29,72,.5)}
 .gif-frame-canvas{width:100%;height:100%;position:relative;overflow:hidden}
-.frame-vortex{background:conic-gradient(from 0deg,var(--accent),var(--pink),var(--neon),var(--accent));animation:spin 2s linear infinite}
+.frame-vortex{background:conic-gradient(from 0deg,var(--accent),var(--neon),var(--accent),var(--neon));animation:spin 2s linear infinite}
 .frame-pulse-neon{background:radial-gradient(circle,var(--neon),var(--accent2),#000);animation:pulseScale 1s ease-in-out infinite}
 @keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 .frame-rgb{background:linear-gradient(135deg,#f00,#0f0,#00f,#f00);background-size:300% 300%;animation:rgbShift 2s ease infinite}
@@ -317,7 +332,7 @@ main{padding-top:76px;padding-bottom:110px}
 .frame-matrix{background:#000;position:relative;overflow:hidden}
 .frame-matrix::before{content:'01 10\A01 10\A10 01';white-space:pre;position:absolute;inset:0;font-size:.4rem;color:#0f0;font-family:monospace;animation:matrixFall 1.5s linear infinite;opacity:.8}
 @keyframes matrixFall{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
-.frame-holo{background:linear-gradient(135deg,#ff006620,#7c3aed40,#00d4ff40,#ff006620);background-size:400% 400%;animation:holoShift 3s ease infinite;border:1px solid rgba(255,255,255,.1)}
+.frame-holo{background:linear-gradient(135deg,#ff006620,#e11d4840,#00d4ff40,#ff006620);background-size:400% 400%;animation:holoShift 3s ease infinite;border:1px solid rgba(255,255,255,.1)}
 @keyframes holoShift{0%,100%{background-position:0 0}50%{background-position:100% 100%}}
 .about-name{font-family:var(--font-display);font-size:1.55rem;font-weight:900;letter-spacing:-.03em;margin-bottom:5px;background:linear-gradient(135deg,#fff,var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .about-role{font-size:.8rem;color:var(--accent3);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
@@ -331,7 +346,7 @@ main{padding-top:76px;padding-bottom:110px}
 .social-handle{font-size:.66rem;color:var(--text3);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* ============ SUPPORT / QR ============ */
-.support-section{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(34,211,238,.06));border:1px solid rgba(124,58,237,.28);border-radius:var(--radius);padding:26px;margin:24px 0;text-align:center}
+.support-section{background:linear-gradient(135deg,rgba(225,29,72,.12),rgba(59,130,246,.06));border:1px solid rgba(225,29,72,.28);border-radius:var(--radius);padding:26px;margin:24px 0;text-align:center}
 .support-title{font-family:var(--font-display);font-size:1.18rem;font-weight:900;margin-bottom:8px;color:var(--accent3);letter-spacing:-.02em}
 .support-sub{font-size:.83rem;color:var(--text2);margin-bottom:18px;line-height:1.6}
 .qr-container{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;margin:16px 0}
@@ -349,7 +364,7 @@ main{padding-top:76px;padding-bottom:110px}
 /* ============ FAQ ============ */
 .faq-list{display:flex;flex-direction:column;gap:9px}
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .25s}
-.faq-item.open{border-color:rgba(124,58,237,.35)}
+.faq-item.open{border-color:rgba(225,29,72,.35)}
 .faq-q{padding:16px 17px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:10px;font-size:.88rem;font-weight:600;font-family:var(--font-display);min-width:0}
 .faq-arrow{transition:transform .3s;flex-shrink:0;color:var(--text3)}
 .faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--accent3)}
@@ -370,6 +385,28 @@ main{padding-top:76px;padding-bottom:110px}
 .api-ping.fast{color:var(--green)}
 .api-ping.slow{color:var(--yellow)}
 
+/* ============ KOLABORASI SPIDER-MAN ============ */
+.collab-section{position:relative;max-width:900px;margin:0 auto 30px;padding:26px;border-radius:var(--radius);overflow:hidden;background:linear-gradient(135deg,#1a0a12,#0a1220);border:1px solid rgba(239,68,68,.35)}
+.collab-section::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(225,29,72,.16),rgba(37,99,235,.12));pointer-events:none}
+.collab-web{position:absolute;inset:0;opacity:.5;pointer-events:none}
+.collab-web-svg{width:100%;height:100%;display:block}
+.collab-inner{position:relative;z-index:1;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.collab-logo{width:76px;height:76px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#e11d48,#7f1d1d 60%,#1e293b);box-shadow:0 0 0 3px rgba(225,29,72,.35),0 12px 34px rgba(225,29,72,.4)}
+.collab-text{flex:1;min-width:210px}
+.collab-kicker{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fda4af;background:rgba(225,29,72,.14);border:1px solid rgba(225,29,72,.35);padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.collab-title{font-family:var(--font-display);font-size:1.45rem;font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.collab-x{color:var(--text3);font-weight:400}
+.collab-spider{background:linear-gradient(135deg,#ef4444,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.collab-desc{font-size:.84rem;color:var(--text2);line-height:1.6;margin-top:6px;max-width:480px}
+.collab-btn{margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:999px;border:none;font-family:var(--font-body);font-size:.86rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#e11d48,#2563eb);box-shadow:0 10px 30px rgba(225,29,72,.35);cursor:pointer;transition:all .2s;min-height:44px}
+.collab-btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(225,29,72,.5)}
+@media (max-width:600px){
+  .collab-section{padding:20px}
+  .collab-inner{flex-direction:column;text-align:center;gap:14px}
+  .collab-btn{margin:0 auto}
+  .collab-desc{margin-left:auto;margin-right:auto}
+}
+
 /* ============ FEATURES ============ */
 .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:11px;margin-bottom:28px}
 .feature-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 17px;transition:all .25s;position:relative;overflow:hidden}
@@ -384,21 +421,21 @@ main{padding-top:76px;padding-bottom:110px}
 .form-label{font-size:.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
 .form-input,.form-textarea{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:13px 15px;font-family:var(--font-body);font-size:.87rem;color:var(--text);outline:none;transition:border-color .25s,box-shadow .25s;resize:none;width:100%}
 .form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
-.form-input:focus,.form-textarea:focus{border-color:rgba(124,58,237,.55);box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+.form-input:focus,.form-textarea:focus{border-color:rgba(225,29,72,.55);box-shadow:0 0 0 4px rgba(225,29,72,.1)}
 .form-textarea{min-height:110px}
-.contact-inbox-note{background:linear-gradient(135deg,rgba(124,58,237,.13),rgba(34,211,238,.08));border:1px solid rgba(124,58,237,.28);border-radius:14px;padding:13px 15px;font-size:.8rem;color:var(--text2);line-height:1.6;overflow-wrap:break-word}
+.contact-inbox-note{background:linear-gradient(135deg,rgba(225,29,72,.13),rgba(59,130,246,.08));border:1px solid rgba(225,29,72,.28);border-radius:14px;padding:13px 15px;font-size:.8rem;color:var(--text2);line-height:1.6;overflow-wrap:break-word}
 .contact-inbox-note strong{color:var(--accent3)}
 .contact-alt{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.8rem;color:var(--text2);flex-wrap:wrap;margin-top:4px}
-.mailto-link{color:var(--neon);font-weight:700;text-decoration:none;border-bottom:1px dashed rgba(34,211,238,.5)}
+.mailto-link{color:var(--neon);font-weight:700;text-decoration:none;border-bottom:1px dashed rgba(59,130,246,.5)}
 .mailto-link:hover{color:var(--accent3)}
 select.form-input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a0c0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px;cursor:pointer}
 
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border3),transparent);margin:26px 0}
 
 /* ============ BOTTOM NAV ============ */
-.bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));z-index:900;background:rgba(16,16,30,.92);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--border2);border-radius:999px;box-shadow:var(--shadow);display:none;align-items:center;gap:2px;padding:7px;max-width:94vw}
+.bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));z-index:900;background:rgba(15,18,34,.92);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--border2);border-radius:999px;box-shadow:var(--shadow);display:none;align-items:center;gap:2px;padding:7px;max-width:94vw}
 .bn-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 16px;border-radius:999px;transition:all .2s;color:var(--text3);min-width:60px}
-.bn-item.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 14px rgba(124,58,237,.4)}
+.bn-item.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 14px rgba(225,29,72,.4)}
 .bn-label{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 
 /* ============ BACK TO TOP ============ */
@@ -411,16 +448,16 @@ select.form-input{appearance:none;-webkit-appearance:none;background-image:url("
 #splashScreen.hide{opacity:0;transform:scale(1.05);pointer-events:none}
 .splash-bg{position:absolute;inset:0;overflow:hidden}
 .splash-orb{position:absolute;border-radius:50%;filter:blur(90px)}
-.splash-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.5),transparent 70%);top:-150px;left:-150px;animation:orbFloat 7s ease-in-out infinite}
-.splash-orb-2{width:350px;height:350px;background:radial-gradient(circle,rgba(34,211,238,.4),transparent 70%);bottom:-100px;right:-100px;animation:orbFloat 9s ease-in-out infinite reverse}
-.splash-orb-3{width:250px;height:250px;background:radial-gradient(circle,rgba(236,72,153,.3),transparent 70%);top:40%;left:60%;animation:orbFloat 6s ease-in-out infinite .5s}
+.splash-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(225,29,72,.5),transparent 70%);top:-150px;left:-150px;animation:orbFloat 7s ease-in-out infinite}
+.splash-orb-2{width:350px;height:350px;background:radial-gradient(circle,rgba(59,130,246,.4),transparent 70%);bottom:-100px;right:-100px;animation:orbFloat 9s ease-in-out infinite reverse}
+.splash-orb-3{width:250px;height:250px;background:radial-gradient(circle,rgba(239,68,68,.3),transparent 70%);top:40%;left:60%;animation:orbFloat 6s ease-in-out infinite .5s}
 @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-20px) scale(1.06)}}
 .splash-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;max-width:100%}
 .splash-logo-wrap{position:relative;margin-bottom:28px;width:90px;height:90px}
-.splash-logo-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--pink),var(--neon),var(--accent3),var(--accent));border-radius:26px;filter:drop-shadow(0 0 18px rgba(124,58,237,.45))}
+.splash-logo-ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--neon),var(--accent),var(--neon),var(--accent));border-radius:26px;filter:drop-shadow(0 0 18px rgba(225,29,72,.45))}
 .splash-logo-inner{position:absolute;inset:3px;border-radius:22px;background:var(--bg);display:flex;align-items:center;justify-content:center}
 .splash-logo-icon{width:84px;height:84px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;position:relative;animation:glowPulse 2s ease-in-out infinite}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 30px rgba(124,58,237,.6)}50%{box-shadow:0 0 60px rgba(124,58,237,.9),0 0 100px rgba(34,211,238,.3)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 30px rgba(225,29,72,.6)}50%{box-shadow:0 0 60px rgba(225,29,72,.9),0 0 100px rgba(59,130,246,.3)}}
 .splash-title{font-family:var(--font-display);font-size:2.3rem;font-weight:900;letter-spacing:-.04em;background:linear-gradient(135deg,#fff 0%,var(--accent3) 45%,var(--neon) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;transform:translateY(14px);transition:all .5s var(--ease) .3s;text-align:center}
 .splash-sub{font-size:.8rem;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;font-weight:500;opacity:0;transform:translateY(8px);transition:all .5s var(--ease) .45s;max-width:300px;text-align:center;line-height:1.5}
 .splash-progress-wrap{margin-top:42px;width:190px;max-width:80vw;opacity:0;transition:opacity .4s .55s}
@@ -530,7 +567,7 @@ body{overflow-wrap:break-word}
     <svg class="nav-logo-icon" viewBox="0 0 36 36" fill="none">
       <rect width="36" height="36" rx="10" fill="url(#lg1)"/>
       <path d="M24 14.5c-.8 0-1.6-.3-2.2-.7v5.7a5.3 5.3 0 11-5.3-5.3c.1 0 .2 0 .3 0v2.4a2.9 2.9 0 100 5.8 2.9 2.9 0 002.9-2.9V10h2.4c.2 1.3 1.1 2.4 2.2 2.5v2z" fill="#fff"/>
-      <defs><linearGradient id="lg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6c31f0"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+      <defs><linearGradient id="lg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#e11d48"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
     </svg>
     <span class="nav-logo-text">TikSaver Pro</span><span class="logo-badge">v5</span>
   </a>
@@ -620,9 +657,42 @@ body{overflow-wrap:break-word}
       <div class="stat"><div class="stat-val">0</div><div class="stat-label">Watermark</div></div>
     </div>
   </div>
+<!-- KOLABORASI SPESIAL -->
+  <div class="collab-section">
+    <div class="collab-web" aria-hidden="true">
+      <svg class="collab-web-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
+        <g stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none">
+          <path d="M300 100 L0 0 M300 100 L120 0 M300 100 L300 0 M300 100 L480 0 M300 100 L600 0"/>
+          <path d="M300 100 L0 100 M300 100 L600 100"/>
+          <path d="M300 100 L0 200 M300 100 L120 200 M300 100 L300 200 M300 100 L480 200 M300 100 L600 200"/>
+          <path d="M160 100 Q300 150 440 100"/>
+          <path d="M80 100 Q300 185 520 100"/>
+          <path d="M0 100 Q300 220 600 100"/>
+        </g>
+      </svg>
+    </div>
+    <div class="collab-inner">
+      <div class="collab-logo">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+          <g stroke="#fff" stroke-width="2.2" stroke-linecap="round">
+            <path d="M24 20 L8 8 M24 20 L4 22 M24 20 L8 34 M24 20 L16 42 M24 20 L40 8 M24 20 L44 22 M24 20 L40 34 M24 20 L32 42"/>
+          </g>
+          <circle cx="24" cy="20" r="6.5" fill="#fff"/>
+          <circle cx="24" cy="9" r="4" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="collab-text">
+        <span class="collab-kicker">Kolaborasi Spesial 2026</span>
+        <div class="collab-title">TikSaver Pro <span class="collab-x">×</span> <span class="collab-spider">Spider-Man</span></div>
+        <p class="collab-desc">Mode edisi Spider-Man 🕸️ — download video, foto &amp; musik secepat ayunan web-slinger. Tanpa watermark, tetap gratis.</p>
+      </div>
+      <button class="collab-btn" onclick="navigate('downloader')">Coba Sekarang</button>
+    </div>
+  </div>
+
   <div class="feature-grid" style="max-width:900px;margin:48px auto 0">
     <div class="feature-card">
-      <div class="feature-icon" style="background:linear-gradient(135deg,#6c31f0,#8b5cf6)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <div class="feature-icon" style="background:linear-gradient(135deg,#e11d48,#f43f5e)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
       <div class="feature-name">Video HD</div>
       <div class="feature-desc">Resolusi tinggi hingga 1080p & 4K</div>
     </div>
@@ -632,12 +702,12 @@ body{overflow-wrap:break-word}
       <div class="feature-desc">Bersih tanpa logo TikTok</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:linear-gradient(135deg,#ec4899,#fb923c)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="feature-icon" style="background:linear-gradient(135deg,#ef4444,#fb923c)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
       <div class="feature-name">MP3 Audio</div>
       <div class="feature-desc">Ekstrak audio berkualitas tinggi</div>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:linear-gradient(135deg,#22d3ee,#0891b2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <div class="feature-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
       <div class="feature-name">Foto Slide</div>
       <div class="feature-desc">Download carousel satu per satu</div>
     </div>
@@ -782,17 +852,17 @@ body{overflow-wrap:break-word}
   <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:14px;letter-spacing:-.02em;color:var(--accent3)">✨ Apa yang Baru di v5?</h3>
   <div class="feature-grid" style="max-width:900px">
     <div class="feature-card" style="border-color:rgba(108,49,240,.3)">
-      <div class="feature-icon" style="background:linear-gradient(135deg,#6c31f0,#22d3ee)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+      <div class="feature-icon" style="background:linear-gradient(135deg,#e11d48,#3b82f6)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
       <div class="feature-name">Live Preview Media</div>
       <div class="feature-desc">Putar video, foto &amp; audio langsung sebelum download</div>
     </div>
-    <div class="feature-card" style="border-color:rgba(34,211,238,.3)">
-      <div class="feature-icon" style="background:linear-gradient(135deg,#0891b2,#22d3ee)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+    <div class="feature-card" style="border-color:rgba(59,130,246,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
       <div class="feature-name">CapCut Downloader</div>
       <div class="feature-desc">Download video &amp; template CapCut via API Kriszzyy</div>
     </div>
-    <div class="feature-card" style="border-color:rgba(236,72,153,.3)">
-      <div class="feature-icon" style="background:linear-gradient(135deg,#ec4899,#fb7185)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+    <div class="feature-card" style="border-color:rgba(239,68,68,.3)">
+      <div class="feature-icon" style="background:linear-gradient(135deg,#ef4444,#f87171)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
       <div class="feature-name">QR Selalu Muncul</div>
       <div class="feature-desc">QR Dana tampil stabil, tanpa gagal load</div>
     </div>
@@ -854,7 +924,7 @@ body{overflow-wrap:break-word}
     </button>
     <div class="contact-alt">
       <span>Atau kirim langsung ke:</span>
-      <a href="/cdn-cgi/l/email-protection#3a53575f567a5955544e555214595557" id="contactMailtoLink" class="mailto-link">📧 <span class="__cf_email__" data-cfemail="7a13171f163a1915140e151254191517">[email&#160;protected]</span></a>
+      <a href="/cdn-cgi/l/email-protection#432a2e262f03202c2d372c2b6d202c2e" id="contactMailtoLink" class="mailto-link">📧 <span class="__cf_email__" data-cfemail="91f8fcf4fdd1f2feffe5fef9bff2fefc">[email&#160;protected]</span></a>
     </div>
   </div>
 </div>
@@ -915,13 +985,1921 @@ body{overflow-wrap:break-word}
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* mp4-muxer (WebCodecs muxer) */
+"use strict";
+var Mp4Muxer = (() => {
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+  var __accessCheck = (obj, member, msg) => {
+    if (!member.has(obj))
+      throw TypeError("Cannot " + msg);
+  };
+  var __privateGet = (obj, member, getter) => {
+    __accessCheck(obj, member, "read from private field");
+    return getter ? getter.call(obj) : member.get(obj);
+  };
+  var __privateAdd = (obj, member, value) => {
+    if (member.has(obj))
+      throw TypeError("Cannot add the same private member more than once");
+    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+  };
+  var __privateSet = (obj, member, value, setter) => {
+    __accessCheck(obj, member, "write to private field");
+    setter ? setter.call(obj, value) : member.set(obj, value);
+    return value;
+  };
+  var __privateWrapper = (obj, member, setter, getter) => ({
+    set _(value) {
+      __privateSet(obj, member, value, setter);
+    },
+    get _() {
+      return __privateGet(obj, member, getter);
+    }
+  });
+  var __privateMethod = (obj, member, method) => {
+    __accessCheck(obj, member, "access private method");
+    return method;
+  };
+
+  // src/index.ts
+  var src_exports = {};
+  __export(src_exports, {
+    ArrayBufferTarget: () => ArrayBufferTarget,
+    FileSystemWritableFileStreamTarget: () => FileSystemWritableFileStreamTarget,
+    Muxer: () => Muxer,
+    StreamTarget: () => StreamTarget
+  });
+
+  // src/misc.ts
+  var bytes = new Uint8Array(8);
+  var view = new DataView(bytes.buffer);
+  var u8 = (value) => {
+    return [(value % 256 + 256) % 256];
+  };
+  var u16 = (value) => {
+    view.setUint16(0, value, false);
+    return [bytes[0], bytes[1]];
+  };
+  var i16 = (value) => {
+    view.setInt16(0, value, false);
+    return [bytes[0], bytes[1]];
+  };
+  var u24 = (value) => {
+    view.setUint32(0, value, false);
+    return [bytes[1], bytes[2], bytes[3]];
+  };
+  var u32 = (value) => {
+    view.setUint32(0, value, false);
+    return [bytes[0], bytes[1], bytes[2], bytes[3]];
+  };
+  var i32 = (value) => {
+    view.setInt32(0, value, false);
+    return [bytes[0], bytes[1], bytes[2], bytes[3]];
+  };
+  var u64 = (value) => {
+    view.setUint32(0, Math.floor(value / 2 ** 32), false);
+    view.setUint32(4, value, false);
+    return [bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]];
+  };
+  var fixed_8_8 = (value) => {
+    view.setInt16(0, 2 ** 8 * value, false);
+    return [bytes[0], bytes[1]];
+  };
+  var fixed_16_16 = (value) => {
+    view.setInt32(0, 2 ** 16 * value, false);
+    return [bytes[0], bytes[1], bytes[2], bytes[3]];
+  };
+  var fixed_2_30 = (value) => {
+    view.setInt32(0, 2 ** 30 * value, false);
+    return [bytes[0], bytes[1], bytes[2], bytes[3]];
+  };
+  var ascii = (text, nullTerminated = false) => {
+    let bytes2 = Array(text.length).fill(null).map((_, i) => text.charCodeAt(i));
+    if (nullTerminated)
+      bytes2.push(0);
+    return bytes2;
+  };
+  var last = (arr) => {
+    return arr && arr[arr.length - 1];
+  };
+  var lastPresentedSample = (samples) => {
+    let result = void 0;
+    for (let sample of samples) {
+      if (!result || sample.presentationTimestamp > result.presentationTimestamp) {
+        result = sample;
+      }
+    }
+    return result;
+  };
+  var intoTimescale = (timeInSeconds, timescale, round = true) => {
+    let value = timeInSeconds * timescale;
+    return round ? Math.round(value) : value;
+  };
+  var rotationMatrix = (rotationInDegrees) => {
+    let theta = rotationInDegrees * (Math.PI / 180);
+    let cosTheta = Math.cos(theta);
+    let sinTheta = Math.sin(theta);
+    return [
+      cosTheta,
+      sinTheta,
+      0,
+      -sinTheta,
+      cosTheta,
+      0,
+      0,
+      0,
+      1
+    ];
+  };
+  var IDENTITY_MATRIX = rotationMatrix(0);
+  var matrixToBytes = (matrix) => {
+    return [
+      fixed_16_16(matrix[0]),
+      fixed_16_16(matrix[1]),
+      fixed_2_30(matrix[2]),
+      fixed_16_16(matrix[3]),
+      fixed_16_16(matrix[4]),
+      fixed_2_30(matrix[5]),
+      fixed_16_16(matrix[6]),
+      fixed_16_16(matrix[7]),
+      fixed_2_30(matrix[8])
+    ];
+  };
+  var deepClone = (x) => {
+    if (!x)
+      return x;
+    if (typeof x !== "object")
+      return x;
+    if (Array.isArray(x))
+      return x.map(deepClone);
+    return Object.fromEntries(Object.entries(x).map(([key, value]) => [key, deepClone(value)]));
+  };
+  var isU32 = (value) => {
+    return value >= 0 && value < 2 ** 32;
+  };
+
+  // src/box.ts
+  var box = (type, contents, children) => ({
+    type,
+    contents: contents && new Uint8Array(contents.flat(10)),
+    children
+  });
+  var fullBox = (type, version, flags, contents, children) => box(
+    type,
+    [u8(version), u24(flags), contents ?? []],
+    children
+  );
+  var ftyp = (details) => {
+    let minorVersion = 512;
+    if (details.fragmented)
+      return box("ftyp", [
+        ascii("iso5"),
+        // Major brand
+        u32(minorVersion),
+        // Minor version
+        // Compatible brands
+        ascii("iso5"),
+        ascii("iso6"),
+        ascii("mp41")
+      ]);
+    return box("ftyp", [
+      ascii("isom"),
+      // Major brand
+      u32(minorVersion),
+      // Minor version
+      // Compatible brands
+      ascii("isom"),
+      details.holdsAvc ? ascii("avc1") : [],
+      ascii("mp41")
+    ]);
+  };
+  var mdat = (reserveLargeSize) => ({ type: "mdat", largeSize: reserveLargeSize });
+  var free = (size) => ({ type: "free", size });
+  var moov = (tracks, creationTime, fragmented = false) => box("moov", null, [
+    mvhd(creationTime, tracks),
+    ...tracks.map((x) => trak(x, creationTime)),
+    fragmented ? mvex(tracks) : null
+  ]);
+  var mvhd = (creationTime, tracks) => {
+    let duration = intoTimescale(Math.max(
+      0,
+      ...tracks.filter((x) => x.samples.length > 0).map((x) => {
+        const lastSample = lastPresentedSample(x.samples);
+        return lastSample.presentationTimestamp + lastSample.duration;
+      })
+    ), GLOBAL_TIMESCALE);
+    let nextTrackId = Math.max(...tracks.map((x) => x.id)) + 1;
+    let needsU64 = !isU32(creationTime) || !isU32(duration);
+    let u32OrU64 = needsU64 ? u64 : u32;
+    return fullBox("mvhd", +needsU64, 0, [
+      u32OrU64(creationTime),
+      // Creation time
+      u32OrU64(creationTime),
+      // Modification time
+      u32(GLOBAL_TIMESCALE),
+      // Timescale
+      u32OrU64(duration),
+      // Duration
+      fixed_16_16(1),
+      // Preferred rate
+      fixed_8_8(1),
+      // Preferred volume
+      Array(10).fill(0),
+      // Reserved
+      matrixToBytes(IDENTITY_MATRIX),
+      // Matrix
+      Array(24).fill(0),
+      // Pre-defined
+      u32(nextTrackId)
+      // Next track ID
+    ]);
+  };
+  var trak = (track, creationTime) => box("trak", null, [
+    tkhd(track, creationTime),
+    mdia(track, creationTime)
+  ]);
+  var tkhd = (track, creationTime) => {
+    let lastSample = lastPresentedSample(track.samples);
+    let durationInGlobalTimescale = intoTimescale(
+      lastSample ? lastSample.presentationTimestamp + lastSample.duration : 0,
+      GLOBAL_TIMESCALE
+    );
+    let needsU64 = !isU32(creationTime) || !isU32(durationInGlobalTimescale);
+    let u32OrU64 = needsU64 ? u64 : u32;
+    let matrix;
+    if (track.info.type === "video") {
+      matrix = typeof track.info.rotation === "number" ? rotationMatrix(track.info.rotation) : track.info.rotation;
+    } else {
+      matrix = IDENTITY_MATRIX;
+    }
+    return fullBox("tkhd", +needsU64, 3, [
+      u32OrU64(creationTime),
+      // Creation time
+      u32OrU64(creationTime),
+      // Modification time
+      u32(track.id),
+      // Track ID
+      u32(0),
+      // Reserved
+      u32OrU64(durationInGlobalTimescale),
+      // Duration
+      Array(8).fill(0),
+      // Reserved
+      u16(0),
+      // Layer
+      u16(0),
+      // Alternate group
+      fixed_8_8(track.info.type === "audio" ? 1 : 0),
+      // Volume
+      u16(0),
+      // Reserved
+      matrixToBytes(matrix),
+      // Matrix
+      fixed_16_16(track.info.type === "video" ? track.info.width : 0),
+      // Track width
+      fixed_16_16(track.info.type === "video" ? track.info.height : 0)
+      // Track height
+    ]);
+  };
+  var mdia = (track, creationTime) => box("mdia", null, [
+    mdhd(track, creationTime),
+    hdlr(track.info.type === "video" ? "vide" : "soun"),
+    minf(track)
+  ]);
+  var mdhd = (track, creationTime) => {
+    let lastSample = lastPresentedSample(track.samples);
+    let localDuration = intoTimescale(
+      lastSample ? lastSample.presentationTimestamp + lastSample.duration : 0,
+      track.timescale
+    );
+    let needsU64 = !isU32(creationTime) || !isU32(localDuration);
+    let u32OrU64 = needsU64 ? u64 : u32;
+    return fullBox("mdhd", +needsU64, 0, [
+      u32OrU64(creationTime),
+      // Creation time
+      u32OrU64(creationTime),
+      // Modification time
+      u32(track.timescale),
+      // Timescale
+      u32OrU64(localDuration),
+      // Duration
+      u16(21956),
+      // Language ("und", undetermined)
+      u16(0)
+      // Quality
+    ]);
+  };
+  var hdlr = (componentSubtype) => fullBox("hdlr", 0, 0, [
+    ascii("mhlr"),
+    // Component type
+    ascii(componentSubtype),
+    // Component subtype
+    u32(0),
+    // Component manufacturer
+    u32(0),
+    // Component flags
+    u32(0),
+    // Component flags mask
+    ascii("mp4-muxer-hdlr", true)
+    // Component name
+  ]);
+  var minf = (track) => box("minf", null, [
+    track.info.type === "video" ? vmhd() : smhd(),
+    dinf(),
+    stbl(track)
+  ]);
+  var vmhd = () => fullBox("vmhd", 0, 1, [
+    u16(0),
+    // Graphics mode
+    u16(0),
+    // Opcolor R
+    u16(0),
+    // Opcolor G
+    u16(0)
+    // Opcolor B
+  ]);
+  var smhd = () => fullBox("smhd", 0, 0, [
+    u16(0),
+    // Balance
+    u16(0)
+    // Reserved
+  ]);
+  var dinf = () => box("dinf", null, [
+    dref()
+  ]);
+  var dref = () => fullBox("dref", 0, 0, [
+    u32(1)
+    // Entry count
+  ], [
+    url()
+  ]);
+  var url = () => fullBox("url ", 0, 1);
+  var stbl = (track) => {
+    const needsCtts = track.compositionTimeOffsetTable.length > 1 || track.compositionTimeOffsetTable.some((x) => x.sampleCompositionTimeOffset !== 0);
+    return box("stbl", null, [
+      stsd(track),
+      stts(track),
+      stss(track),
+      stsc(track),
+      stsz(track),
+      stco(track),
+      needsCtts ? ctts(track) : null
+    ]);
+  };
+  var stsd = (track) => fullBox("stsd", 0, 0, [
+    u32(1)
+    // Entry count
+  ], [
+    track.info.type === "video" ? videoSampleDescription(
+      VIDEO_CODEC_TO_BOX_NAME[track.info.codec],
+      track
+    ) : soundSampleDescription(
+      AUDIO_CODEC_TO_BOX_NAME[track.info.codec],
+      track
+    )
+  ]);
+  var videoSampleDescription = (compressionType, track) => box(compressionType, [
+    Array(6).fill(0),
+    // Reserved
+    u16(1),
+    // Data reference index
+    u16(0),
+    // Pre-defined
+    u16(0),
+    // Reserved
+    Array(12).fill(0),
+    // Pre-defined
+    u16(track.info.width),
+    // Width
+    u16(track.info.height),
+    // Height
+    u32(4718592),
+    // Horizontal resolution
+    u32(4718592),
+    // Vertical resolution
+    u32(0),
+    // Reserved
+    u16(1),
+    // Frame count
+    Array(32).fill(0),
+    // Compressor name
+    u16(24),
+    // Depth
+    i16(65535)
+    // Pre-defined
+  ], [
+    VIDEO_CODEC_TO_CONFIGURATION_BOX[track.info.codec](track),
+    track.info.decoderConfig.colorSpace ? colr(track) : null
+  ]);
+  var COLOR_PRIMARIES_MAP = {
+    "bt709": 1,
+    // ITU-R BT.709
+    "bt470bg": 5,
+    // ITU-R BT.470BG
+    "smpte170m": 6
+    // ITU-R BT.601 525 - SMPTE 170M
+  };
+  var TRANSFER_CHARACTERISTICS_MAP = {
+    "bt709": 1,
+    // ITU-R BT.709
+    "smpte170m": 6,
+    // SMPTE 170M
+    "iec61966-2-1": 13
+    // IEC 61966-2-1
+  };
+  var MATRIX_COEFFICIENTS_MAP = {
+    "rgb": 0,
+    // Identity
+    "bt709": 1,
+    // ITU-R BT.709
+    "bt470bg": 5,
+    // ITU-R BT.470BG
+    "smpte170m": 6
+    // SMPTE 170M
+  };
+  var colr = (track) => box("colr", [
+    ascii("nclx"),
+    // Colour type
+    u16(COLOR_PRIMARIES_MAP[track.info.decoderConfig.colorSpace.primaries]),
+    // Colour primaries
+    u16(TRANSFER_CHARACTERISTICS_MAP[track.info.decoderConfig.colorSpace.transfer]),
+    // Transfer characteristics
+    u16(MATRIX_COEFFICIENTS_MAP[track.info.decoderConfig.colorSpace.matrix]),
+    // Matrix coefficients
+    u8((track.info.decoderConfig.colorSpace.fullRange ? 1 : 0) << 7)
+    // Full range flag
+  ]);
+  var avcC = (track) => track.info.decoderConfig && box("avcC", [
+    // For AVC, description is an AVCDecoderConfigurationRecord, so nothing else to do here
+    ...new Uint8Array(track.info.decoderConfig.description)
+  ]);
+  var hvcC = (track) => track.info.decoderConfig && box("hvcC", [
+    // For HEVC, description is a HEVCDecoderConfigurationRecord, so nothing else to do here
+    ...new Uint8Array(track.info.decoderConfig.description)
+  ]);
+  var vpcC = (track) => {
+    if (!track.info.decoderConfig) {
+      return null;
+    }
+    let decoderConfig = track.info.decoderConfig;
+    if (!decoderConfig.colorSpace) {
+      throw new Error(`'colorSpace' is required in the decoder config for VP9.`);
+    }
+    let parts = decoderConfig.codec.split(".");
+    let profile = Number(parts[1]);
+    let level = Number(parts[2]);
+    let bitDepth = Number(parts[3]);
+    let chromaSubsampling = 0;
+    let thirdByte = (bitDepth << 4) + (chromaSubsampling << 1) + Number(decoderConfig.colorSpace.fullRange);
+    let colourPrimaries = 2;
+    let transferCharacteristics = 2;
+    let matrixCoefficients = 2;
+    return fullBox("vpcC", 1, 0, [
+      u8(profile),
+      // Profile
+      u8(level),
+      // Level
+      u8(thirdByte),
+      // Bit depth, chroma subsampling, full range
+      u8(colourPrimaries),
+      // Colour primaries
+      u8(transferCharacteristics),
+      // Transfer characteristics
+      u8(matrixCoefficients),
+      // Matrix coefficients
+      u16(0)
+      // Codec initialization data size
+    ]);
+  };
+  var av1C = () => {
+    let marker = 1;
+    let version = 1;
+    let firstByte = (marker << 7) + version;
+    return box("av1C", [
+      firstByte,
+      0,
+      0,
+      0
+    ]);
+  };
+  var soundSampleDescription = (compressionType, track) => box(compressionType, [
+    Array(6).fill(0),
+    // Reserved
+    u16(1),
+    // Data reference index
+    u16(0),
+    // Version
+    u16(0),
+    // Revision level
+    u32(0),
+    // Vendor
+    u16(track.info.numberOfChannels),
+    // Number of channels
+    u16(16),
+    // Sample size (bits)
+    u16(0),
+    // Compression ID
+    u16(0),
+    // Packet size
+    fixed_16_16(track.info.sampleRate)
+    // Sample rate
+  ], [
+    AUDIO_CODEC_TO_CONFIGURATION_BOX[track.info.codec](track)
+  ]);
+  var esds = (track) => {
+    let description = new Uint8Array(track.info.decoderConfig.description);
+    return fullBox("esds", 0, 0, [
+      // https://stackoverflow.com/a/54803118
+      u32(58753152),
+      // TAG(3) = Object Descriptor ([2])
+      u8(32 + description.byteLength),
+      // length of this OD (which includes the next 2 tags)
+      u16(1),
+      // ES_ID = 1
+      u8(0),
+      // flags etc = 0
+      u32(75530368),
+      // TAG(4) = ES Descriptor ([2]) embedded in above OD
+      u8(18 + description.byteLength),
+      // length of this ESD
+      u8(64),
+      // MPEG-4 Audio
+      u8(21),
+      // stream type(6bits)=5 audio, flags(2bits)=1
+      u24(0),
+      // 24bit buffer size
+      u32(130071),
+      // max bitrate
+      u32(130071),
+      // avg bitrate
+      u32(92307584),
+      // TAG(5) = ASC ([2],[3]) embedded in above OD
+      u8(description.byteLength),
+      // length
+      ...description,
+      u32(109084800),
+      // TAG(6)
+      u8(1),
+      // length
+      u8(2)
+      // data
+    ]);
+  };
+  var dOps = (track) => {
+    let preskip = 3840;
+    let gain = 0;
+    const description = track.info.decoderConfig?.description;
+    if (description) {
+      if (description.byteLength < 18) {
+        throw new TypeError("Invalid decoder description provided for Opus; must be at least 18 bytes long.");
+      }
+      const view2 = ArrayBuffer.isView(description) ? new DataView(description.buffer, description.byteOffset, description.byteLength) : new DataView(description);
+      preskip = view2.getUint16(10, true);
+      gain = view2.getInt16(14, true);
+    }
+    return box("dOps", [
+      u8(0),
+      // Version
+      u8(track.info.numberOfChannels),
+      // OutputChannelCount
+      u16(preskip),
+      u32(track.info.sampleRate),
+      // InputSampleRate
+      fixed_8_8(gain),
+      // OutputGain
+      u8(0)
+      // ChannelMappingFamily
+    ]);
+  };
+  var stts = (track) => {
+    return fullBox("stts", 0, 0, [
+      u32(track.timeToSampleTable.length),
+      // Number of entries
+      track.timeToSampleTable.map((x) => [
+        // Time-to-sample table
+        u32(x.sampleCount),
+        // Sample count
+        u32(x.sampleDelta)
+        // Sample duration
+      ])
+    ]);
+  };
+  var stss = (track) => {
+    if (track.samples.every((x) => x.type === "key"))
+      return null;
+    let keySamples = [...track.samples.entries()].filter(([, sample]) => sample.type === "key");
+    return fullBox("stss", 0, 0, [
+      u32(keySamples.length),
+      // Number of entries
+      keySamples.map(([index]) => u32(index + 1))
+      // Sync sample table
+    ]);
+  };
+  var stsc = (track) => {
+    return fullBox("stsc", 0, 0, [
+      u32(track.compactlyCodedChunkTable.length),
+      // Number of entries
+      track.compactlyCodedChunkTable.map((x) => [
+        // Sample-to-chunk table
+        u32(x.firstChunk),
+        // First chunk
+        u32(x.samplesPerChunk),
+        // Samples per chunk
+        u32(1)
+        // Sample description index
+      ])
+    ]);
+  };
+  var stsz = (track) => fullBox("stsz", 0, 0, [
+    u32(0),
+    // Sample size (0 means non-constant size)
+    u32(track.samples.length),
+    // Number of entries
+    track.samples.map((x) => u32(x.size))
+    // Sample size table
+  ]);
+  var stco = (track) => {
+    if (track.finalizedChunks.length > 0 && last(track.finalizedChunks).offset >= 2 ** 32) {
+      return fullBox("co64", 0, 0, [
+        u32(track.finalizedChunks.length),
+        // Number of entries
+        track.finalizedChunks.map((x) => u64(x.offset))
+        // Chunk offset table
+      ]);
+    }
+    return fullBox("stco", 0, 0, [
+      u32(track.finalizedChunks.length),
+      // Number of entries
+      track.finalizedChunks.map((x) => u32(x.offset))
+      // Chunk offset table
+    ]);
+  };
+  var ctts = (track) => {
+    return fullBox("ctts", 0, 0, [
+      u32(track.compositionTimeOffsetTable.length),
+      // Number of entries
+      track.compositionTimeOffsetTable.map((x) => [
+        // Time-to-sample table
+        u32(x.sampleCount),
+        // Sample count
+        u32(x.sampleCompositionTimeOffset)
+        // Sample offset
+      ])
+    ]);
+  };
+  var mvex = (tracks) => {
+    return box("mvex", null, tracks.map(trex));
+  };
+  var trex = (track) => {
+    return fullBox("trex", 0, 0, [
+      u32(track.id),
+      // Track ID
+      u32(1),
+      // Default sample description index
+      u32(0),
+      // Default sample duration
+      u32(0),
+      // Default sample size
+      u32(0)
+      // Default sample flags
+    ]);
+  };
+  var moof = (sequenceNumber, tracks) => {
+    return box("moof", null, [
+      mfhd(sequenceNumber),
+      ...tracks.map(traf)
+    ]);
+  };
+  var mfhd = (sequenceNumber) => {
+    return fullBox("mfhd", 0, 0, [
+      u32(sequenceNumber)
+      // Sequence number
+    ]);
+  };
+  var fragmentSampleFlags = (sample) => {
+    let byte1 = 0;
+    let byte2 = 0;
+    let byte3 = 0;
+    let byte4 = 0;
+    let sampleIsDifferenceSample = sample.type === "delta";
+    byte2 |= +sampleIsDifferenceSample;
+    if (sampleIsDifferenceSample) {
+      byte1 |= 1;
+    } else {
+      byte1 |= 2;
+    }
+    return byte1 << 24 | byte2 << 16 | byte3 << 8 | byte4;
+  };
+  var traf = (track) => {
+    return box("traf", null, [
+      tfhd(track),
+      tfdt(track),
+      trun(track)
+    ]);
+  };
+  var tfhd = (track) => {
+    let tfFlags = 0;
+    tfFlags |= 8;
+    tfFlags |= 16;
+    tfFlags |= 32;
+    tfFlags |= 131072;
+    let referenceSample = track.currentChunk.samples[1] ?? track.currentChunk.samples[0];
+    let referenceSampleInfo = {
+      duration: referenceSample.timescaleUnitsToNextSample,
+      size: referenceSample.size,
+      flags: fragmentSampleFlags(referenceSample)
+    };
+    return fullBox("tfhd", 0, tfFlags, [
+      u32(track.id),
+      // Track ID
+      u32(referenceSampleInfo.duration),
+      // Default sample duration
+      u32(referenceSampleInfo.size),
+      // Default sample size
+      u32(referenceSampleInfo.flags)
+      // Default sample flags
+    ]);
+  };
+  var tfdt = (track) => {
+    return fullBox("tfdt", 1, 0, [
+      u64(intoTimescale(track.currentChunk.startTimestamp, track.timescale))
+      // Base Media Decode Time
+    ]);
+  };
+  var trun = (track) => {
+    let allSampleDurations = track.currentChunk.samples.map((x) => x.timescaleUnitsToNextSample);
+    let allSampleSizes = track.currentChunk.samples.map((x) => x.size);
+    let allSampleFlags = track.currentChunk.samples.map(fragmentSampleFlags);
+    let allSampleCompositionTimeOffsets = track.currentChunk.samples.map((x) => intoTimescale(x.presentationTimestamp - x.decodeTimestamp, track.timescale));
+    let uniqueSampleDurations = new Set(allSampleDurations);
+    let uniqueSampleSizes = new Set(allSampleSizes);
+    let uniqueSampleFlags = new Set(allSampleFlags);
+    let uniqueSampleCompositionTimeOffsets = new Set(allSampleCompositionTimeOffsets);
+    let firstSampleFlagsPresent = uniqueSampleFlags.size === 2 && allSampleFlags[0] !== allSampleFlags[1];
+    let sampleDurationPresent = uniqueSampleDurations.size > 1;
+    let sampleSizePresent = uniqueSampleSizes.size > 1;
+    let sampleFlagsPresent = !firstSampleFlagsPresent && uniqueSampleFlags.size > 1;
+    let sampleCompositionTimeOffsetsPresent = uniqueSampleCompositionTimeOffsets.size > 1 || [...uniqueSampleCompositionTimeOffsets].some((x) => x !== 0);
+    let flags = 0;
+    flags |= 1;
+    flags |= 4 * +firstSampleFlagsPresent;
+    flags |= 256 * +sampleDurationPresent;
+    flags |= 512 * +sampleSizePresent;
+    flags |= 1024 * +sampleFlagsPresent;
+    flags |= 2048 * +sampleCompositionTimeOffsetsPresent;
+    return fullBox("trun", 1, flags, [
+      u32(track.currentChunk.samples.length),
+      // Sample count
+      u32(track.currentChunk.offset - track.currentChunk.moofOffset || 0),
+      // Data offset
+      firstSampleFlagsPresent ? u32(allSampleFlags[0]) : [],
+      track.currentChunk.samples.map((_, i) => [
+        sampleDurationPresent ? u32(allSampleDurations[i]) : [],
+        // Sample duration
+        sampleSizePresent ? u32(allSampleSizes[i]) : [],
+        // Sample size
+        sampleFlagsPresent ? u32(allSampleFlags[i]) : [],
+        // Sample flags
+        // Sample composition time offsets
+        sampleCompositionTimeOffsetsPresent ? i32(allSampleCompositionTimeOffsets[i]) : []
+      ])
+    ]);
+  };
+  var mfra = (tracks) => {
+    return box("mfra", null, [
+      ...tracks.map(tfra),
+      mfro()
+    ]);
+  };
+  var tfra = (track, trackIndex) => {
+    let version = 1;
+    return fullBox("tfra", version, 0, [
+      u32(track.id),
+      // Track ID
+      u32(63),
+      // This specifies that traf number, trun number and sample number are 32-bit ints
+      u32(track.finalizedChunks.length),
+      // Number of entries
+      track.finalizedChunks.map((chunk) => [
+        u64(intoTimescale(chunk.startTimestamp, track.timescale)),
+        // Time
+        u64(chunk.moofOffset),
+        // moof offset
+        u32(trackIndex + 1),
+        // traf number
+        u32(1),
+        // trun number
+        u32(1)
+        // Sample number
+      ])
+    ]);
+  };
+  var mfro = () => {
+    return fullBox("mfro", 0, 0, [
+      // This value needs to be overwritten manually from the outside, where the actual size of the enclosing mfra box
+      // is known
+      u32(0)
+      // Size
+    ]);
+  };
+  var VIDEO_CODEC_TO_BOX_NAME = {
+    "avc": "avc1",
+    "hevc": "hvc1",
+    "vp9": "vp09",
+    "av1": "av01"
+  };
+  var VIDEO_CODEC_TO_CONFIGURATION_BOX = {
+    "avc": avcC,
+    "hevc": hvcC,
+    "vp9": vpcC,
+    "av1": av1C
+  };
+  var AUDIO_CODEC_TO_BOX_NAME = {
+    "aac": "mp4a",
+    "opus": "Opus"
+  };
+  var AUDIO_CODEC_TO_CONFIGURATION_BOX = {
+    "aac": esds,
+    "opus": dOps
+  };
+
+  // src/target.ts
+  var isTarget = Symbol("isTarget");
+  var Target = class {
+  };
+  isTarget;
+  var ArrayBufferTarget = class extends Target {
+    constructor() {
+      super(...arguments);
+      this.buffer = null;
+    }
+  };
+  var StreamTarget = class extends Target {
+    constructor(options) {
+      super();
+      this.options = options;
+      if (typeof options !== "object") {
+        throw new TypeError("StreamTarget requires an options object to be passed to its constructor.");
+      }
+      if (options.onData) {
+        if (typeof options.onData !== "function") {
+          throw new TypeError("options.onData, when provided, must be a function.");
+        }
+        if (options.onData.length < 2) {
+          throw new TypeError(
+            "options.onData, when provided, must be a function that takes in at least two arguments (data and position). Ignoring the position argument, which specifies the byte offset at which the data is to be written, can lead to broken outputs."
+          );
+        }
+      }
+      if (options.chunked !== void 0 && typeof options.chunked !== "boolean") {
+        throw new TypeError("options.chunked, when provided, must be a boolean.");
+      }
+      if (options.chunkSize !== void 0 && (!Number.isInteger(options.chunkSize) || options.chunkSize < 1024)) {
+        throw new TypeError("options.chunkSize, when provided, must be an integer and not smaller than 1024.");
+      }
+    }
+  };
+  var FileSystemWritableFileStreamTarget = class extends Target {
+    constructor(stream, options) {
+      super();
+      this.stream = stream;
+      this.options = options;
+      if (!(stream instanceof FileSystemWritableFileStream)) {
+        throw new TypeError("FileSystemWritableFileStreamTarget requires a FileSystemWritableFileStream instance.");
+      }
+      if (options !== void 0 && typeof options !== "object") {
+        throw new TypeError("FileSystemWritableFileStreamTarget's options, when provided, must be an object.");
+      }
+      if (options) {
+        if (options.chunkSize !== void 0 && (!Number.isInteger(options.chunkSize) || options.chunkSize <= 0)) {
+          throw new TypeError("options.chunkSize, when provided, must be a positive integer");
+        }
+      }
+    }
+  };
+
+  // src/writer.ts
+  var _helper, _helperView;
+  var Writer = class {
+    constructor() {
+      this.pos = 0;
+      __privateAdd(this, _helper, new Uint8Array(8));
+      __privateAdd(this, _helperView, new DataView(__privateGet(this, _helper).buffer));
+      /**
+       * Stores the position from the start of the file to where boxes elements have been written. This is used to
+       * rewrite/edit elements that were already added before, and to measure sizes of things.
+       */
+      this.offsets = /* @__PURE__ */ new WeakMap();
+    }
+    /** Sets the current position for future writes to a new one. */
+    seek(newPos) {
+      this.pos = newPos;
+    }
+    writeU32(value) {
+      __privateGet(this, _helperView).setUint32(0, value, false);
+      this.write(__privateGet(this, _helper).subarray(0, 4));
+    }
+    writeU64(value) {
+      __privateGet(this, _helperView).setUint32(0, Math.floor(value / 2 ** 32), false);
+      __privateGet(this, _helperView).setUint32(4, value, false);
+      this.write(__privateGet(this, _helper).subarray(0, 8));
+    }
+    writeAscii(text) {
+      for (let i = 0; i < text.length; i++) {
+        __privateGet(this, _helperView).setUint8(i % 8, text.charCodeAt(i));
+        if (i % 8 === 7)
+          this.write(__privateGet(this, _helper));
+      }
+      if (text.length % 8 !== 0) {
+        this.write(__privateGet(this, _helper).subarray(0, text.length % 8));
+      }
+    }
+    writeBox(box2) {
+      this.offsets.set(box2, this.pos);
+      if (box2.contents && !box2.children) {
+        this.writeBoxHeader(box2, box2.size ?? box2.contents.byteLength + 8);
+        this.write(box2.contents);
+      } else {
+        let startPos = this.pos;
+        this.writeBoxHeader(box2, 0);
+        if (box2.contents)
+          this.write(box2.contents);
+        if (box2.children) {
+          for (let child of box2.children)
+            if (child)
+              this.writeBox(child);
+        }
+        let endPos = this.pos;
+        let size = box2.size ?? endPos - startPos;
+        this.seek(startPos);
+        this.writeBoxHeader(box2, size);
+        this.seek(endPos);
+      }
+    }
+    writeBoxHeader(box2, size) {
+      this.writeU32(box2.largeSize ? 1 : size);
+      this.writeAscii(box2.type);
+      if (box2.largeSize)
+        this.writeU64(size);
+    }
+    measureBoxHeader(box2) {
+      return 8 + (box2.largeSize ? 8 : 0);
+    }
+    patchBox(box2) {
+      let endPos = this.pos;
+      this.seek(this.offsets.get(box2));
+      this.writeBox(box2);
+      this.seek(endPos);
+    }
+    measureBox(box2) {
+      if (box2.contents && !box2.children) {
+        let headerSize = this.measureBoxHeader(box2);
+        return headerSize + box2.contents.byteLength;
+      } else {
+        let result = this.measureBoxHeader(box2);
+        if (box2.contents)
+          result += box2.contents.byteLength;
+        if (box2.children) {
+          for (let child of box2.children)
+            if (child)
+              result += this.measureBox(child);
+        }
+        return result;
+      }
+    }
+  };
+  _helper = new WeakMap();
+  _helperView = new WeakMap();
+  var _target, _buffer, _bytes, _maxPos, _ensureSize, ensureSize_fn;
+  var ArrayBufferTargetWriter = class extends Writer {
+    constructor(target) {
+      super();
+      __privateAdd(this, _ensureSize);
+      __privateAdd(this, _target, void 0);
+      __privateAdd(this, _buffer, new ArrayBuffer(2 ** 16));
+      __privateAdd(this, _bytes, new Uint8Array(__privateGet(this, _buffer)));
+      __privateAdd(this, _maxPos, 0);
+      __privateSet(this, _target, target);
+    }
+    write(data) {
+      __privateMethod(this, _ensureSize, ensureSize_fn).call(this, this.pos + data.byteLength);
+      __privateGet(this, _bytes).set(data, this.pos);
+      this.pos += data.byteLength;
+      __privateSet(this, _maxPos, Math.max(__privateGet(this, _maxPos), this.pos));
+    }
+    finalize() {
+      __privateMethod(this, _ensureSize, ensureSize_fn).call(this, this.pos);
+      __privateGet(this, _target).buffer = __privateGet(this, _buffer).slice(0, Math.max(__privateGet(this, _maxPos), this.pos));
+    }
+  };
+  _target = new WeakMap();
+  _buffer = new WeakMap();
+  _bytes = new WeakMap();
+  _maxPos = new WeakMap();
+  _ensureSize = new WeakSet();
+  ensureSize_fn = function(size) {
+    let newLength = __privateGet(this, _buffer).byteLength;
+    while (newLength < size)
+      newLength *= 2;
+    if (newLength === __privateGet(this, _buffer).byteLength)
+      return;
+    let newBuffer = new ArrayBuffer(newLength);
+    let newBytes = new Uint8Array(newBuffer);
+    newBytes.set(__privateGet(this, _bytes), 0);
+    __privateSet(this, _buffer, newBuffer);
+    __privateSet(this, _bytes, newBytes);
+  };
+  var DEFAULT_CHUNK_SIZE = 2 ** 24;
+  var MAX_CHUNKS_AT_ONCE = 2;
+  var _target2, _sections, _chunked, _chunkSize, _chunks, _writeDataIntoChunks, writeDataIntoChunks_fn, _insertSectionIntoChunk, insertSectionIntoChunk_fn, _createChunk, createChunk_fn, _flushChunks, flushChunks_fn;
+  var StreamTargetWriter = class extends Writer {
+    constructor(target) {
+      super();
+      __privateAdd(this, _writeDataIntoChunks);
+      __privateAdd(this, _insertSectionIntoChunk);
+      __privateAdd(this, _createChunk);
+      __privateAdd(this, _flushChunks);
+      __privateAdd(this, _target2, void 0);
+      __privateAdd(this, _sections, []);
+      __privateAdd(this, _chunked, void 0);
+      __privateAdd(this, _chunkSize, void 0);
+      /**
+       * The data is divided up into fixed-size chunks, whose contents are first filled in RAM and then flushed out.
+       * A chunk is flushed if all of its contents have been written.
+       */
+      __privateAdd(this, _chunks, []);
+      __privateSet(this, _target2, target);
+      __privateSet(this, _chunked, target.options?.chunked ?? false);
+      __privateSet(this, _chunkSize, target.options?.chunkSize ?? DEFAULT_CHUNK_SIZE);
+    }
+    write(data) {
+      __privateGet(this, _sections).push({
+        data: data.slice(),
+        start: this.pos
+      });
+      this.pos += data.byteLength;
+    }
+    flush() {
+      if (__privateGet(this, _sections).length === 0)
+        return;
+      let chunks = [];
+      let sorted = [...__privateGet(this, _sections)].sort((a, b) => a.start - b.start);
+      chunks.push({
+        start: sorted[0].start,
+        size: sorted[0].data.byteLength
+      });
+      for (let i = 1; i < sorted.length; i++) {
+        let lastChunk = chunks[chunks.length - 1];
+        let section = sorted[i];
+        if (section.start <= lastChunk.start + lastChunk.size) {
+          lastChunk.size = Math.max(lastChunk.size, section.start + section.data.byteLength - lastChunk.start);
+        } else {
+          chunks.push({
+            start: section.start,
+            size: section.data.byteLength
+          });
+        }
+      }
+      for (let chunk of chunks) {
+        chunk.data = new Uint8Array(chunk.size);
+        for (let section of __privateGet(this, _sections)) {
+          if (chunk.start <= section.start && section.start < chunk.start + chunk.size) {
+            chunk.data.set(section.data, section.start - chunk.start);
+          }
+        }
+        if (__privateGet(this, _chunked)) {
+          __privateMethod(this, _writeDataIntoChunks, writeDataIntoChunks_fn).call(this, chunk.data, chunk.start);
+          __privateMethod(this, _flushChunks, flushChunks_fn).call(this);
+        } else {
+          __privateGet(this, _target2).options.onData?.(chunk.data, chunk.start);
+        }
+      }
+      __privateGet(this, _sections).length = 0;
+    }
+    finalize() {
+      if (__privateGet(this, _chunked)) {
+        __privateMethod(this, _flushChunks, flushChunks_fn).call(this, true);
+      }
+    }
+  };
+  _target2 = new WeakMap();
+  _sections = new WeakMap();
+  _chunked = new WeakMap();
+  _chunkSize = new WeakMap();
+  _chunks = new WeakMap();
+  _writeDataIntoChunks = new WeakSet();
+  writeDataIntoChunks_fn = function(data, position) {
+    let chunkIndex = __privateGet(this, _chunks).findIndex((x) => x.start <= position && position < x.start + __privateGet(this, _chunkSize));
+    if (chunkIndex === -1)
+      chunkIndex = __privateMethod(this, _createChunk, createChunk_fn).call(this, position);
+    let chunk = __privateGet(this, _chunks)[chunkIndex];
+    let relativePosition = position - chunk.start;
+    let toWrite = data.subarray(0, Math.min(__privateGet(this, _chunkSize) - relativePosition, data.byteLength));
+    chunk.data.set(toWrite, relativePosition);
+    let section = {
+      start: relativePosition,
+      end: relativePosition + toWrite.byteLength
+    };
+    __privateMethod(this, _insertSectionIntoChunk, insertSectionIntoChunk_fn).call(this, chunk, section);
+    if (chunk.written[0].start === 0 && chunk.written[0].end === __privateGet(this, _chunkSize)) {
+      chunk.shouldFlush = true;
+    }
+    if (__privateGet(this, _chunks).length > MAX_CHUNKS_AT_ONCE) {
+      for (let i = 0; i < __privateGet(this, _chunks).length - 1; i++) {
+        __privateGet(this, _chunks)[i].shouldFlush = true;
+      }
+      __privateMethod(this, _flushChunks, flushChunks_fn).call(this);
+    }
+    if (toWrite.byteLength < data.byteLength) {
+      __privateMethod(this, _writeDataIntoChunks, writeDataIntoChunks_fn).call(this, data.subarray(toWrite.byteLength), position + toWrite.byteLength);
+    }
+  };
+  _insertSectionIntoChunk = new WeakSet();
+  insertSectionIntoChunk_fn = function(chunk, section) {
+    let low = 0;
+    let high = chunk.written.length - 1;
+    let index = -1;
+    while (low <= high) {
+      let mid = Math.floor(low + (high - low + 1) / 2);
+      if (chunk.written[mid].start <= section.start) {
+        low = mid + 1;
+        index = mid;
+      } else {
+        high = mid - 1;
+      }
+    }
+    chunk.written.splice(index + 1, 0, section);
+    if (index === -1 || chunk.written[index].end < section.start)
+      index++;
+    while (index < chunk.written.length - 1 && chunk.written[index].end >= chunk.written[index + 1].start) {
+      chunk.written[index].end = Math.max(chunk.written[index].end, chunk.written[index + 1].end);
+      chunk.written.splice(index + 1, 1);
+    }
+  };
+  _createChunk = new WeakSet();
+  createChunk_fn = function(includesPosition) {
+    let start = Math.floor(includesPosition / __privateGet(this, _chunkSize)) * __privateGet(this, _chunkSize);
+    let chunk = {
+      start,
+      data: new Uint8Array(__privateGet(this, _chunkSize)),
+      written: [],
+      shouldFlush: false
+    };
+    __privateGet(this, _chunks).push(chunk);
+    __privateGet(this, _chunks).sort((a, b) => a.start - b.start);
+    return __privateGet(this, _chunks).indexOf(chunk);
+  };
+  _flushChunks = new WeakSet();
+  flushChunks_fn = function(force = false) {
+    for (let i = 0; i < __privateGet(this, _chunks).length; i++) {
+      let chunk = __privateGet(this, _chunks)[i];
+      if (!chunk.shouldFlush && !force)
+        continue;
+      for (let section of chunk.written) {
+        __privateGet(this, _target2).options.onData?.(
+          chunk.data.subarray(section.start, section.end),
+          chunk.start + section.start
+        );
+      }
+      __privateGet(this, _chunks).splice(i--, 1);
+    }
+  };
+  var FileSystemWritableFileStreamTargetWriter = class extends StreamTargetWriter {
+    constructor(target) {
+      super(new StreamTarget({
+        onData: (data, position) => target.stream.write({
+          type: "write",
+          data,
+          position
+        }),
+        chunked: true,
+        chunkSize: target.options?.chunkSize
+      }));
+    }
+  };
+
+  // src/muxer.ts
+  var GLOBAL_TIMESCALE = 1e3;
+  var SUPPORTED_VIDEO_CODECS = ["avc", "hevc", "vp9", "av1"];
+  var SUPPORTED_AUDIO_CODECS = ["aac", "opus"];
+  var TIMESTAMP_OFFSET = 2082844800;
+  var FIRST_TIMESTAMP_BEHAVIORS = ["strict", "offset", "cross-track-offset"];
+  var _options, _writer, _ftypSize, _mdat, _videoTrack, _audioTrack, _creationTime, _finalizedChunks, _nextFragmentNumber, _videoSampleQueue, _audioSampleQueue, _finalized, _validateOptions, validateOptions_fn, _writeHeader, writeHeader_fn, _computeMoovSizeUpperBound, computeMoovSizeUpperBound_fn, _prepareTracks, prepareTracks_fn, _generateMpeg4AudioSpecificConfig, generateMpeg4AudioSpecificConfig_fn, _createSampleForTrack, createSampleForTrack_fn, _addSampleToTrack, addSampleToTrack_fn, _validateTimestamp, validateTimestamp_fn, _finalizeCurrentChunk, finalizeCurrentChunk_fn, _finalizeFragment, finalizeFragment_fn, _maybeFlushStreamingTargetWriter, maybeFlushStreamingTargetWriter_fn, _ensureNotFinalized, ensureNotFinalized_fn;
+  var Muxer = class {
+    constructor(options) {
+      __privateAdd(this, _validateOptions);
+      __privateAdd(this, _writeHeader);
+      __privateAdd(this, _computeMoovSizeUpperBound);
+      __privateAdd(this, _prepareTracks);
+      // https://wiki.multimedia.cx/index.php/MPEG-4_Audio
+      __privateAdd(this, _generateMpeg4AudioSpecificConfig);
+      __privateAdd(this, _createSampleForTrack);
+      __privateAdd(this, _addSampleToTrack);
+      __privateAdd(this, _validateTimestamp);
+      __privateAdd(this, _finalizeCurrentChunk);
+      __privateAdd(this, _finalizeFragment);
+      __privateAdd(this, _maybeFlushStreamingTargetWriter);
+      __privateAdd(this, _ensureNotFinalized);
+      __privateAdd(this, _options, void 0);
+      __privateAdd(this, _writer, void 0);
+      __privateAdd(this, _ftypSize, void 0);
+      __privateAdd(this, _mdat, void 0);
+      __privateAdd(this, _videoTrack, null);
+      __privateAdd(this, _audioTrack, null);
+      __privateAdd(this, _creationTime, Math.floor(Date.now() / 1e3) + TIMESTAMP_OFFSET);
+      __privateAdd(this, _finalizedChunks, []);
+      // Fields for fragmented MP4:
+      __privateAdd(this, _nextFragmentNumber, 1);
+      __privateAdd(this, _videoSampleQueue, []);
+      __privateAdd(this, _audioSampleQueue, []);
+      __privateAdd(this, _finalized, false);
+      __privateMethod(this, _validateOptions, validateOptions_fn).call(this, options);
+      options.video = deepClone(options.video);
+      options.audio = deepClone(options.audio);
+      options.fastStart = deepClone(options.fastStart);
+      this.target = options.target;
+      __privateSet(this, _options, {
+        firstTimestampBehavior: "strict",
+        ...options
+      });
+      if (options.target instanceof ArrayBufferTarget) {
+        __privateSet(this, _writer, new ArrayBufferTargetWriter(options.target));
+      } else if (options.target instanceof StreamTarget) {
+        __privateSet(this, _writer, new StreamTargetWriter(options.target));
+      } else if (options.target instanceof FileSystemWritableFileStreamTarget) {
+        __privateSet(this, _writer, new FileSystemWritableFileStreamTargetWriter(options.target));
+      } else {
+        throw new Error(`Invalid target: ${options.target}`);
+      }
+      __privateMethod(this, _prepareTracks, prepareTracks_fn).call(this);
+      __privateMethod(this, _writeHeader, writeHeader_fn).call(this);
+    }
+    addVideoChunk(sample, meta, timestamp, compositionTimeOffset) {
+      if (!(sample instanceof EncodedVideoChunk)) {
+        throw new TypeError("addVideoChunk's first argument (sample) must be of type EncodedVideoChunk.");
+      }
+      if (meta && typeof meta !== "object") {
+        throw new TypeError("addVideoChunk's second argument (meta), when provided, must be an object.");
+      }
+      if (timestamp !== void 0 && (!Number.isFinite(timestamp) || timestamp < 0)) {
+        throw new TypeError(
+          "addVideoChunk's third argument (timestamp), when provided, must be a non-negative real number."
+        );
+      }
+      if (compositionTimeOffset !== void 0 && !Number.isFinite(compositionTimeOffset)) {
+        throw new TypeError(
+          "addVideoChunk's fourth argument (compositionTimeOffset), when provided, must be a real number."
+        );
+      }
+      let data = new Uint8Array(sample.byteLength);
+      sample.copyTo(data);
+      this.addVideoChunkRaw(
+        data,
+        sample.type,
+        timestamp ?? sample.timestamp,
+        sample.duration,
+        meta,
+        compositionTimeOffset
+      );
+    }
+    addVideoChunkRaw(data, type, timestamp, duration, meta, compositionTimeOffset) {
+      if (!(data instanceof Uint8Array)) {
+        throw new TypeError("addVideoChunkRaw's first argument (data) must be an instance of Uint8Array.");
+      }
+      if (type !== "key" && type !== "delta") {
+        throw new TypeError("addVideoChunkRaw's second argument (type) must be either 'key' or 'delta'.");
+      }
+      if (!Number.isFinite(timestamp) || timestamp < 0) {
+        throw new TypeError("addVideoChunkRaw's third argument (timestamp) must be a non-negative real number.");
+      }
+      if (!Number.isFinite(duration) || duration < 0) {
+        throw new TypeError("addVideoChunkRaw's fourth argument (duration) must be a non-negative real number.");
+      }
+      if (meta && typeof meta !== "object") {
+        throw new TypeError("addVideoChunkRaw's fifth argument (meta), when provided, must be an object.");
+      }
+      if (compositionTimeOffset !== void 0 && !Number.isFinite(compositionTimeOffset)) {
+        throw new TypeError(
+          "addVideoChunkRaw's sixth argument (compositionTimeOffset), when provided, must be a real number."
+        );
+      }
+      __privateMethod(this, _ensureNotFinalized, ensureNotFinalized_fn).call(this);
+      if (!__privateGet(this, _options).video)
+        throw new Error("No video track declared.");
+      if (typeof __privateGet(this, _options).fastStart === "object" && __privateGet(this, _videoTrack).samples.length === __privateGet(this, _options).fastStart.expectedVideoChunks) {
+        throw new Error(`Cannot add more video chunks than specified in 'fastStart' (${__privateGet(this, _options).fastStart.expectedVideoChunks}).`);
+      }
+      let videoSample = __privateMethod(this, _createSampleForTrack, createSampleForTrack_fn).call(this, __privateGet(this, _videoTrack), data, type, timestamp, duration, meta, compositionTimeOffset);
+      if (__privateGet(this, _options).fastStart === "fragmented" && __privateGet(this, _audioTrack)) {
+        while (__privateGet(this, _audioSampleQueue).length > 0 && __privateGet(this, _audioSampleQueue)[0].decodeTimestamp <= videoSample.decodeTimestamp) {
+          let audioSample = __privateGet(this, _audioSampleQueue).shift();
+          __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _audioTrack), audioSample);
+        }
+        if (videoSample.decodeTimestamp <= __privateGet(this, _audioTrack).lastDecodeTimestamp) {
+          __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _videoTrack), videoSample);
+        } else {
+          __privateGet(this, _videoSampleQueue).push(videoSample);
+        }
+      } else {
+        __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _videoTrack), videoSample);
+      }
+    }
+    addAudioChunk(sample, meta, timestamp) {
+      if (!(sample instanceof EncodedAudioChunk)) {
+        throw new TypeError("addAudioChunk's first argument (sample) must be of type EncodedAudioChunk.");
+      }
+      if (meta && typeof meta !== "object") {
+        throw new TypeError("addAudioChunk's second argument (meta), when provided, must be an object.");
+      }
+      if (timestamp !== void 0 && (!Number.isFinite(timestamp) || timestamp < 0)) {
+        throw new TypeError(
+          "addAudioChunk's third argument (timestamp), when provided, must be a non-negative real number."
+        );
+      }
+      let data = new Uint8Array(sample.byteLength);
+      sample.copyTo(data);
+      this.addAudioChunkRaw(data, sample.type, timestamp ?? sample.timestamp, sample.duration, meta);
+    }
+    addAudioChunkRaw(data, type, timestamp, duration, meta) {
+      if (!(data instanceof Uint8Array)) {
+        throw new TypeError("addAudioChunkRaw's first argument (data) must be an instance of Uint8Array.");
+      }
+      if (type !== "key" && type !== "delta") {
+        throw new TypeError("addAudioChunkRaw's second argument (type) must be either 'key' or 'delta'.");
+      }
+      if (!Number.isFinite(timestamp) || timestamp < 0) {
+        throw new TypeError("addAudioChunkRaw's third argument (timestamp) must be a non-negative real number.");
+      }
+      if (!Number.isFinite(duration) || duration < 0) {
+        throw new TypeError("addAudioChunkRaw's fourth argument (duration) must be a non-negative real number.");
+      }
+      if (meta && typeof meta !== "object") {
+        throw new TypeError("addAudioChunkRaw's fifth argument (meta), when provided, must be an object.");
+      }
+      __privateMethod(this, _ensureNotFinalized, ensureNotFinalized_fn).call(this);
+      if (!__privateGet(this, _options).audio)
+        throw new Error("No audio track declared.");
+      if (typeof __privateGet(this, _options).fastStart === "object" && __privateGet(this, _audioTrack).samples.length === __privateGet(this, _options).fastStart.expectedAudioChunks) {
+        throw new Error(`Cannot add more audio chunks than specified in 'fastStart' (${__privateGet(this, _options).fastStart.expectedAudioChunks}).`);
+      }
+      let audioSample = __privateMethod(this, _createSampleForTrack, createSampleForTrack_fn).call(this, __privateGet(this, _audioTrack), data, type, timestamp, duration, meta);
+      if (__privateGet(this, _options).fastStart === "fragmented" && __privateGet(this, _videoTrack)) {
+        while (__privateGet(this, _videoSampleQueue).length > 0 && __privateGet(this, _videoSampleQueue)[0].decodeTimestamp <= audioSample.decodeTimestamp) {
+          let videoSample = __privateGet(this, _videoSampleQueue).shift();
+          __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _videoTrack), videoSample);
+        }
+        if (audioSample.decodeTimestamp <= __privateGet(this, _videoTrack).lastDecodeTimestamp) {
+          __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _audioTrack), audioSample);
+        } else {
+          __privateGet(this, _audioSampleQueue).push(audioSample);
+        }
+      } else {
+        __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _audioTrack), audioSample);
+      }
+    }
+    /** Finalizes the file, making it ready for use. Must be called after all video and audio chunks have been added. */
+    finalize() {
+      if (__privateGet(this, _finalized)) {
+        throw new Error("Cannot finalize a muxer more than once.");
+      }
+      if (__privateGet(this, _options).fastStart === "fragmented") {
+        for (let videoSample of __privateGet(this, _videoSampleQueue))
+          __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _videoTrack), videoSample);
+        for (let audioSample of __privateGet(this, _audioSampleQueue))
+          __privateMethod(this, _addSampleToTrack, addSampleToTrack_fn).call(this, __privateGet(this, _audioTrack), audioSample);
+        __privateMethod(this, _finalizeFragment, finalizeFragment_fn).call(this, false);
+      } else {
+        if (__privateGet(this, _videoTrack))
+          __privateMethod(this, _finalizeCurrentChunk, finalizeCurrentChunk_fn).call(this, __privateGet(this, _videoTrack));
+        if (__privateGet(this, _audioTrack))
+          __privateMethod(this, _finalizeCurrentChunk, finalizeCurrentChunk_fn).call(this, __privateGet(this, _audioTrack));
+      }
+      let tracks = [__privateGet(this, _videoTrack), __privateGet(this, _audioTrack)].filter(Boolean);
+      if (__privateGet(this, _options).fastStart === "in-memory") {
+        let mdatSize;
+        for (let i = 0; i < 2; i++) {
+          let movieBox2 = moov(tracks, __privateGet(this, _creationTime));
+          let movieBoxSize = __privateGet(this, _writer).measureBox(movieBox2);
+          mdatSize = __privateGet(this, _writer).measureBox(__privateGet(this, _mdat));
+          let currentChunkPos = __privateGet(this, _writer).pos + movieBoxSize + mdatSize;
+          for (let chunk of __privateGet(this, _finalizedChunks)) {
+            chunk.offset = currentChunkPos;
+            for (let { data } of chunk.samples) {
+              currentChunkPos += data.byteLength;
+              mdatSize += data.byteLength;
+            }
+          }
+          if (currentChunkPos < 2 ** 32)
+            break;
+          if (mdatSize >= 2 ** 32)
+            __privateGet(this, _mdat).largeSize = true;
+        }
+        let movieBox = moov(tracks, __privateGet(this, _creationTime));
+        __privateGet(this, _writer).writeBox(movieBox);
+        __privateGet(this, _mdat).size = mdatSize;
+        __privateGet(this, _writer).writeBox(__privateGet(this, _mdat));
+        for (let chunk of __privateGet(this, _finalizedChunks)) {
+          for (let sample of chunk.samples) {
+            __privateGet(this, _writer).write(sample.data);
+            sample.data = null;
+          }
+        }
+      } else if (__privateGet(this, _options).fastStart === "fragmented") {
+        let startPos = __privateGet(this, _writer).pos;
+        let mfraBox = mfra(tracks);
+        __privateGet(this, _writer).writeBox(mfraBox);
+        let mfraBoxSize = __privateGet(this, _writer).pos - startPos;
+        __privateGet(this, _writer).seek(__privateGet(this, _writer).pos - 4);
+        __privateGet(this, _writer).writeU32(mfraBoxSize);
+      } else {
+        let mdatPos = __privateGet(this, _writer).offsets.get(__privateGet(this, _mdat));
+        let mdatSize = __privateGet(this, _writer).pos - mdatPos;
+        __privateGet(this, _mdat).size = mdatSize;
+        __privateGet(this, _mdat).largeSize = mdatSize >= 2 ** 32;
+        __privateGet(this, _writer).patchBox(__privateGet(this, _mdat));
+        let movieBox = moov(tracks, __privateGet(this, _creationTime));
+        if (typeof __privateGet(this, _options).fastStart === "object") {
+          __privateGet(this, _writer).seek(__privateGet(this, _ftypSize));
+          __privateGet(this, _writer).writeBox(movieBox);
+          let remainingBytes = mdatPos - __privateGet(this, _writer).pos;
+          __privateGet(this, _writer).writeBox(free(remainingBytes));
+        } else {
+          __privateGet(this, _writer).writeBox(movieBox);
+        }
+      }
+      __privateMethod(this, _maybeFlushStreamingTargetWriter, maybeFlushStreamingTargetWriter_fn).call(this);
+      __privateGet(this, _writer).finalize();
+      __privateSet(this, _finalized, true);
+    }
+  };
+  _options = new WeakMap();
+  _writer = new WeakMap();
+  _ftypSize = new WeakMap();
+  _mdat = new WeakMap();
+  _videoTrack = new WeakMap();
+  _audioTrack = new WeakMap();
+  _creationTime = new WeakMap();
+  _finalizedChunks = new WeakMap();
+  _nextFragmentNumber = new WeakMap();
+  _videoSampleQueue = new WeakMap();
+  _audioSampleQueue = new WeakMap();
+  _finalized = new WeakMap();
+  _validateOptions = new WeakSet();
+  validateOptions_fn = function(options) {
+    if (typeof options !== "object") {
+      throw new TypeError("The muxer requires an options object to be passed to its constructor.");
+    }
+    if (!(options.target instanceof Target)) {
+      throw new TypeError("The target must be provided and an instance of Target.");
+    }
+    if (options.video) {
+      if (!SUPPORTED_VIDEO_CODECS.includes(options.video.codec)) {
+        throw new TypeError(`Unsupported video codec: ${options.video.codec}`);
+      }
+      if (!Number.isInteger(options.video.width) || options.video.width <= 0) {
+        throw new TypeError(`Invalid video width: ${options.video.width}. Must be a positive integer.`);
+      }
+      if (!Number.isInteger(options.video.height) || options.video.height <= 0) {
+        throw new TypeError(`Invalid video height: ${options.video.height}. Must be a positive integer.`);
+      }
+      const videoRotation = options.video.rotation;
+      if (typeof videoRotation === "number" && ![0, 90, 180, 270].includes(videoRotation)) {
+        throw new TypeError(`Invalid video rotation: ${videoRotation}. Has to be 0, 90, 180 or 270.`);
+      } else if (Array.isArray(videoRotation) && (videoRotation.length !== 9 || videoRotation.some((value) => typeof value !== "number"))) {
+        throw new TypeError(`Invalid video transformation matrix: ${videoRotation.join()}`);
+      }
+      if (options.video.frameRate !== void 0 && (!Number.isInteger(options.video.frameRate) || options.video.frameRate <= 0)) {
+        throw new TypeError(
+          `Invalid video frame rate: ${options.video.frameRate}. Must be a positive integer.`
+        );
+      }
+    }
+    if (options.audio) {
+      if (!SUPPORTED_AUDIO_CODECS.includes(options.audio.codec)) {
+        throw new TypeError(`Unsupported audio codec: ${options.audio.codec}`);
+      }
+      if (!Number.isInteger(options.audio.numberOfChannels) || options.audio.numberOfChannels <= 0) {
+        throw new TypeError(
+          `Invalid number of audio channels: ${options.audio.numberOfChannels}. Must be a positive integer.`
+        );
+      }
+      if (!Number.isInteger(options.audio.sampleRate) || options.audio.sampleRate <= 0) {
+        throw new TypeError(
+          `Invalid audio sample rate: ${options.audio.sampleRate}. Must be a positive integer.`
+        );
+      }
+    }
+    if (options.firstTimestampBehavior && !FIRST_TIMESTAMP_BEHAVIORS.includes(options.firstTimestampBehavior)) {
+      throw new TypeError(`Invalid first timestamp behavior: ${options.firstTimestampBehavior}`);
+    }
+    if (typeof options.fastStart === "object") {
+      if (options.video) {
+        if (options.fastStart.expectedVideoChunks === void 0) {
+          throw new TypeError(`'fastStart' is an object but is missing property 'expectedVideoChunks'.`);
+        } else if (!Number.isInteger(options.fastStart.expectedVideoChunks) || options.fastStart.expectedVideoChunks < 0) {
+          throw new TypeError(`'expectedVideoChunks' must be a non-negative integer.`);
+        }
+      }
+      if (options.audio) {
+        if (options.fastStart.expectedAudioChunks === void 0) {
+          throw new TypeError(`'fastStart' is an object but is missing property 'expectedAudioChunks'.`);
+        } else if (!Number.isInteger(options.fastStart.expectedAudioChunks) || options.fastStart.expectedAudioChunks < 0) {
+          throw new TypeError(`'expectedAudioChunks' must be a non-negative integer.`);
+        }
+      }
+    } else if (![false, "in-memory", "fragmented"].includes(options.fastStart)) {
+      throw new TypeError(`'fastStart' option must be false, 'in-memory', 'fragmented' or an object.`);
+    }
+    if (options.minFragmentDuration !== void 0 && (!Number.isFinite(options.minFragmentDuration) || options.minFragmentDuration < 0)) {
+      throw new TypeError(`'minFragmentDuration' must be a non-negative number.`);
+    }
+  };
+  _writeHeader = new WeakSet();
+  writeHeader_fn = function() {
+    __privateGet(this, _writer).writeBox(ftyp({
+      holdsAvc: __privateGet(this, _options).video?.codec === "avc",
+      fragmented: __privateGet(this, _options).fastStart === "fragmented"
+    }));
+    __privateSet(this, _ftypSize, __privateGet(this, _writer).pos);
+    if (__privateGet(this, _options).fastStart === "in-memory") {
+      __privateSet(this, _mdat, mdat(false));
+    } else if (__privateGet(this, _options).fastStart === "fragmented") {
+    } else {
+      if (typeof __privateGet(this, _options).fastStart === "object") {
+        let moovSizeUpperBound = __privateMethod(this, _computeMoovSizeUpperBound, computeMoovSizeUpperBound_fn).call(this);
+        __privateGet(this, _writer).seek(__privateGet(this, _writer).pos + moovSizeUpperBound);
+      }
+      __privateSet(this, _mdat, mdat(true));
+      __privateGet(this, _writer).writeBox(__privateGet(this, _mdat));
+    }
+    __privateMethod(this, _maybeFlushStreamingTargetWriter, maybeFlushStreamingTargetWriter_fn).call(this);
+  };
+  _computeMoovSizeUpperBound = new WeakSet();
+  computeMoovSizeUpperBound_fn = function() {
+    if (typeof __privateGet(this, _options).fastStart !== "object")
+      return;
+    let upperBound = 0;
+    let sampleCounts = [
+      __privateGet(this, _options).fastStart.expectedVideoChunks,
+      __privateGet(this, _options).fastStart.expectedAudioChunks
+    ];
+    for (let n of sampleCounts) {
+      if (!n)
+        continue;
+      upperBound += (4 + 4) * Math.ceil(2 / 3 * n);
+      upperBound += 4 * n;
+      upperBound += (4 + 4 + 4) * Math.ceil(2 / 3 * n);
+      upperBound += 4 * n;
+      upperBound += 8 * n;
+    }
+    upperBound += 4096;
+    return upperBound;
+  };
+  _prepareTracks = new WeakSet();
+  prepareTracks_fn = function() {
+    if (__privateGet(this, _options).video) {
+      __privateSet(this, _videoTrack, {
+        id: 1,
+        info: {
+          type: "video",
+          codec: __privateGet(this, _options).video.codec,
+          width: __privateGet(this, _options).video.width,
+          height: __privateGet(this, _options).video.height,
+          rotation: __privateGet(this, _options).video.rotation ?? 0,
+          decoderConfig: null
+        },
+        // The fallback contains many common frame rates as factors
+        timescale: __privateGet(this, _options).video.frameRate ?? 57600,
+        samples: [],
+        finalizedChunks: [],
+        currentChunk: null,
+        firstDecodeTimestamp: void 0,
+        lastDecodeTimestamp: -1,
+        timeToSampleTable: [],
+        compositionTimeOffsetTable: [],
+        lastTimescaleUnits: null,
+        lastSample: null,
+        compactlyCodedChunkTable: []
+      });
+    }
+    if (__privateGet(this, _options).audio) {
+      __privateSet(this, _audioTrack, {
+        id: __privateGet(this, _options).video ? 2 : 1,
+        info: {
+          type: "audio",
+          codec: __privateGet(this, _options).audio.codec,
+          numberOfChannels: __privateGet(this, _options).audio.numberOfChannels,
+          sampleRate: __privateGet(this, _options).audio.sampleRate,
+          decoderConfig: null
+        },
+        timescale: __privateGet(this, _options).audio.sampleRate,
+        samples: [],
+        finalizedChunks: [],
+        currentChunk: null,
+        firstDecodeTimestamp: void 0,
+        lastDecodeTimestamp: -1,
+        timeToSampleTable: [],
+        compositionTimeOffsetTable: [],
+        lastTimescaleUnits: null,
+        lastSample: null,
+        compactlyCodedChunkTable: []
+      });
+      if (__privateGet(this, _options).audio.codec === "aac") {
+        let guessedCodecPrivate = __privateMethod(this, _generateMpeg4AudioSpecificConfig, generateMpeg4AudioSpecificConfig_fn).call(
+          this,
+          2,
+          // Object type for AAC-LC, since it's the most common
+          __privateGet(this, _options).audio.sampleRate,
+          __privateGet(this, _options).audio.numberOfChannels
+        );
+        __privateGet(this, _audioTrack).info.decoderConfig = {
+          codec: __privateGet(this, _options).audio.codec,
+          description: guessedCodecPrivate,
+          numberOfChannels: __privateGet(this, _options).audio.numberOfChannels,
+          sampleRate: __privateGet(this, _options).audio.sampleRate
+        };
+      }
+    }
+  };
+  _generateMpeg4AudioSpecificConfig = new WeakSet();
+  generateMpeg4AudioSpecificConfig_fn = function(objectType, sampleRate, numberOfChannels) {
+    let frequencyIndices = [96e3, 88200, 64e3, 48e3, 44100, 32e3, 24e3, 22050, 16e3, 12e3, 11025, 8e3, 7350];
+    let frequencyIndex = frequencyIndices.indexOf(sampleRate);
+    let channelConfig = numberOfChannels;
+    let configBits = "";
+    configBits += objectType.toString(2).padStart(5, "0");
+    configBits += frequencyIndex.toString(2).padStart(4, "0");
+    if (frequencyIndex === 15)
+      configBits += sampleRate.toString(2).padStart(24, "0");
+    configBits += channelConfig.toString(2).padStart(4, "0");
+    let paddingLength = Math.ceil(configBits.length / 8) * 8;
+    configBits = configBits.padEnd(paddingLength, "0");
+    let configBytes = new Uint8Array(configBits.length / 8);
+    for (let i = 0; i < configBits.length; i += 8) {
+      configBytes[i / 8] = parseInt(configBits.slice(i, i + 8), 2);
+    }
+    return configBytes;
+  };
+  _createSampleForTrack = new WeakSet();
+  createSampleForTrack_fn = function(track, data, type, timestamp, duration, meta, compositionTimeOffset) {
+    let presentationTimestampInSeconds = timestamp / 1e6;
+    let decodeTimestampInSeconds = (timestamp - (compositionTimeOffset ?? 0)) / 1e6;
+    let durationInSeconds = duration / 1e6;
+    let adjusted = __privateMethod(this, _validateTimestamp, validateTimestamp_fn).call(this, presentationTimestampInSeconds, decodeTimestampInSeconds, track);
+    presentationTimestampInSeconds = adjusted.presentationTimestamp;
+    decodeTimestampInSeconds = adjusted.decodeTimestamp;
+    if (meta?.decoderConfig) {
+      if (track.info.decoderConfig === null) {
+        track.info.decoderConfig = meta.decoderConfig;
+      } else {
+        Object.assign(track.info.decoderConfig, meta.decoderConfig);
+      }
+    }
+    let sample = {
+      presentationTimestamp: presentationTimestampInSeconds,
+      decodeTimestamp: decodeTimestampInSeconds,
+      duration: durationInSeconds,
+      data,
+      size: data.byteLength,
+      type,
+      // Will be refined once the next sample comes in
+      timescaleUnitsToNextSample: intoTimescale(durationInSeconds, track.timescale)
+    };
+    return sample;
+  };
+  _addSampleToTrack = new WeakSet();
+  addSampleToTrack_fn = function(track, sample) {
+    if (__privateGet(this, _options).fastStart !== "fragmented") {
+      track.samples.push(sample);
+    }
+    const sampleCompositionTimeOffset = intoTimescale(sample.presentationTimestamp - sample.decodeTimestamp, track.timescale);
+    if (track.lastTimescaleUnits !== null) {
+      let timescaleUnits = intoTimescale(sample.decodeTimestamp, track.timescale, false);
+      let delta = Math.round(timescaleUnits - track.lastTimescaleUnits);
+      track.lastTimescaleUnits += delta;
+      track.lastSample.timescaleUnitsToNextSample = delta;
+      if (__privateGet(this, _options).fastStart !== "fragmented") {
+        let lastTableEntry = last(track.timeToSampleTable);
+        if (lastTableEntry.sampleCount === 1) {
+          lastTableEntry.sampleDelta = delta;
+          lastTableEntry.sampleCount++;
+        } else if (lastTableEntry.sampleDelta === delta) {
+          lastTableEntry.sampleCount++;
+        } else {
+          lastTableEntry.sampleCount--;
+          track.timeToSampleTable.push({
+            sampleCount: 2,
+            sampleDelta: delta
+          });
+        }
+        const lastCompositionTimeOffsetTableEntry = last(track.compositionTimeOffsetTable);
+        if (lastCompositionTimeOffsetTableEntry.sampleCompositionTimeOffset === sampleCompositionTimeOffset) {
+          lastCompositionTimeOffsetTableEntry.sampleCount++;
+        } else {
+          track.compositionTimeOffsetTable.push({
+            sampleCount: 1,
+            sampleCompositionTimeOffset
+          });
+        }
+      }
+    } else {
+      track.lastTimescaleUnits = 0;
+      if (__privateGet(this, _options).fastStart !== "fragmented") {
+        track.timeToSampleTable.push({
+          sampleCount: 1,
+          sampleDelta: intoTimescale(sample.duration, track.timescale)
+        });
+        track.compositionTimeOffsetTable.push({
+          sampleCount: 1,
+          sampleCompositionTimeOffset
+        });
+      }
+    }
+    track.lastSample = sample;
+    let beginNewChunk = false;
+    if (!track.currentChunk) {
+      beginNewChunk = true;
+    } else {
+      let currentChunkDuration = sample.presentationTimestamp - track.currentChunk.startTimestamp;
+      if (__privateGet(this, _options).fastStart === "fragmented") {
+        let mostImportantTrack = __privateGet(this, _videoTrack) ?? __privateGet(this, _audioTrack);
+        const chunkDuration = __privateGet(this, _options).minFragmentDuration ?? 1;
+        if (track === mostImportantTrack && sample.type === "key" && currentChunkDuration >= chunkDuration) {
+          beginNewChunk = true;
+          __privateMethod(this, _finalizeFragment, finalizeFragment_fn).call(this);
+        }
+      } else {
+        beginNewChunk = currentChunkDuration >= 0.5;
+      }
+    }
+    if (beginNewChunk) {
+      if (track.currentChunk) {
+        __privateMethod(this, _finalizeCurrentChunk, finalizeCurrentChunk_fn).call(this, track);
+      }
+      track.currentChunk = {
+        startTimestamp: sample.presentationTimestamp,
+        samples: []
+      };
+    }
+    track.currentChunk.samples.push(sample);
+  };
+  _validateTimestamp = new WeakSet();
+  validateTimestamp_fn = function(presentationTimestamp, decodeTimestamp, track) {
+    const strictTimestampBehavior = __privateGet(this, _options).firstTimestampBehavior === "strict";
+    const noLastDecodeTimestamp = track.lastDecodeTimestamp === -1;
+    const timestampNonZero = decodeTimestamp !== 0;
+    if (strictTimestampBehavior && noLastDecodeTimestamp && timestampNonZero) {
+      throw new Error(
+        `The first chunk for your media track must have a timestamp of 0 (received DTS=${decodeTimestamp}).Non-zero first timestamps are often caused by directly piping frames or audio data from a MediaStreamTrack into the encoder. Their timestamps are typically relative to the age of thedocument, which is probably what you want.
+
+If you want to offset all timestamps of a track such that the first one is zero, set firstTimestampBehavior: 'offset' in the options.
+`
+      );
+    } else if (__privateGet(this, _options).firstTimestampBehavior === "offset" || __privateGet(this, _options).firstTimestampBehavior === "cross-track-offset") {
+      if (track.firstDecodeTimestamp === void 0) {
+        track.firstDecodeTimestamp = decodeTimestamp;
+      }
+      let baseDecodeTimestamp;
+      if (__privateGet(this, _options).firstTimestampBehavior === "offset") {
+        baseDecodeTimestamp = track.firstDecodeTimestamp;
+      } else {
+        baseDecodeTimestamp = Math.min(
+          __privateGet(this, _videoTrack)?.firstDecodeTimestamp ?? Infinity,
+          __privateGet(this, _audioTrack)?.firstDecodeTimestamp ?? Infinity
+        );
+      }
+      decodeTimestamp -= baseDecodeTimestamp;
+      presentationTimestamp -= baseDecodeTimestamp;
+    }
+    if (decodeTimestamp < track.lastDecodeTimestamp) {
+      throw new Error(
+        `Timestamps must be monotonically increasing (DTS went from ${track.lastDecodeTimestamp * 1e6} to ${decodeTimestamp * 1e6}).`
+      );
+    }
+    track.lastDecodeTimestamp = decodeTimestamp;
+    return { presentationTimestamp, decodeTimestamp };
+  };
+  _finalizeCurrentChunk = new WeakSet();
+  finalizeCurrentChunk_fn = function(track) {
+    if (__privateGet(this, _options).fastStart === "fragmented") {
+      throw new Error("Can't finalize individual chunks if 'fastStart' is set to 'fragmented'.");
+    }
+    if (!track.currentChunk)
+      return;
+    track.finalizedChunks.push(track.currentChunk);
+    __privateGet(this, _finalizedChunks).push(track.currentChunk);
+    if (track.compactlyCodedChunkTable.length === 0 || last(track.compactlyCodedChunkTable).samplesPerChunk !== track.currentChunk.samples.length) {
+      track.compactlyCodedChunkTable.push({
+        firstChunk: track.finalizedChunks.length,
+        // 1-indexed
+        samplesPerChunk: track.currentChunk.samples.length
+      });
+    }
+    if (__privateGet(this, _options).fastStart === "in-memory") {
+      track.currentChunk.offset = 0;
+      return;
+    }
+    track.currentChunk.offset = __privateGet(this, _writer).pos;
+    for (let sample of track.currentChunk.samples) {
+      __privateGet(this, _writer).write(sample.data);
+      sample.data = null;
+    }
+    __privateMethod(this, _maybeFlushStreamingTargetWriter, maybeFlushStreamingTargetWriter_fn).call(this);
+  };
+  _finalizeFragment = new WeakSet();
+  finalizeFragment_fn = function(flushStreamingWriter = true) {
+    if (__privateGet(this, _options).fastStart !== "fragmented") {
+      throw new Error("Can't finalize a fragment unless 'fastStart' is set to 'fragmented'.");
+    }
+    let tracks = [__privateGet(this, _videoTrack), __privateGet(this, _audioTrack)].filter((track) => track && track.currentChunk);
+    if (tracks.length === 0)
+      return;
+    let fragmentNumber = __privateWrapper(this, _nextFragmentNumber)._++;
+    if (fragmentNumber === 1) {
+      let movieBox = moov(tracks, __privateGet(this, _creationTime), true);
+      __privateGet(this, _writer).writeBox(movieBox);
+    }
+    let moofOffset = __privateGet(this, _writer).pos;
+    let moofBox = moof(fragmentNumber, tracks);
+    __privateGet(this, _writer).writeBox(moofBox);
+    {
+      let mdatBox = mdat(false);
+      let totalTrackSampleSize = 0;
+      for (let track of tracks) {
+        for (let sample of track.currentChunk.samples) {
+          totalTrackSampleSize += sample.size;
+        }
+      }
+      let mdatSize = __privateGet(this, _writer).measureBox(mdatBox) + totalTrackSampleSize;
+      if (mdatSize >= 2 ** 32) {
+        mdatBox.largeSize = true;
+        mdatSize = __privateGet(this, _writer).measureBox(mdatBox) + totalTrackSampleSize;
+      }
+      mdatBox.size = mdatSize;
+      __privateGet(this, _writer).writeBox(mdatBox);
+    }
+    for (let track of tracks) {
+      track.currentChunk.offset = __privateGet(this, _writer).pos;
+      track.currentChunk.moofOffset = moofOffset;
+      for (let sample of track.currentChunk.samples) {
+        __privateGet(this, _writer).write(sample.data);
+        sample.data = null;
+      }
+    }
+    let endPos = __privateGet(this, _writer).pos;
+    __privateGet(this, _writer).seek(__privateGet(this, _writer).offsets.get(moofBox));
+    let newMoofBox = moof(fragmentNumber, tracks);
+    __privateGet(this, _writer).writeBox(newMoofBox);
+    __privateGet(this, _writer).seek(endPos);
+    for (let track of tracks) {
+      track.finalizedChunks.push(track.currentChunk);
+      __privateGet(this, _finalizedChunks).push(track.currentChunk);
+      track.currentChunk = null;
+    }
+    if (flushStreamingWriter) {
+      __privateMethod(this, _maybeFlushStreamingTargetWriter, maybeFlushStreamingTargetWriter_fn).call(this);
+    }
+  };
+  _maybeFlushStreamingTargetWriter = new WeakSet();
+  maybeFlushStreamingTargetWriter_fn = function() {
+    if (__privateGet(this, _writer) instanceof StreamTargetWriter) {
+      __privateGet(this, _writer).flush();
+    }
+  };
+  _ensureNotFinalized = new WeakSet();
+  ensureNotFinalized_fn = function() {
+    if (__privateGet(this, _finalized)) {
+      throw new Error("Cannot add new video or audio chunks after the file has been finalized.");
+    }
+  };
+  return __toCommonJS(src_exports);
+})();
+if (typeof module === "object" && typeof module.exports === "object") Object.assign(module.exports, Mp4Muxer)
+
+</script>
+<script>
 // ========== CONFIG ==========
 const CONFIG = {
   version: 'v5.0',
   kriszzyyBase: 'https://api.kriszzyy.xyz',
   owner: {
     name: 'Developer TikSaver',
-    email: 'novalryz123@gmail.com', // ← GANTI EMAIL OWNER DI SINI (1 baris saja)
+    email: 'imel@contoh.com', // ← GANTI EMAIL OWNER DI SINI (1 baris saja)
     role: 'Full Stack Developer & Tool Creator',
     bio: 'Membuat tools yang memudahkan kehidupan digital. TikSaver Pro dibuat dengan cinta untuk komunitas Indonesia.',
     // ===== GANTI LINK FOTO DI BAWAH =====
@@ -936,8 +2914,8 @@ const CONFIG = {
     socials: [
       { name:'WhatsApp', handle:'@developer', url:'https://wa.me/6283117156906', color:'#25d366', icon:'wa' },
       { name:'Telegram', handle:'@Palryz_official', url:'https://t.me/@palryz_official', color:'#0088cc', icon:'tg' },
-      { name:'Instagram', handle:'@palryz744', url:'https://instagram.com/tksaverpro', color:'#e1306c', icon:'ig' },
-      { name:'TikTok', handle:'@pal_446', url:'https://tiktok.com/@novalryz', color:'#ff0050', icon:'tk' },
+      { name:'Instagram', handle:'@Novalryz', url:'https://instagram.com/tksaverpro', color:'#e1306c', icon:'ig' },
+      { name:'TikTok', handle:'@Novalryz', url:'https://tiktok.com/@novalryz', color:'#ff0050', icon:'tk' },
       { name:'YouTube', handle:'Novalryz Pro', url:'https://youtube.com/PalRyz', color:'#ff0000', icon:'yt' },
       { name:'GitHub', handle:'Novalryz', url:'https://github.com/PalRyz', color:'#fff', icon:'gh' },
     ]
@@ -987,7 +2965,7 @@ const avatarFrames = [
 
   // 1: Neon glow overlay
   function() {
-    return `<div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,.5),transparent 65%);animation:pulseScale 1.2s ease-in-out infinite;pointer-events:none"></div>`;
+    return `<div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(59,130,246,.5),transparent 65%);animation:pulseScale 1.2s ease-in-out infinite;pointer-events:none"></div>`;
   },
 
   // 2: RGB glitch overlay
@@ -1002,7 +2980,7 @@ const avatarFrames = [
 
   // 4: Holographic shimmer overlay
   function() {
-    return `<div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,0,100,.25),rgba(124,58,237,.25),rgba(0,212,255,.25));background-size:400% 400%;animation:holoShift 2s ease infinite;mix-blend-mode:saturation;pointer-events:none"></div>`;
+    return `<div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,0,100,.25),rgba(225,29,72,.25),rgba(0,212,255,.25));background-size:400% 400%;animation:holoShift 2s ease infinite;mix-blend-mode:saturation;pointer-events:none"></div>`;
   },
 ];
 
@@ -1011,7 +2989,7 @@ function initAvatarParticles() {
   const container = document.getElementById('avatarParticles');
   if (!container) return;
   container.innerHTML = '';
-  const colors = ['#6c31f0','#22d3ee','#ec4899','#a78bfa','#fb7185'];
+  const colors = ['#e11d48','#3b82f6','#ef4444','#fda4af','#f87171'];
   for (let i = 0; i < 8; i++) {
     const p = document.createElement('div');
     p.className = 'av-particle';
@@ -1119,6 +3097,7 @@ function sanitizeURL(url) {
   if (platform !== 'tiktok') return null;
   const patterns = [
     /tiktok\.com\/@[\w.]+\/video\/\d+/,
+    /tiktok\.com\/@[\w.]+\/photo\/\d+/i,
     /vm\.tiktok\.com\/\w+/,
     /vt\.tiktok\.com\/\w+/,
     /m\.tiktok\.com\/v\/\d+/,
@@ -1162,7 +3141,7 @@ let SERVER_MODE = null;
 const probeServer = (async () => {
   try {
     const res = await fetch('/api/slideshow/support', { cache: 'no-store' });
-    SERVER_MODE = res.ok ? await res.json() : { ffmpeg: false };
+    SERVER_MODE = res.ok ? await res.json() : { ffmpeg: false, standalone: true };
   } catch { SERVER_MODE = { ffmpeg: false, standalone: true }; }
   return SERVER_MODE;
 })();
@@ -1203,6 +3182,13 @@ function normalizeIG(media, shortcode) {
   const images = nodes.filter(n => !getVid(n)).map(getImg).filter(Boolean);
   const videos = nodes.map(getVid).filter(Boolean);
   const video = videos[0] || '';
+  const slides = nodes.map(n => {
+    const img = getImg(n), vid = getVid(n);
+    if (vid && img) return { type: 'live', image: img, video: vid, cover: img };
+    if (vid) return { type: 'video', image: img, video: vid, cover: img };
+    if (img) return { type: 'photo', image: img, video: '', cover: img };
+    return null;
+  }).filter(Boolean);
   const owner = media.owner || media.user || {};
   if (!images.length && !video) return null;
   return {
@@ -1214,8 +3200,8 @@ function normalizeIG(media, shortcode) {
     avatar: owner.profile_pic_url || '',
     username: owner.username || '',
     nickname: owner.full_name || owner.username || '',
-    is_image: images.length > 0 && videos.length === 0,
-    images, videos,
+    is_image: images.length > 0,
+    images, videos, slides,
     video_hd: video, video_sd: video, video_nowm: video, video_wm: '',
     mp3: '', music: '', music_author: '', music_url: '',
     duration: Math.round(media.video_duration || 0),
@@ -1313,6 +3299,57 @@ async function fetchInstagram(url) {
   return null;
 }
 
+// ========== SLIDE (FOTO / VIDEO / LIVE) HELPER ==========
+function pickMediaUrl(it) {
+  if (!it || typeof it !== 'object') return { image: '', video: '' };
+  const first = a => (Array.isArray(a) && a.length ? a[0] : '');
+  const di = it.display_image || it.cover_image || it.thumbnail_image || {};
+  const image = it.url || it.display_url || it.image || it.image_url || it.cover || it.origin_cover || it.thumbnail
+    || first(di.url_list) || first(di.urls) || first(it.url_list) || '';
+  const video = it.video || it.video_url || it.play || it.video_play_addr || it.video_play || it.download_addr
+    || it.url_video || it.video_hd || it.video_sd || (it.video_info && (it.video_info.url || it.video_info.play_addr)) || '';
+  return { image, video };
+}
+
+function buildSlides(d) {
+  const slides = [];
+  const raw = Array.isArray(d.images) ? d.images
+    : (Array.isArray(d.image_post_info && d.image_post_info.images) ? d.image_post_info.images
+    : (Array.isArray(d.image_post && d.image_post.images) ? d.image_post.images : []));
+  for (const it of raw) {
+    if (typeof it === 'string' && it) {
+      slides.push({ type: 'photo', image: it, video: '', cover: it });
+      continue;
+    }
+    const { image, video } = pickMediaUrl(it);
+    if (image && video) slides.push({ type: 'live', image, video, cover: image });
+    else if (video) slides.push({ type: 'video', image: image || d.cover || '', video, cover: image || d.cover || '' });
+    else if (image) slides.push({ type: 'photo', image, video: '', cover: image });
+  }
+  if (!slides.length) {
+    for (const key of ['videos', 'video_list', 'slides', 'media_list']) {
+      const arr = d[key];
+      if (Array.isArray(arr)) {
+        for (const it of arr) {
+          const { image, video } = pickMediaUrl(it);
+          if (video) slides.push({ type: image ? 'live' : 'video', image, video, cover: image || d.cover || '' });
+          else if (image) slides.push({ type: 'photo', image, video: '', cover: image });
+        }
+      }
+    }
+  }
+  return slides;
+}
+
+// Slide aktif (pakai d.slides bila ada, fallback dari images + videos)
+function getSlides(d) {
+  if (Array.isArray(d.slides) && d.slides.length) return d.slides;
+  const out = [];
+  (d.images || []).forEach(img => out.push({ type: 'photo', image: img, video: '', cover: img }));
+  (d.videos || []).forEach(v => out.push({ type: 'video', image: d.cover || '', video: v, cover: d.cover || '' }));
+  return out;
+}
+
 // ========== TIKWM API - FIXED ==========
 async function fetchTikWM(url) {
   // API endpoint yang benar: https://tikwm.com/api/?url=
@@ -1337,6 +3374,9 @@ async function fetchTikWM(url) {
 }
 
 function normalizeTikWM(d) {
+  const slides = buildSlides(d);
+  const photos = slides.filter(s => s.image && s.type !== 'video').map(s => s.image);
+  const slideVideos = slides.filter(s => s.video).map(s => s.video);
   return {
     id: d.id || '',
     title: d.title || '',
@@ -1360,8 +3400,10 @@ function normalizeTikWM(d) {
     video_wm: d.wmplay || '',
     mp3: d.music_info?.play || '',
     cover_hd: d.origin_cover || d.cover || '',
-    images: Array.isArray(d.images) ? d.images.map(i => (typeof i === 'string' ? i : i.url || i.display_image || '')).filter(Boolean) : null,
-    is_image: !!(d.images && d.images.length),
+    images: photos.length ? photos : null,
+    videos: slideVideos,
+    slides,
+    is_image: slides.some(s => s.type === 'photo' || s.type === 'live'),
   };
 }
 
@@ -1584,7 +3626,7 @@ function renderResult(d, url) {
   previewPhotoIndex = 0;
 
   let media = '';
-  if (video) {
+  if (video && !isImg) {
     const videoUrls = [...new Set([d.video_hd, d.video_sd, d.video_nowm, d.video_wm].filter(Boolean))];
     const sources = videoUrls.map(u => `<source src="${escHtml(u)}" type="video/mp4">`).join('');
     media = `<div class="preview-stage"><video class="live-preview-video" controls playsinline preload="metadata"${d.cover ? ` poster="${escHtml(d.cover)}"` : ''}>${sources}<source src="" onerror="onPreviewVideoFallback(this)"></video></div>`;
@@ -1619,14 +3661,19 @@ function renderResult(d, url) {
 
   const overlay = (!video && !isImg && !audio) ? `<div class="result-overlay"></div>` : '';
   const durationChip = (!video && d.duration) ? `<div class="result-duration">${formatDur(d.duration)}</div>` : '';
-  const photoBadge = isImg ? `<div class="result-badge badge-photo">${d.images.length} FOTO</div>` : '';
+  const hasVidSlide = Array.isArray(d.slides) && d.slides.some(s => s.type === 'video' || s.type === 'live');
+  const photoBadge = isImg ? `<div class="result-badge badge-photo">${hasVidSlide ? (d.slides.length + ' SLIDE') : ((d.images ? d.images.length : 0) + ' FOTO')}</div>` : '';
   const igBadge = d.platform === 'instagram' ? `<div class="result-badge badge-ig">INSTAGRAM</div>` : '';
   const ccBadge = d.platform === 'capcut' ? `<div class="result-badge badge-cc">CAPCUT</div>` : '';
 
   const audioRow = (audio && (video || isImg)) ? `
-    <div class="preview-audio-row">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-      <span style="white-space:nowrap">Audio:</span>
+    <div class="preview-music">
+      <div class="preview-music-icon">🎵</div>
+      <div class="preview-music-info">
+        <div class="preview-music-label">Musik</div>
+        <div class="preview-music-title">${escHtml(d.music || 'Audio asli')}</div>
+        ${d.music_author ? `<div class="preview-music-author">${escHtml(d.music_author)}</div>` : ''}
+      </div>
       <audio class="live-preview-audio" controls preload="none" src="${escHtml(audio)}" onerror="onPreviewMediaError(this)"></audio>
     </div>` : '';
 
@@ -1642,7 +3689,7 @@ function renderResult(d, url) {
     </div>
 <div class="result-body">
       <div class="result-user">
-        ${d.avatar ? `<img src="${escHtml(d.avatar)}" class="result-avatar" onerror="this.style.display='none'" alt="">` : '<div class="result-avatar" style="background:linear-gradient(135deg,var(--accent),var(--pink))"></div>'}
+        ${d.avatar ? `<img src="${escHtml(d.avatar)}" class="result-avatar" onerror="this.style.display='none'" alt="">` : '<div class="result-avatar" style="background:linear-gradient(135deg,var(--accent),var(--neon))"></div>'}
         <div><div class="result-username">@${escHtml(d.username)||'Unknown'}</div><div class="result-nickname">${escHtml(d.nickname)||''}</div></div>
         <div style="margin-left:auto;display:flex;gap:5px">
           <button class="btn btn-ghost btn-icon btn-sm" onclick="copyLink('${escHtml(url)}')" title="Copy Link">
@@ -1688,35 +3735,66 @@ function renderVideoDownloads(d) {
   </div>`;
 }
 
+function slideCardHTML(s, i) {
+  const n = i + 1;
+  const iconImg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+  const iconPlay = `<svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+  if (s.type === 'video') {
+    return `<div class="slide-item" onclick="downloadSlideMedia(${i},'video')">
+      ${s.cover ? `<img src="${escHtml(s.cover)}" alt="Slide ${n}" loading="lazy">` : `<div class="slide-video-ph">${iconPlay}</div>`}
+      <div class="slide-num">${n}</div>
+      <div class="slide-type-badge video">VIDEO</div>
+      <div class="slide-dl">${iconPlay}</div>
+    </div>`;
+  }
+  if (s.type === 'live') {
+    return `<div class="slide-item">
+      <img src="${escHtml(s.image)}" alt="Slide ${n}" loading="lazy">
+      <div class="slide-num">${n}</div>
+      <div class="slide-type-badge live">FOTO+VIDEO</div>
+      <div class="slide-actions">
+        <button class="slide-action-btn" onclick="event.stopPropagation();downloadSlideMedia(${i},'photo')" title="Download Foto">${iconImg}</button>
+        <button class="slide-action-btn" onclick="event.stopPropagation();downloadSlideMedia(${i},'video')" title="Download Video">${iconPlay}</button>
+      </div>
+    </div>`;
+  }
+  return `<div class="slide-item" onclick="downloadSlideMedia(${i},'photo')">
+    <img src="${escHtml(s.image)}" alt="Slide ${n}" loading="lazy">
+    <div class="slide-num">${n}</div>
+    <div class="slide-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h2"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+  </div>`;
+}
+
 function renderSlideSection(d) {
+  const slides = getSlides(d);
+  const hasVideoSlides = slides.some(s => s.type === 'video' || s.type === 'live');
+  const hasPhotoList = d.images && d.images.length;
   const hasMusic = Boolean(d.music_url || d.mp3);
   return `
   <div style="margin-bottom:14px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <div style="font-size:.84rem;font-weight:700;font-family:var(--font-display)">${d.images.length} Foto Slide</div>
-      <div style="display:flex;gap:6px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap">
+      <div style="font-size:.84rem;font-weight:700;font-family:var(--font-display)">${slides.length} Slide${hasVideoSlides ? ' · Foto & Video' : ''}</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn btn-ghost btn-sm" onclick="openSlideModal()">Lihat Semua</button>
-        <button class="btn btn-neon btn-sm" onclick="downloadAllSlides()">Semua</button>
+        ${hasPhotoList ? `<button class="btn btn-neon btn-sm" onclick="downloadAllSlides()">Semua Foto</button>` : ''}
+        ${hasVideoSlides ? `<button class="btn btn-primary btn-sm" onclick="downloadAllSlideVideos()">Semua Video</button>` : ''}
       </div>
     </div>
-    <div class="slide-gallery">${d.images.slice(0,6).map((img,i) => `
-      <div class="slide-item" onclick="downloadSingleSlide('${escHtml(img)}',${i+1})">
-        <img src="${escHtml(img)}" alt="Slide ${i+1}" loading="lazy">
-        <div class="slide-num">${i+1}</div>
-        <div class="slide-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h2"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-      </div>`).join('')}
-      ${d.images.length > 6 ? `<div class="slide-item" style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:var(--text2);cursor:pointer;font-family:var(--font-display)" onclick="openSlideModal()">+${d.images.length-6}</div>` : ''}
+    <div class="slide-gallery">${slides.slice(0, 6).map(slideCardHTML).join('')}
+      ${slides.length > 6 ? `<div class="slide-item" style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:var(--text2);cursor:pointer;font-family:var(--font-display)" onclick="openSlideModal()">+${slides.length-6}</div>` : ''}
     </div>
   </div>
-  <div class="slide-music-picker">
+  ${hasPhotoList ? `<div class="slide-music-picker">
     <div class="slide-music-header"><span style="font-size:1.1rem">♫</span> Foto jadi Video + Musik</div>
-    <div class="slide-music-help">Pilih foto yang ingin dipakai. ${hasMusic ? 'Video MP4 akan dibuat dengan audio asli TikTok — musik tidak ikut diputar saat proses.' : 'Audio asli tidak tersedia untuk post ini, video MP4 akan dibuat tanpa musik.'}</div>
+    ${d.music ? `<div class="slide-music-track">🎵 ${escHtml(d.music)}${d.music_author ? ` — ${escHtml(d.music_author)}` : ''}</div>` : ''}
+    <div class="slide-music-help">Pilih foto yang ingin dipakai. ${hasMusic ? 'Video MP4 akan dibuat dengan audio asli di atas — musik tidak ikut diputar saat proses.' : 'Audio asli tidak tersedia untuk post ini, video MP4 akan dibuat tanpa musik.'}</div>
     <div class="slide-select-grid">${d.images.map((_, i) => `<label class="slide-choice" title="Pilih foto ${i+1}"><input type="checkbox" class="music-slide-choice" value="${i}" ${i === 0 ? 'checked' : ''}><span>${i+1}</span></label>`).join('')}</div>
     <button class="btn btn-primary btn-sm" onclick="createMusicPhotoVideo()" >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/><path d="M19 5v14"/></svg>
       Buat Video Pilihan + Musik
     </button>
-  </div>
+  </div>` : ''}
+  ${d.video_nowm ? `<button class="btn btn-primary" style="width:100%;margin-bottom:7px" onclick="triggerDownload('${escHtml(d.video_nowm)}','video_slide','video')">▶ Download Video Slide (MP4 + Musik)</button>` : ''}
   ${d.mp3 ? `<button class="btn btn-ghost" style="width:100%;margin-bottom:7px" onclick="triggerDownload('${escHtml(d.mp3)}','audio','mp3')">♫ Download MP3 Audio</button>` : ''}
   ${d.cover_hd ? `<button class="btn btn-ghost" style="width:100%" onclick="triggerDownload('${escHtml(d.cover_hd)}','cover','cover')">▣ Download Cover</button>` : ''}`;
 }
@@ -1782,26 +3860,73 @@ async function getSlideshowSupport() {
   return (await probeServer) || { ffmpeg: false, standalone: true };
 }
 
-async function loadCanvasImage(url) {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.onload = () => resolve(image);
-    image.onerror = () => {
-      // fallback lewat proxy server bila CDN menolak permintaan langsung
-      const retry = new Image();
-      retry.crossOrigin = 'anonymous';
-      retry.onload = () => resolve(retry);
-      retry.onerror = () => reject(new Error('Foto tidak mendukung proses video'));
-      retry.src = proxyURL(url);
-    };
-    image.src = proxyURL(url);
-  });
+async function fetchWithTimeout(url, ms = 20000) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), ms);
+  try { return await fetch(url, { signal: ctrl.signal }); }
+  finally { clearTimeout(t); }
+}
+
+// Coba ambil blob: langsung (CDN TikTok/IG kirim ACAO:*) -> proxy paralel
+async function fetchViaProxyBlob(url) {
+  try {
+    const res = await fetchWithTimeout(url, 12000);
+    if (res && res.ok) return await res.blob();
+  } catch (e) { /* lanjut ke proxy */ }
+  const tasks = CORS_PROXIES.map(build => (async () => {
+    const res = await fetchWithTimeout(build(url), 15000);
+    if (res && res.ok) return await res.blob();
+    throw new Error('proxy gagal');
+  })());
+  if (typeof Promise.any === 'function') {
+    try { return await Promise.any(tasks); } catch (e) { return null; }
+  }
+  for (const t of tasks) {
+    try { return await t; } catch (e) { /* lanjut */ }
+  }
+  return null;
+}
+
+// Muat foto jadi bitmap/Image yang AMAN digambar ke canvas (tidak tainted)
+async function loadPhotoBitmap(url) {
+  const blob = await fetchViaProxyBlob(url);
+  if (!blob) return null;
+  try {
+    if (window.createImageBitmap) return await createImageBitmap(blob);
+    throw new Error('no createImageBitmap');
+  } catch (e) {
+    return await new Promise((resolve, reject) => {
+      const obj = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => { URL.revokeObjectURL(obj); resolve(img); };
+      img.onerror = () => { URL.revokeObjectURL(obj); reject(e); };
+      img.src = obj;
+    });
+  }
+}
+
+// Muat audio -> AudioBuffer (CORS bersih), tanpa bunyi ke speaker
+async function loadAudioForMix(url) {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return null;
+  const blob = await fetchViaProxyBlob(url);
+  if (!blob) return null;
+  try {
+    const ctx = new AC();
+    const buf = await ctx.decodeAudioData(await blob.arrayBuffer());
+    return { ctx, buf };
+  } catch (e) {
+    return null;
+  }
 }
 
 function pickVideoMime() {
   if (!window.MediaRecorder) return null;
+  // WebM diprioritaskan agar audio (Opus) ikut terekam pada mode fallback
   const candidates = [
+    'video/webm;codecs=vp9,opus',
+    'video/webm;codecs=vp8,opus',
+    'video/webm',
     'video/mp4;codecs=avc1.640028,mp4a.40.2',
     'video/mp4;codecs=h264,aac',
     'video/mp4;codecs=avc1',
@@ -1827,7 +3952,7 @@ async function createMusicPhotoVideo() {
   const picker = document.querySelector('.slide-music-picker');
   button?.classList.add('music-rendering');
   picker?.classList.add('music-rendering');
-  showToast('Menyiapkan video MP4 foto + musik...', 'info');
+  showToast('Membuat video foto + musik...', 'info');
 
   const images = chosen.map(index => currentData.images[index]);
   const perPhoto = images.length === 1 ? 6 : 3.5;
@@ -1859,80 +3984,208 @@ async function createMusicPhotoVideo() {
   }
 }
 
-async function renderPhotoVideoInBrowser(images, audioUrl, perPhotoMs) {
-  if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
-    showToast('Browser ini belum mendukung pembuatan video. Coba Chrome atau Edge terbaru.', 'error');
-    return;
-  }
-  const mimeType = pickVideoMime();
-  if (!mimeType) {
-    showToast('Browser ini tidak bisa merekam MP4. Jalankan server dengan FFmpeg agar hasilnya MP4.', 'error');
-    return;
-  }
+function drawScene(ctx2d, canvas, photos, perPhotoMs, elapsedMs) {
+  const idx = Math.min(photos.length - 1, Math.floor(elapsedMs / perPhotoMs));
+  const photo = photos[idx];
+  const ratio = Math.max(canvas.width / photo.width, canvas.height / photo.height);
+  const w = photo.width * ratio, h = photo.height * ratio;
+  ctx2d.fillStyle = '#070a12';
+  ctx2d.fillRect(0, 0, canvas.width, canvas.height);
+  ctx2d.drawImage(photo, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+}
 
-  const photos = [];
-  for (const img of images) photos.push(await loadCanvasImage(img));
+function buildAudioData(buf, sampleRate, channels, totalSamples) {
+  // format f32-planar = SATU Float32Array berisi semua channel (channel 0 dulu, lalu channel 1, dst)
+  const data = new Float32Array(totalSamples * channels);
+  for (let ch = 0; ch < channels; ch++) {
+    const src = buf.getChannelData(ch < buf.numberOfChannels ? ch : 0);
+    const offset = ch * totalSamples;
+    for (let i = 0; i < totalSamples; i++) data[offset + i] = src[i % src.length];
+  }
+  return new AudioData({
+    format: 'f32-planar',
+    sampleRate: sampleRate,
+    numberOfFrames: totalSamples,
+    numberOfChannels: channels,
+    timestamp: 0,
+    data: data,
+  });
+}
 
+// Render pakai WebCodecs + mp4-muxer -> MP4 ASLI dengan durasi & audio yang benar
+// (inilah yang membuat video di galeri HP tidak lagi "1 detik tanpa musik")
+async function renderWithWebCodecs(photos, mix, durationMs, perPhotoMs) {
+  const Muxer = window.Mp4Muxer.Muxer;
+  const ArrayBufferTarget = window.Mp4Muxer.ArrayBufferTarget;
+  const W = 720, H = 1280, fps = 30;
   const canvas = document.createElement('canvas');
-  canvas.width = 720; canvas.height = 1280;
-  const ctx = canvas.getContext('2d');
+  canvas.width = W; canvas.height = H;
+  const ctx2d = canvas.getContext('2d');
 
-  const tracks = [...canvas.captureStream(30).getVideoTracks()];
-  let audio = null, audioContext = null;
+  // --- konfigurasi video (H.264) ---
+  const vidCodecs = ['avc1.640028', 'avc1.4d0028', 'avc1.64001f', 'avc1.42E01E'];
+  let vidConf = null;
+  for (const codec of vidCodecs) {
+    const conf = { codec, width: W, height: H, bitrate: 4_000_000, framerate: fps };
+    const sup = await VideoEncoder.isConfigSupported(conf).catch(() => ({ supported: false }));
+    if (sup.supported) { vidConf = conf; break; }
+  }
+  if (!vidConf) throw new Error('VideoEncoder H.264 tidak didukung browser ini');
 
-  if (audioUrl) {
-    try {
-      audio = new Audio();
-      audio.crossOrigin = 'anonymous';
-      audio.src = proxyURL(audioUrl);
-      audio.muted = true;          // JANGAN bunyi ke speaker
-      audio.volume = 0;
-      await audio.play().catch(() => {});
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const source = audioContext.createMediaElementSource(audio);
-      const destination = audioContext.createMediaStreamDestination();
-      source.connect(destination);  // hanya ke rekaman, TIDAK ke audioContext.destination
-      await audioContext.resume();
-      audio.muted = false;          // MediaElementSource sudah dialihkan, speaker tetap senyap
-      audio.currentTime = 0;
-      await audio.play();
-      tracks.push(...destination.stream.getAudioTracks());
-    } catch (e) {
-      console.warn('Audio tidak dapat dipakai:', e.message);
-      if (audio) { audio.pause(); audio = null; }
-      showToast('Audio tidak bisa diambil, video dibuat tanpa musik.', 'info');
+  // --- konfigurasi audio (AAC, fallback Opus) ---
+  let audConf = null, muxAudioCodec = 'aac', sampleRate = 44100, channels = 2, targetSamples = 0;
+  if (mix && mix.buf) {
+    sampleRate = mix.buf.sampleRate;
+    channels = Math.min(2, mix.buf.numberOfChannels);
+    targetSamples = Math.max(1024, Math.floor(durationMs / 1000 * sampleRate / 1024) * 1024);
+    const candidates = [
+      { mux: 'aac', enc: 'mp4a.40.2' },
+      { mux: 'opus', enc: 'opus' },
+    ];
+    for (const cand of candidates) {
+      const conf = { codec: cand.enc, sampleRate, numberOfChannels: channels, bitrate: 128000 };
+      const sup = await AudioEncoder.isConfigSupported(conf).catch(() => ({ supported: false }));
+      if (sup.supported) { audConf = conf; muxAudioCodec = cand.mux; break; }
     }
   }
 
-  const recorder = new MediaRecorder(new MediaStream(tracks), { mimeType, videoBitsPerSecond: 4_000_000 });
-  const chunks = [];
-  recorder.ondataavailable = event => event.data.size && chunks.push(event.data);
-  const complete = new Promise(resolve => { recorder.onstop = resolve; });
-  recorder.start(250);
+  const muxer = new Muxer({
+    target: new ArrayBufferTarget(),
+    video: { codec: 'avc', width: W, height: H },
+    ...(audConf ? { audio: { codec: muxAudioCodec, sampleRate, numberOfChannels: channels } } : {}),
+    fastStart: 'in-memory',
+  });
 
-  for (const photo of photos) {
-    const started = performance.now();
-    await new Promise(resolve => {
-      const draw = now => {
-        const progress = Math.min((now - started) / perPhotoMs, 1);
-        const scale = 1 + progress * 0.06;
-        const ratio = Math.max(canvas.width / photo.width, canvas.height / photo.height) * scale;
-        const w = photo.width * ratio, h = photo.height * ratio;
-        ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(photo, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
-        if (progress < 1) requestAnimationFrame(draw); else resolve();
-      };
-      requestAnimationFrame(draw);
+  const videoEncoder = new VideoEncoder({
+    output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+    error: (e) => { console.error('VideoEncoder error:', e); },
+  });
+  videoEncoder.configure(vidConf);
+
+  let audioEncoder = null;
+  if (audConf && mix) {
+    audioEncoder = new AudioEncoder({
+      output: (chunk, meta) => muxer.addAudioChunk(chunk, meta),
+      error: (e) => { console.error('AudioEncoder error:', e); },
     });
+    audioEncoder.configure(audConf);
   }
 
-  if (audio) { audio.pause(); audio.src = ''; }
-  recorder.stop();
-  await complete;
-  if (audioContext) audioContext.close();
+  // --- encode video frame-per-frame ---
+  const totalFrames = Math.max(1, Math.round(durationMs / 1000 * fps));
+  const frameDur = Math.round(1e6 / fps);
+  let ts = 0;
+  for (let f = 0; f < totalFrames; f++) {
+    drawScene(ctx2d, canvas, photos, perPhotoMs, (f / fps) * 1000);
+    const vf = new VideoFrame(canvas, { timestamp: ts, duration: frameDur });
+    videoEncoder.encode(vf, { keyFrame: f % (fps * 2) === 0 });
+    vf.close();
+    ts += frameDur;
+    if (f % 30 === 0) await new Promise(r => setTimeout(r, 0));
+  }
+  await videoEncoder.flush();
+  videoEncoder.close();
 
-  saveBlob(new Blob(chunks, { type: 'video/mp4' }), `tiksaver_foto_musik_${Date.now()}.mp4`);
-  showToast('Video MP4 + musik berhasil dibuat! 🎉', 'success');
+  // --- encode audio (dipotong/di-loop sesuai durasi video) ---
+  if (audioEncoder && mix) {
+    const audioData = buildAudioData(mix.buf, sampleRate, channels, targetSamples);
+    audioEncoder.encode(audioData, { keyFrame: true });
+    audioData.close();
+    await audioEncoder.flush();
+    audioEncoder.close();
+  }
+
+  muxer.finalize();
+  return new Blob([muxer.target.buffer], { type: 'video/mp4' });
+}
+
+async function renderPhotoVideoInBrowser(images, audioUrl, perPhotoMs) {
+  showToast('Memuat foto...', 'info');
+  const photos = [];
+  for (const url of images) {
+    const bm = await loadPhotoBitmap(url);
+    if (bm) photos.push(bm);
+  }
+  if (!photos.length) { showToast('Foto gagal dimuat. Periksa koneksi lalu coba lagi.', 'error'); return; }
+
+  let mix = null;
+  if (audioUrl) {
+    showToast('Memuat musik...', 'info');
+    const loaded = await loadAudioForMix(audioUrl);
+    if (loaded) mix = { ctx: loaded.ctx, buf: loaded.buf };
+    else showToast('Musik tidak bisa dimuat — video tetap dibuat (tanpa suara).', 'info');
+  }
+
+  const durationMs = Math.min(photos.length * perPhotoMs, 60000);
+
+  // 1) Jalur utama: WebCodecs -> MP4 asli (durasi & audio benar di galeri HP)
+  const hasWebCodecs = window.VideoEncoder && window.AudioEncoder && window.Mp4Muxer && window.Mp4Muxer.Muxer;
+  if (hasWebCodecs) {
+    try {
+      showToast('Menyusun video MP4 (foto + musik)...', 'info');
+      const blob = await renderWithWebCodecs(photos, mix, durationMs, perPhotoMs);
+      saveBlob(blob, `tiksaver_foto_musik_${Date.now()}.mp4`);
+      showToast('Video MP4 + musik berhasil dibuat! 🎉', 'success');
+      return;
+    } catch (e) {
+      console.warn('WebCodecs gagal, pakai fallback MediaRecorder:', e.message);
+    }
+  }
+
+  // 2) Fallback: MediaRecorder (WebM berisi audio)
+  if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
+    showToast('Browser ini belum mendukung pembuatan video. Gunakan Chrome atau Edge terbaru.', 'error');
+    return;
+  }
+  const mimeType = pickVideoMime();
+  if (!mimeType) { showToast('Browser ini tidak mendukung perekaman video. Coba Chrome/Edge terbaru.', 'error'); return; }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 720; canvas.height = 1280;
+  const ctx2d = canvas.getContext('2d');
+  const stream = canvas.captureStream(30);
+
+  let mixCtx = null;
+  if (mix) {
+    mixCtx = mix.ctx;
+    try { await mixCtx.resume(); } catch (e) {}
+    mix.dest = mixCtx.createMediaStreamDestination();
+    mix.node = mixCtx.createBufferSource();
+    mix.node.buffer = mix.buf;
+    mix.node.loop = (mix.buf.duration * 1000) < durationMs;
+    mix.node.connect(mix.dest);
+    mix.node.start(0);
+  }
+
+  const tracks = [...stream.getVideoTracks()];
+  if (mix && mix.dest) tracks.push(...mix.dest.stream.getAudioTracks());
+
+  const recorder = new MediaRecorder(new MediaStream(tracks), { mimeType, videoBitsPerSecond: 4_000_000 });
+  const chunks = [];
+  recorder.ondataavailable = event => { if (event.data && event.data.size) chunks.push(event.data); };
+  const stopped = new Promise(resolve => { recorder.onstop = resolve; });
+  recorder.start(250);
+
+  const t0 = performance.now();
+  await new Promise(resolve => {
+    const draw = () => {
+      const el = performance.now() - t0;
+      if (el >= durationMs) { resolve(); return; }
+      drawScene(ctx2d, canvas, photos, perPhotoMs, el);
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+  });
+
+  try { if (mix && mix.node) mix.node.stop(); } catch (e) {}
+  recorder.stop();
+  await stopped;
+  try { if (mixCtx && mixCtx.close) mixCtx.close(); } catch (e) {}
+
+  const isMp4 = String(mimeType).includes('mp4');
+  const ext = isMp4 ? 'mp4' : 'webm';
+  saveBlob(new Blob(chunks, { type: isMp4 ? 'video/mp4' : 'video/webm' }), `tiksaver_foto_musik_${Date.now()}.${ext}`);
+  showToast('Video foto + musik berhasil dibuat! 🎉', 'success');
 }
 
 // ========== DOWNLOAD ENGINE ==========
@@ -1964,32 +4217,51 @@ async function downloadSingleSlide(url, num) {
   await triggerDownload(url, `slide_${num}`, 'image');
 }
 
+async function downloadSlideMedia(index, kind) {
+  const s = getSlides(currentData || {})[index];
+  if (!s) return;
+  if (kind === 'video' && s.video) await triggerDownload(s.video, `slide_${index+1}_video`, 'video');
+  else if (s.image) await triggerDownload(s.image, `slide_${index+1}_foto`, 'image');
+}
+
 async function downloadAllSlides() {
-  if (!currentData?.images) return;
-  showToast(`Mengunduh ${currentData.images.length} foto...`, 'info');
-  for (let i = 0; i < currentData.images.length; i++) {
-    await downloadSingleSlide(currentData.images[i], i + 1);
+  const photos = (currentData?.images && currentData.images.length)
+    ? currentData.images
+    : getSlides(currentData || {}).filter(s => s.image && s.type !== 'video').map(s => s.image);
+  if (!photos.length) { showToast('Tidak ada foto untuk diunduh.', 'info'); return; }
+  showToast(`Mengunduh ${photos.length} foto...`, 'info');
+  for (let i = 0; i < photos.length; i++) {
+    await downloadSingleSlide(photos[i], i + 1);
     await new Promise(r => setTimeout(r, 500));
   }
   showToast('Semua foto berhasil diunduh!', 'success');
 }
 
+async function downloadAllSlideVideos() {
+  const vids = getSlides(currentData || {}).filter(s => s.video).map(s => s.video);
+  if (!vids.length) { showToast('Tidak ada slide video.', 'info'); return; }
+  showToast(`Mengunduh ${vids.length} video...`, 'info');
+  for (let i = 0; i < vids.length; i++) {
+    await triggerDownload(vids[i], `slide_video_${i+1}`, 'video');
+    await new Promise(r => setTimeout(r, 700));
+  }
+  showToast('Semua video berhasil diunduh!', 'success');
+}
+
 // ========== SLIDE MODAL ==========
 function openSlideModal() {
-  if (!currentData?.images) return;
-  document.getElementById('slideModalTitle').textContent = `${currentData.images.length} Foto Slide`;
+  const slides = getSlides(currentData || {});
+  if (!slides.length) return;
+  const hasVideoSlides = slides.some(s => s.type === 'video' || s.type === 'live');
+  document.getElementById('slideModalTitle').textContent = `${slides.length} Slide${hasVideoSlides ? ' (Foto & Video)' : ''}`;
   document.getElementById('slideModalContent').innerHTML = `
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
-      ${currentData.images.map((img,i) => `
-      <div style="position:relative;border-radius:10px;overflow:hidden;aspect-ratio:9/16;background:var(--bg3)">
-        <img src="${escHtml(img)}" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-        <div style="position:absolute;top:6px;left:6px;background:rgba(0,0,0,.7);padding:2px 7px;border-radius:10px;font-size:.68rem;font-weight:700">${i+1}</div>
-        <button onclick="downloadSingleSlide('${escHtml(img)}',${i+1})" style="position:absolute;bottom:6px;right:6px;width:28px;height:28px;border-radius:50%;background:var(--accent);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </button>
-      </div>`).join('')}
+      ${slides.map(slideCardHTML).join('')}
     </div>
-    <button class="btn btn-neon" style="width:100%;margin-top:12px" onclick="downloadAllSlides()">Download Semua</button>`;
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-neon" style="flex:1" onclick="downloadAllSlides()">Semua Foto</button>
+      ${hasVideoSlides ? `<button class="btn btn-primary" style="flex:1" onclick="downloadAllSlideVideos()">Semua Video</button>` : ''}
+    </div>`;
   document.getElementById('slideModal').classList.add('visible');
 }
 function closeSlideModal(e) { if (e.target === document.getElementById('slideModal')) closeSlideModalForce(); }
@@ -2014,7 +4286,7 @@ function renderHistory() {
   }
   el.innerHTML = `<div class="history-list">${history.map((h,i) => `
     <div class="history-item" onclick="loadFromHistory('${escHtml(h.url)}')">
-      ${h.cover ? `<img src="${escHtml(h.cover)}" class="history-thumb" onerror="this.style.display='none'" alt="">` : `<div class="history-thumb" style="background:linear-gradient(135deg,var(--accent),var(--pink))"></div>`}
+      ${h.cover ? `<img src="${escHtml(h.cover)}" class="history-thumb" onerror="this.style.display='none'" alt="">` : `<div class="history-thumb" style="background:linear-gradient(135deg,var(--accent),var(--neon))"></div>`}
       <div class="history-info">
         <div class="history-user">@${escHtml(h.username)||'Unknown'}${h.is_image ? ' <span style="color:var(--neon);font-size:.65rem">[FOTO]</span>' : ''}</div>
         <div class="history-url">${escHtml(h.url)}</div>
@@ -2228,7 +4500,7 @@ function buildFallbackQR(text) {
   const wrap = document.createElement('div');
   wrap.className = 'qr-fallback';
   wrap.style.cssText = 'width:150px;height:150px;background:#fff;border-radius:10px;padding:8px;box-sizing:border-box;display:flex;align-items:center;justify-content:center';
-  wrap.innerHTML = `<svg width="134" height="134" viewBox="0 0 ${N} ${N}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect width="${N}" height="${N}" fill="#ffffff"/><g fill="#6c31f0">${rects}</g></svg>`;
+  wrap.innerHTML = `<svg width="134" height="134" viewBox="0 0 ${N} ${N}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect width="${N}" height="${N}" fill="#ffffff"/><g fill="#9f1239">${rects}</g></svg>`;
   return wrap;
 }
 
@@ -2321,7 +4593,7 @@ function escHtml(s) {
   const particles = document.getElementById('splashParticles');
 
   // Create particles
-  const colors = ['#6c31f0','#8b5cf6','#22d3ee','#ec4899','#a78bfa','#fb7185'];
+  const colors = ['#e11d48','#f43f5e','#3b82f6','#ef4444','#fda4af','#f87171'];
   for (let i = 0; i < 22; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
@@ -2417,5 +4689,5 @@ setTimeout(async () => {
   } catch {}
 }, 1200);
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2bc17610f49fd02',t:'MTc4NjgzNzcxOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
